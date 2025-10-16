@@ -52,5 +52,7 @@ Team Member Signatures:
 - Caitlin Henry
 - Maria Reyes
 - Christine En-Tse Cheng
+- Derek Lam
 
 Date: October 16th, 2025
+
