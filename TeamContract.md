@@ -50,5 +50,6 @@ By signing below, we acknowledge that we have read, discussed, and agreed to the
 Team Member Signatures:
 (type names here)
 - Caitlin Henry
+- Maria Reyes
 
 Date: October 16th, 2025
