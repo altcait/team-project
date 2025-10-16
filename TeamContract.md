@@ -51,5 +51,6 @@ Team Member Signatures:
 (type names here)
 - Caitlin Henry
 - Maria Reyes
+- Christine En-Tse Cheng
 
 Date: October 16th, 2025
