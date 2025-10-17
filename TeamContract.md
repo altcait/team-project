@@ -54,6 +54,7 @@ Team Member Signatures:
 - Christine En-Tse Cheng
 - Derek Lam
 - Xiayu Lyu
+- Sicheng Li
 
 Date: October 16th, 2025
 
