@@ -53,6 +53,7 @@ Team Member Signatures:
 - Maria Reyes
 - Christine En-Tse Cheng
 - Derek Lam
+- Xiayu Lyu
 
 Date: October 16th, 2025
 
