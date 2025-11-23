@@ -30,6 +30,12 @@ public interface SaveCountryDataAccessInterface {
     boolean countryExists(String username, String listName, String countryCode);
 
     /**
+     * Adds the user identified by username to the File
+     * @param username the user whose favourites we want to add the list to
+     */
+    void addUser(String username);
+
+    /**
      * Adds the list identified by listName to the user's favourites
      * @param username the user whose favourites we want to add the list to
      * @param listName the list to add by name
