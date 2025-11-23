@@ -12,10 +12,16 @@ public class LoginState {
 
     public String getLoginError() {return loginError;}
 
-    public void setUsername(String username) {this.username = username;}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public void setPassword(String password) {this.password = password;}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public void setLoginError(String loginError) {this.loginError = loginError;}
+    public void setLoginError(String loginError) {
+        this.loginError = loginError;
+    }
 
 }
