@@ -5,6 +5,11 @@ package use_case.search.ByLanguage;
  *   It supports TODO operations:
  *   1, TODO
  */
-public class SearchByLanguageInputBoundary {
-    // TODO
+public interface SearchByLanguageInputBoundary {
+
+    /**
+     * Executes the Search by Language use case.
+     * @param searchByLanguageInputData the input data TODO
+     */
+    void execute(SearchByLanguageInputData searchByLanguageInputData);
 }
