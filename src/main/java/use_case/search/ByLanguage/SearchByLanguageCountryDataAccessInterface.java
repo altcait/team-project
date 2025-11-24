@@ -5,8 +5,16 @@ package use_case.search.ByLanguage;
  */
 public interface SearchByLanguageCountryDataAccessInterface {
     // TODO
+    /**
+     * Retrieves a list of all countries in the API.
+     */
+    // List<Country> getAllCountries();    // TODO: get updated Country entity from remote repo
+
+    // TODO: may be uneccessary
 //    /**
-//     * Returns a list of all independent countries.
+//     * Retrieves a single country by its cca3 code.
+//     * @param cca3 the cca3 code to be queried
+//     * @return a Country entity corresponding to the queried code or null if the code doesn't correspond to a country
 //     */
-//    List<Country> getAllCountries();
+//    Country getCountryByCca3(String cca3);
 }
