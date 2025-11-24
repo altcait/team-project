@@ -16,8 +16,21 @@ import view.ViewManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class AppBuilder {
+import javax.swing.*;
 
+import data_access.FileUserDataAccessObject;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.save_country.SaveCountryController;
+import interface_adapter.save_country.SaveCountryPresenter;
+import use_case.save_country.SaveCountryInputBoundary;
+import use_case.save_country.SaveCountryOutputBoundary;
+import use_case.save_country.SaveCountryInteractor;
+
+import view.SaveCountryView;
+
+import java.awt.*;
+
+public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
@@ -26,6 +39,11 @@ public class AppBuilder {
 
     private LoginView loginView;
     private LoginViewModel loginViewModel;
+    private SaveCountryView saveCountryView;
+    private SaveCountryViewModel saveCountryViewModel;
+
+    final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -48,6 +66,25 @@ public class AppBuilder {
         LoginController controller = new LoginController(interactor);
         loginView.setLoginController(controller);
 
+        return this;
+    }
+
+    public AppBuilder addSaveCountryView() {
+        saveCountryViewModel = new SaveCountryViewModel();
+        saveCountryView = new SaveCountryView(saveCountryViewModel);
+        cardPanel.add(saveCountryView);
+        return this;
+    }
+
+    public AppBuilder addSaveCountryUseCase() {
+        final SaveCountryOutputBoundary saveCountryOutputBoundary = new SaveCountryPresenter(saveCountryViewModel);
+        final SaveCountryInputBoundary saveCountryInteractor = new SaveCountryInteractor(
+                fileUserDataAccessObject,
+                saveCountryOutputBoundary
+        );
+
+        SaveCountryController saveCountryController = new SaveCountryController(saveCountryInteractor);
+        saveCountryView.setSaveCountryController(saveCountryController);
         return this;
     }
 
