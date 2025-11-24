@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageCountryDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageCountryDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageInputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/ByLanguage/SearchByLanguageOutputData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
