@@ -43,7 +43,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
         // List with countries from above:
         Map<String, Map<String, String>> listsWithCountries = new HashMap<>();
-        listsWithCountries.put("visited", favouriteCountriesWithNotes);
+        listsWithCountries.put("Visited", favouriteCountriesWithNotes);
 
         // Username with associated favs:
         this.favouritesByUser.put("caitlinhen001", listsWithCountries);
@@ -69,7 +69,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
         Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
         Map<String, String> countriesWithNotes = listsWithCountries.get(listName);
-        return countriesWithNotes.containsKey(countryCode);
+        return countriesWithNotes.containsKey(countryCode.toUpperCase());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         // Update favouritesByUser to include the new country
         Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
         Map<String, String> countriesWithNotes = listsWithCountries.get(listName);
-        countriesWithNotes.put(countryCode, notes);
+        countriesWithNotes.put(countryCode.toUpperCase(), notes);
         // save updated favourtiesByUser object to file
         save();
     }
@@ -114,7 +114,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         favouritesByUser.forEach((username, favouritesLists) -> {
             favouritesLists.forEach((listName, countriesMap) -> {
                 countriesMap.forEach((countryName, notes) -> {
-                    countriesWithNotes.put(countryName, notes);
+                    countriesWithNotes.put(countryName.toUpperCase(), notes);
                 });
                 lists.put(listName, countriesWithNotes);
             });

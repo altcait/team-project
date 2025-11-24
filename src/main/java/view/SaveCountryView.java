@@ -24,7 +24,7 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     private final JLabel saveCountryResultField = new JLabel();
 
     private final JTextField countryCodeInputField = new JTextField(3);
-    private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "visited", "Bucket list"});
+    private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
     private final JTextField countryNotesInputField = new JTextField(15);
     private final JButton saveCountryButton = new JButton("Save");
 
