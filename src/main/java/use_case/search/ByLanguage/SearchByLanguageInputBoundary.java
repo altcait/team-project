@@ -7,9 +7,15 @@ package use_case.search.ByLanguage;
  */
 public interface SearchByLanguageInputBoundary {
 
+    // TODO: is this necessary???
+    /**
+     * Executes all necessary operations to load all languages for when the first screen of the view is shown.
+     */
+    void languageOptions();
+
     /**
      * Executes the Search by Language use case.
-     * @param searchByLanguageInputData the input data TODO
+     * @param inputData the input data TODO
      */
-    void execute(SearchByLanguageInputData searchByLanguageInputData);
+    void execute(SearchByLanguageInputData inputData);
 }

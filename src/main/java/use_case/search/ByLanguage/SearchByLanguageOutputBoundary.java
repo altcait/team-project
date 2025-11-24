@@ -10,6 +10,13 @@ public interface SearchByLanguageOutputBoundary {
      */
     void presentCountries(SearchByLanguageOutputData outputData);
 
+    // TODO: is this necessary???
+    /**
+     * Prepares the view when we need the full list of languages that can be queried for the Search by Language use case.
+     * @param outputData the output data
+     */
+    void presentLanguages(SearchByLanguageOutputData outputData);
+
     /**
      * Prepares the failure view for the Search by Language use case when:
      * - no language was selected
