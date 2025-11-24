@@ -29,7 +29,7 @@ public class SaveCountryInteractor implements SaveCountryInputBoundary {
                     saveCountryInputData.getCountryCode(),
                     saveCountryInputData.getNotes());
             // prepare output data
-            final SaveCountryOutputData saveCountryOutputData = new SaveCountryOutputData("HKG", "visited");
+            final SaveCountryOutputData saveCountryOutputData = new SaveCountryOutputData(saveCountryInputData.getCountryCode(), saveCountryInputData.getListName());
             // tell presenter to prepare success view
             saveCountryPresenter.prepareSuccessView(saveCountryOutputData);
         }
