@@ -10,7 +10,7 @@ public class SaveCountryInteractorTest {
         // test adding a new country to an existing user's existing list
         SaveCountryInputData inputData = new SaveCountryInputData("AUS", "visited", "dream vacation");
         // Create in-memory DAO for testing purposes
-        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject("src/test/java/use_case/save_country/favourites_for_test.json");
+        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject("favourites_for_test.json");
 
         // Stub presenter
         SaveCountryOutputBoundary successPresenter = createSuccessPresenter(favouritesRepository);
@@ -25,7 +25,7 @@ public class SaveCountryInteractorTest {
         // test adding a new country to an existing user's existing list
         SaveCountryInputData inputData = new SaveCountryInputData("HKG", "visited", "was great!");
         // Create in-memory DAO for testing purposes
-        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject("src/test/java/use_case/save_country/favourites_for_test.json");
+        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject("favourites_for_test.json");
 
         // Stub presenter
         SaveCountryOutputBoundary failurePresenter = createFailurePresenter(inputData);
