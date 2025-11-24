@@ -50,4 +50,10 @@ public interface SaveCountryDataAccessInterface {
      * @param notes the notes to add about that country
      */
     void addCountry(String username, String listName, String countryCode, String notes);
+
+    /**
+     * Save favourites repository to json file.
+     * @throws RuntimeException if there is an IOException when accessing the file
+     */
+    void save();
 }
