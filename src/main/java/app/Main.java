@@ -9,6 +9,8 @@ public class Main {
         JFrame application = appBuilder
                 .addLoginView()
                 .addLoginUseCase()
+                .addSaveCountryView()
+                .addSaveCountryUseCase()
                 .build();
 
         application.pack();
