@@ -7,11 +7,18 @@ package use_case.search.ByLanguage;
  */
 public interface SearchByLanguageInputBoundary {
 
-    // TODO: is this necessary???
+    // TODO: is this necessary??? this doesn't feel like input boundary / interactor material -- perhaps a Languages
+    //  entity could be good using a composition/has-a relationship with the Country entity.
     /**
      * Executes all necessary operations to load all languages for when the first screen of the view is shown.
      */
     void languageOptions();
+
+    // TODO: "back" from Search view(s)
+    /**
+     * Executes the "return to previous view" use case(?).
+     */
+    void switchToPreviousView();
 
     /**
      * Executes the Search by Language use case.

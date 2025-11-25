@@ -9,8 +9,8 @@ import entity.Country;    // TODO: get updated Country entity from remote repo
  * Output data for the Search by Language use case.
  */
 public class SearchByLanguageOutputData {
-    private final String language;
-     private final Set<List<String>> languages;  // TODO: is this necessary???
+    private final Set<List<String>> languages;  // TODO: is this necessary??? rename to languageOptions
+    private final String language;  // TODO: rename to selectedLanguage
     private final List<Country> countries;    // TODO: get updated Country entity from remote repo
 
     public SearchByLanguageOutputData(Set<List<String>> languages, String language, List<Country> countries) {
@@ -20,6 +20,11 @@ public class SearchByLanguageOutputData {
         // TODO
     }
 
+    // TODO: is this necessary???
+    public Set<List<String>> getLanguages() {
+        return languages;
+    }
+
 //    public String getLanguage() {
 //        return language;
 //    }
@@ -27,5 +32,4 @@ public class SearchByLanguageOutputData {
     public List<Country> getCountries() {    // TODO: get updated Country entity from remote repo
         return countries;
     }
-    // TODO
 }

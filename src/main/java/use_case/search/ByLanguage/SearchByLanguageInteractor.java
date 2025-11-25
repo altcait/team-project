@@ -74,5 +74,11 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
         }
     }
 
+    // TODO: "back" from Search view(s)
+    @Override
+    public void switchToPreviousView() {
+        searchByLanguagePresenter.switchToPreviousView();
+    }
+
     // TODO
 }
