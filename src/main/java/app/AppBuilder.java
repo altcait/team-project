@@ -12,12 +12,6 @@ import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
 import view.LoginView;
 import view.ViewManager;
-
-import javax.swing.*;
-import java.awt.*;
-
-import javax.swing.*;
-
 import data_access.FileUserDataAccessObject;
 import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.save_country.SaveCountryController;
@@ -28,6 +22,7 @@ import use_case.save_country.SaveCountryInteractor;
 
 import view.SaveCountryView;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class AppBuilder {
@@ -96,7 +91,7 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        viewManagerModel.setState(loginView.getViewName());
+        viewManagerModel.setState(saveCountryView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;

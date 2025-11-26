@@ -130,4 +130,8 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     }
 
     public void setSaveCountryController(SaveCountryController saveCountryController) { this.saveCountryController = saveCountryController; }
+
+    public String getViewName() {
+        return "save country";
+    }
 }
