@@ -4,9 +4,11 @@ import org.json.JSONException;
 import use_case.save_country.SaveCountryDataAccessInterface;
 
 import org.json.JSONObject;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,33 +22,49 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
      */
     public FileUserDataAccessObject(String jsonPath) {
         jsonFile = new File(jsonPath);
-        populateFavouritesByUser();
+        loadFavouritesFromFile();
     }
 
-    private void populateFavouritesByUser() {
-//    JSON is of the format:
-//    {
-//        "caitlinhen001": {
-//            "visited": { "CAN": "beautiful mountains", "USA": "mehhhh" },
-//            "wishlist": { "JPN": "want to go for cherry blossoms" }
-//        },
-//        "anonuser": {
-//            "visited": { "FRA": "amazing food" },
-//            "wishlist": { "HKG": "beautiful city" }
-//        }
-//    }
-        // Countries and notes:
-        Map<String, String> favouriteCountriesWithNotes = new HashMap<>();
-        favouriteCountriesWithNotes.put("USA", "fun!");
-        favouriteCountriesWithNotes.put("CAN", "beautiful!");
-        favouriteCountriesWithNotes.put("HKG", "been before!");
+    private void loadFavouritesFromFile() {
+        ensureJsonExists();
 
-        // List with countries from above:
-        Map<String, Map<String, String>> listsWithCountries = new HashMap<>();
-        listsWithCountries.put("Visited", favouriteCountriesWithNotes);
+        try {
+            // Read file contents into a String
+            String jsonString = Files.readString(jsonFile.toPath());
+            // Create JSONObject from resulting String
+            JSONObject myObject = new JSONObject(jsonString);
 
-        // Username with associated favs:
-        this.favouritesByUser.put("caitlinhen001", listsWithCountries);
+            // Populate favouritesByUser HashMap by looping through JSONObject
+            for (String username : myObject.keySet()) {
+                JSONObject userLists = myObject.getJSONObject(username);
+                Map<String, Map<String, String>> listsWithCountries = new HashMap<>();
+
+                for (String listName : userLists.keySet()) {
+                    JSONObject countriesList = userLists.getJSONObject(listName);
+                    Map<String, String> countriesWithNotes = new HashMap<>();
+
+                    for (String countryCode : countriesList.keySet()) {
+                        countriesWithNotes.put(countryCode, countriesList.getString(countryCode));
+                    }
+                    listsWithCountries.put(listName, countriesWithNotes);
+                }
+                this.favouritesByUser.put(username, listsWithCountries);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void ensureJsonExists() {
+        Path jsonFilePath = Paths.get(jsonFile.getAbsolutePath());
+        if (!Files.exists(jsonFilePath)) {
+            try {
+                Files.createFile(jsonFilePath);
+                Files.write(jsonFilePath, "".getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create json file", e);
+            }
+        }
     }
 
     @Override
@@ -100,26 +118,13 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
         Map<String, String> countriesWithNotes = listsWithCountries.get(listName);
         countriesWithNotes.put(countryCode.toUpperCase(), notes);
-        // save updated favourtiesByUser object to file
+        // save updated favouritesByUser object to file
         save();
     }
 
     @Override
     public void save() {
-        JSONObject favourites = new JSONObject();
-        JSONObject lists = new JSONObject();
-        JSONObject countriesWithNotes = new JSONObject();
-
-        // build json object for writing to file
-        favouritesByUser.forEach((username, favouritesLists) -> {
-            favouritesLists.forEach((listName, countriesMap) -> {
-                countriesMap.forEach((countryName, notes) -> {
-                    countriesWithNotes.put(countryName.toUpperCase(), notes);
-                });
-                lists.put(listName, countriesWithNotes);
-            });
-            favourites.put(username, lists);
-        });
+        JSONObject favourites = new JSONObject(favouritesByUser);
 
         try {
             FileWriter fileWriter = new FileWriter(jsonFile.getAbsolutePath());

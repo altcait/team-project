@@ -17,7 +17,6 @@ import java.beans.PropertyChangeListener;
  * The View for the SaveCountry Use Case.
  */
 public class SaveCountryView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "save country";
     private final SaveCountryViewModel saveCountryViewModel;
 
     // result of operations:
@@ -36,6 +35,8 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         this.saveCountryViewModel = saveCountryViewModel;
         this.saveCountryViewModel.addPropertyChangeListener(this);
 
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        
         // Instantiate panel and labels
         final JPanel saveCountryPanel = new JPanel();
         final JLabel saveCountryLabel = new JLabel("3-letter country code");
