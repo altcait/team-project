@@ -10,6 +10,7 @@ public class Main {
                 .addLoginView()
                 .addLoginUseCase()
                 .addViewSavedLists()
+                .addViewSelectedList()
                 .build();
 
         application.pack();

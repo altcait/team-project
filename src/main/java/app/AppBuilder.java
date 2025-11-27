@@ -9,6 +9,9 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsController;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsPresenter;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
+import interface_adapter.ViewSelectedList.ViewSelectedListController;
+import interface_adapter.ViewSelectedList.ViewSelectedListPresenter;
+import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -16,8 +19,12 @@ import use_case.login.LoginUserAccess;
 import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
 import use_case.RetrieveSavedLists.ViewSavedListsInteractor;
 import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
+import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
+import use_case.ViewSelectedList.ViewSelectedListInteractor;
+import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
 import view.LoginView;
 import view.ListsView;
+import view.SelectedListView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -54,8 +61,7 @@ public class AppBuilder {
         LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
         LoginOutputBoundary presenter = new LoginPresenter(loginViewModel);
-        LoginInputBoundary interactor =
-                new LoginInteractor(dataAccess, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(dataAccess, presenter);
 
         LoginController controller = new LoginController(interactor);
         loginView.setLoginController(controller);
@@ -64,13 +70,9 @@ public class AppBuilder {
     }
 
     // ============================
-    // View saved lists wiring
+    // View saved lists (lists page)
     // ============================
 
-    /**
-     * Set up the "view saved lists" feature (Derek's use case).
-     * This registers the ListsView screen and wires its use case.
-     */
     public AppBuilder addViewSavedLists() {
         // 1. Create the view model for the lists screen
         ViewSavedListsViewModel listsViewModel = new ViewSavedListsViewModel();
@@ -94,6 +96,35 @@ public class AppBuilder {
         return this;
     }
 
+    // ==================================
+    // View selected list (detail page)
+    // ==================================
+
+    public AppBuilder addViewSelectedList() {
+        // 1. View model for the selected list screen
+        ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
+
+        // 2. Presenter
+        ViewSelectedListOutputBoundary selectedListPresenter =
+                new ViewSelectedListPresenter(selectedListViewModel);
+
+        // 3. Interactor
+        ViewSelectedListInputBoundary selectedListInteractor =
+                new ViewSelectedListInteractor(selectedListPresenter);
+
+        // 4. Controller
+        ViewSelectedListController selectedListController =
+                new ViewSelectedListController(selectedListInteractor);
+
+        // 5. View
+        SelectedListView selectedListView =
+                new SelectedListView(selectedListController, selectedListViewModel);
+
+        cardPanel.add(selectedListView, selectedListView.viewName);
+
+        return this;
+    }
+
     public JFrame build() {
         JFrame application = new JFrame("Example App");
 
@@ -102,10 +133,16 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        // By default start on the login view.
-        // To test the lists view directly, you change this to:
-        //   viewManagerModel.setState("lists");
-        viewManagerModel.setState("lists");
+        // ==== CHOOSE STARTING SCREEN FOR TESTING ====
+        // To start on login (normal behaviour):
+        // viewManagerModel.setState(loginView.getViewName());
+        //
+        // To test the lists page directly:
+        // viewManagerModel.setState("lists");
+        //
+        // To test the selected list page directly:
+        viewManagerModel.setState("selected_list");
+
         viewManagerModel.firePropertyChange();
 
         return application;
