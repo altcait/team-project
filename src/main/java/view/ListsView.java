@@ -60,8 +60,12 @@ public class ListsView extends JPanel {
 
                 viewManagerModel.setState(selectedListView.viewName);
                 viewManagerModel.firePropertyChange();
+
+                // NEW: clear the selection so a future click will trigger again
+                listDisplay.clearSelection();
             }
         });
+
 
         // ===== AUTO-LOAD LISTS when this view is created =====
         // TODO: replace "testUser" with the real logged-in username later.
