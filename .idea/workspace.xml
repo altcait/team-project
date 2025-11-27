@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Updated View Saved List Window, Removed Load Lists Button">
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,22 +35,22 @@
     &quot;assignee&quot;: &quot;mafereyesb&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/altcait/team-project.git&quot;,
-    &quot;accountId&quot;: &quot;c9c5b615-3a23-46c1-8a33-8fa7f546e7da&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/altcait/team-project.git",
+    "accountId": "2008fc1d-2ecd-4a29-8e39-5536951851b6"
   },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
     },
-    &quot;owner&quot;: &quot;altcait&quot;,
-    &quot;repository&quot;: &quot;team-project&quot;
+    "owner": "altcait",
+    "repository": "team-project"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -72,7 +72,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Retrieve-saved-countries",
+    "git-widget-placeholder": "#25 on Retrieve-saved-countries",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -95,13 +95,6 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -162,7 +155,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764282396159</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Updated Bug where you couldn't go back to the Viewed saved list window after clicking back to lists in selected list window.">
+      <option name="closed" value="true" />
+      <created>1764282857953</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764282857953</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window.">
+      <option name="closed" value="true" />
+      <created>1764282945901</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764282945901</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +185,8 @@
     <MESSAGE value="Created a basic window for viewing the selected list from the Lists window." />
     <MESSAGE value="Updated View Saved List window and View Selected List window. They now are connected." />
     <MESSAGE value="Updated View Saved List Window, Removed Load Lists Button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated View Saved List Window, Removed Load Lists Button" />
+    <MESSAGE value="Updated Bug where you couldn't go back to the Viewed saved list window after clicking back to lists in selected list window." />
+    <MESSAGE value="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window." />
   </component>
 </project>

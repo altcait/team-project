@@ -37,28 +37,33 @@ public class SelectedListView extends JPanel {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // ===== TOP: title =====
+        // ===== TOP: title + Edit Description button =====
         JPanel topPanel = new JPanel(new BorderLayout());
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 16f));
         topPanel.add(titleLabel, BorderLayout.WEST);
+
+        // NEW: Edit Description button
+        JButton editDescriptionButton = new JButton("Edit Description");
+        editDescriptionButton.addActionListener(e -> editDescription());
+        topPanel.add(editDescriptionButton, BorderLayout.EAST);
+
         add(topPanel, BorderLayout.NORTH);
 
         // ===== CENTER: description + countries list =====
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
-        descriptionArea.setEditable(false);
+        descriptionArea.setEditable(false); // stays non-editable; we use dialog instead
 
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(new JScrollPane(descriptionArea), BorderLayout.NORTH);
         centerPanel.add(new JScrollPane(countriesList), BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
-        // ===== BOTTOM: back button + error label =====
+        // ===== BOTTOM: Back button + error label =====
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
         JButton backButton = new JButton("Back to Lists");
         backButton.addActionListener(e -> {
-            // switch back to the lists screen
             viewManagerModel.setState(listsViewName);
             viewManagerModel.firePropertyChange();
         });
@@ -94,6 +99,26 @@ public class SelectedListView extends JPanel {
             for (String country : countries) {
                 countriesModel.addElement(country);
             }
+        }
+    }
+
+    /**
+     * Opens a dialog that lets the user edit the list description.
+     * For now this only updates the View + ViewModel.
+     * Later, a separate use case can save it to JSON.
+     */
+    private void editDescription() {
+        String current = descriptionArea.getText();
+        String newDesc = JOptionPane.showInputDialog(
+                this,
+                "Edit list description:",
+                current
+        );
+
+        if (newDesc != null) { // user pressed OK (not Cancel)
+            descriptionArea.setText(newDesc);
+            viewModel.setDescription(newDesc);
+            // TODO: later call a "UpdateListDescription" controller/use case
         }
     }
 }
