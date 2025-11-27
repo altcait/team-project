@@ -30,15 +30,10 @@ public class SelectedListView extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // ===== TOP: title + "Load Selected List" button =====
+        // ===== TOP: title =====
         JPanel topPanel = new JPanel(new BorderLayout());
-
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 16f));
         topPanel.add(titleLabel, BorderLayout.WEST);
-
-        JButton loadButton = new JButton("Load Selected List");
-        topPanel.add(loadButton, BorderLayout.EAST);
-
         add(topPanel, BorderLayout.NORTH);
 
         // ===== CENTER: description + countries list =====
@@ -49,34 +44,28 @@ public class SelectedListView extends JPanel {
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(new JScrollPane(descriptionArea), BorderLayout.NORTH);
         centerPanel.add(new JScrollPane(countriesList), BorderLayout.CENTER);
-
         add(centerPanel, BorderLayout.CENTER);
 
-        // ===== BOTTOM: back button (no logic yet) + error label =====
+        // ===== BOTTOM: back button (logic wired in ListsView later) + error =====
         JPanel bottomPanel = new JPanel(new BorderLayout());
-
         JButton backButton = new JButton("Back to Lists");
-        // We'll wire this to switch views later
         bottomPanel.add(backButton, BorderLayout.WEST);
 
         errorLabel.setForeground(Color.RED);
         bottomPanel.add(errorLabel, BorderLayout.CENTER);
 
         add(bottomPanel, BorderLayout.SOUTH);
+    }
 
-        // ===== Button behaviour =====
-        loadButton.addActionListener(e -> {
-            // TEMP: hard-code username + list name for testing.
-            // Later, these will come from ListsView selection.
-            String username = "testUser";
-            String listName = "Example List";
-
-            viewModel.setCurrentUsername(username);
-            viewModel.setCurrentListName(listName);
-
-            controller.viewSelectedList(username, listName);
-            refreshFromViewModel();
-        });
+    /**
+     * Called from ListsView when the user selects a list.
+     * This runs the use case and refreshes the screen.
+     */
+    public void loadList(String username, String listName) {
+        viewModel.setCurrentUsername(username);
+        viewModel.setCurrentListName(listName);
+        controller.viewSelectedList(username, listName);
+        refreshFromViewModel();
     }
 
     /** Read data from the ViewModel and show it on screen. */

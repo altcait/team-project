@@ -41,6 +41,9 @@ public class AppBuilder {
     private LoginView loginView;
     private LoginViewModel loginViewModel;
 
+    // NEW: we keep a reference so ListsView can call SelectedListView
+    private SelectedListView selectedListView;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -89,8 +92,10 @@ public class AppBuilder {
         ViewSavedListsController listsController =
                 new ViewSavedListsController(listsInteractor);
 
-        // 5. Create the view and add it to the card layout
-        ListsView listsView = new ListsView(listsController, listsViewModel);
+        // 5. Create the view and add it to the card layout.
+        //    Note: selectedListView must already have been created in addViewSelectedList().
+        ListsView listsView =
+                new ListsView(listsController, listsViewModel, selectedListView, viewManagerModel);
         cardPanel.add(listsView, listsView.viewName);
 
         return this;
@@ -116,10 +121,9 @@ public class AppBuilder {
         ViewSelectedListController selectedListController =
                 new ViewSelectedListController(selectedListInteractor);
 
-        // 5. View
-        SelectedListView selectedListView =
+        // 5. View (store in field so ListsView can use it)
+        selectedListView =
                 new SelectedListView(selectedListController, selectedListViewModel);
-
         cardPanel.add(selectedListView, selectedListView.viewName);
 
         return this;
@@ -133,16 +137,10 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        // ==== CHOOSE STARTING SCREEN FOR TESTING ====
-        // To start on login (normal behaviour):
-        // viewManagerModel.setState(loginView.getViewName());
-        //
-        // To test the lists page directly:
-        // viewManagerModel.setState("lists");
-        //
-        // To test the selected list page directly:
-        viewManagerModel.setState("selected_list");
-
+        // Start on the lists screen so you can test:
+        // 1) Load My Lists
+        // 2) Click Example List -> goes to SelectedListView
+        viewManagerModel.setState("lists");
         viewManagerModel.firePropertyChange();
 
         return application;

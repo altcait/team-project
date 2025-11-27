@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Basic Window for Viewing Saved Lists.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInputBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListOutputBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListRequestModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListResponseModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Created a basic window for viewing the selected list from the Lists window.">
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764280471467</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Created a basic window for viewing the selected list from the Lists window.">
+      <option name="closed" value="true" />
+      <created>1764281058015</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764281058015</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +159,7 @@
     <MESSAGE value="Fixed Errors from Main-&gt;retrieve-saved-countries merge" />
     <MESSAGE value="Merge branch 'main' into Retrieve-saved-countries&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/app/AppBuilder.java&#10;#&#9;src/main/java/app/Main.java" />
     <MESSAGE value="Basic Window for Viewing Saved Lists." />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic Window for Viewing Saved Lists." />
+    <MESSAGE value="Created a basic window for viewing the selected list from the Lists window." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created a basic window for viewing the selected list from the Lists window." />
   </component>
 </project>
