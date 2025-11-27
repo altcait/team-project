@@ -15,10 +15,10 @@ public interface SearchByLanguageInputBoundary {
     void languageOptions();
 
     // TODO: "back" from Search view(s)
-    /**
-     * Executes the "return to previous view" use case(?).
-     */
-    void switchToPreviousView();
+//    /**
+//     * Executes the "return to previous view" use case(?).
+//     */
+//    void switchToPreviousView();
 
     /**
      * Executes the Search by Language use case.

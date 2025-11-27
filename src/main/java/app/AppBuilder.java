@@ -1,6 +1,7 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.ProfileViewModel;
 import interface_adapter.search.ByLanguage.SearchByLanguageController;
 import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
 import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
@@ -27,6 +28,8 @@ public class AppBuilder {
     SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
     private SearchByLanguagePresenter searchByLanguagePresenter;
 
+    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+
     private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
 
     public AppBuilder() {
@@ -42,7 +45,7 @@ public class AppBuilder {
 
     public AppBuilder addSearchByLanguageUseCase() {
         final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
-                searchByLanguageViewModel, viewManagerModel);
+                searchByLanguageViewModel, viewManagerModel, profileViewModel);
         final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
                 countryDataAccessObject, searchByLanguagePresenter);
 
@@ -52,7 +55,7 @@ public class AppBuilder {
     }
 
     public JFrame build() {
-        JFrame application = new JFrame("Example App");
+        JFrame application = new JFrame("Country Exploration App");
 
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(cardPanel);

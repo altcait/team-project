@@ -62,7 +62,7 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
 
         // Top-right pane: Translated greetings
         JPanel topRightPanel = new JPanel();
-        // TODO: translated greetings
+        // TODO: translated greetings or country name translated
 
         // Bottom-right pane: Add country to list
         JPanel bottomRightPanel = new JPanel();
@@ -121,8 +121,8 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
                         // TODO: if loop not needed apparently?
                         // if (evt.getSource().equals(backButton)) {
                             // final SearchByLanguageState currentState = searchByLanguageViewModel.getState();
-
-                            searchByLanguageController.switchToPreviousView();
+                            searchByLanguageController.execute("non-language"); // TODO: replace with controller method for "back" from Search view(s)
+//                            searchByLanguageController.switchToPreviousView();
                         // }
                     }
                 }
@@ -155,7 +155,7 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
             username.setText(state.getUsername());
 //        }
 //        else if (evt.getPropertyName().equals("password")) {
-//            final LoggedInState state = (LoggedInState) evt.getNewValue();
+//            final ProfileState state = (ProfileState) evt.getNewValue();
 //            JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
 //        }
         // Update with the filtered countries list

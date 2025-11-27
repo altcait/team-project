@@ -29,8 +29,8 @@ public interface SearchByLanguageOutputBoundary {
     // TODO: additional fail views / break down fail views into different methods?
 
     // TODO: "back" from Search view(s)
-    /**
-     * Switches to previous view.
-     */
-    void switchToPreviousView();
+//    /**
+//     * Switches to previous view.
+//     */
+//    void switchToPreviousView();
 }

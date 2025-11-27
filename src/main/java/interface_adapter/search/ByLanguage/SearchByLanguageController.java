@@ -22,12 +22,12 @@ public class SearchByLanguageController {
     }
 
     // TODO: "back" from Search view(s)
-    /**
-     * Executes the "return to previous view" use case(?).
-     */
-    public void switchToPreviousView() {
-        SearchByLanguageInteractor.switchToPreviousView();
-    }
+//    /**
+//     * Executes the "return to previous view" use case(?).
+//     */
+//    public void switchToPreviousView() {
+//        SearchByLanguageInteractor.switchToPreviousView();
+//    }
 
     /**
      * Instructs the Search by Language use case interactor to execute a search when user selects a language.

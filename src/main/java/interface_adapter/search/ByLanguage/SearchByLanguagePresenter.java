@@ -1,6 +1,7 @@
 package interface_adapter.search.ByLanguage;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.ProfileViewModel;
 import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
 import use_case.search.ByLanguage.SearchByLanguageOutputData;
 
@@ -12,10 +13,13 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     private final SearchByLanguageViewModel searchByLanguageViewModel;
     private final ViewManagerModel viewManagerModel;
 
+    private final ProfileViewModel profileViewModel;    // TODO: update to appropriate "previous view" ViewModel
+
     public SearchByLanguagePresenter(SearchByLanguageViewModel searchByLanguageViewModel,
-                                     ViewManagerModel viewManagerModel) {
+                                     ViewManagerModel viewManagerModel, ProfileViewModel profileViewModel) {
         this.searchByLanguageViewModel = searchByLanguageViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.profileViewModel = profileViewModel;
     }
 
     @Override
@@ -51,10 +55,10 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
 //        searchByLanguageViewModel.firePropertyChanged();
     }
 
-    // TODO: "back" from Search view(s)
-    @Override
-    public void switchToPreviousView() {
+    // TODO: back" from Search view(s)
+//    @Override
+//    public void switchToPreviousView() {
 //        viewManagerModel.setState(profileViewModel.getViewName());  // TODO: update to appropriate "previous view" ViewModel
-        viewManagerModel.firePropertyChange();
-    }
+//        viewManagerModel.firePropertyChange();
+//    }
 }
