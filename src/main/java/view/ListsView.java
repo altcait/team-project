@@ -15,7 +15,6 @@ public class ListsView extends JPanel {
     private final ViewSavedListsController controller;
     private final ViewSavedListsViewModel viewModel;
 
-    // New: needed to open the selected list screen
     private final SelectedListView selectedListView;
     private final ViewManagerModel viewManagerModel;
 
@@ -33,46 +32,43 @@ public class ListsView extends JPanel {
         this.viewManagerModel = viewManagerModel;
 
         this.setLayout(new BorderLayout());
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // --- Top panel with a "Load Lists" button ---
-        JButton loadButton = new JButton("Load My Lists");
+        // ===== TOP: simple header (no button) =====
+        JLabel header = new JLabel("My Saved Lists");
+        header.setFont(header.getFont().deriveFont(Font.BOLD, 16f));
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.add(header);
 
-        loadButton.addActionListener(e -> {
-            // TEMP: hard-code a username for now so you can see it work.
-            String username = "testUser";
-            viewModel.setCurrentUsername(username);
-
-            controller.viewLists(username);
-            refreshListDisplay();
-        });
-
-        JPanel topPanel = new JPanel();
-        topPanel.add(loadButton);
-
-        // --- Center: list of saved lists ---
+        // ===== CENTER: list of saved lists =====
         JScrollPane scrollPane = new JScrollPane(listDisplay);
 
-        // --- Bottom: error label ---
+        // ===== BOTTOM: error label =====
         errorLabel.setForeground(Color.RED);
 
         this.add(topPanel, BorderLayout.NORTH);
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(errorLabel, BorderLayout.SOUTH);
 
-        // ==== NEW: when user clicks a list, open SelectedListView ====
+        // ==== When user clicks a list, open SelectedListView ====
         listDisplay.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && listDisplay.getSelectedValue() != null) {
                 String username = viewModel.getCurrentUsername();
                 String listName = listDisplay.getSelectedValue();
 
-                // Ask SelectedListView to load that list
                 selectedListView.loadList(username, listName);
 
-                // Switch to the selected_list screen
                 viewManagerModel.setState(selectedListView.viewName);
                 viewManagerModel.firePropertyChange();
             }
         });
+
+        // ===== AUTO-LOAD LISTS when this view is created =====
+        // TODO: replace "testUser" with the real logged-in username later.
+        String username = "testUser";
+        viewModel.setCurrentUsername(username);
+        controller.viewLists(username);
+        refreshListDisplay();
     }
 
     /** Re-read data from the ViewModel and show it in the JList. */
