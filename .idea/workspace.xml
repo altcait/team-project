@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Updated View Saved List window and View Selected List window. They now are connected.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
+    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Updated View Saved List Window, Removed Load Lists Button">
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764281324734</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated View Saved List Window, Removed Load Lists Button">
+      <option name="closed" value="true" />
+      <created>1764282396159</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764282396159</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +175,7 @@
     <MESSAGE value="Basic Window for Viewing Saved Lists." />
     <MESSAGE value="Created a basic window for viewing the selected list from the Lists window." />
     <MESSAGE value="Updated View Saved List window and View Selected List window. They now are connected." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated View Saved List window and View Selected List window. They now are connected." />
+    <MESSAGE value="Updated View Saved List Window, Removed Load Lists Button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated View Saved List Window, Removed Load Lists Button" />
   </component>
 </project>

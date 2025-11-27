@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewSelectedList.ViewSelectedListController;
 import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
 
@@ -9,11 +10,14 @@ import java.util.List;
 
 public class SelectedListView extends JPanel {
 
-    // Used by ViewManager / AppBuilder
     public final String viewName = "selected_list";
 
     private final ViewSelectedListController controller;
     private final ViewSelectedListViewModel viewModel;
+    private final ViewManagerModel viewManagerModel;
+
+    // card name of the lists screen
+    private final String listsViewName = "lists";
 
     private final JLabel titleLabel = new JLabel("List: ");
     private final JTextArea descriptionArea = new JTextArea(3, 30);
@@ -24,11 +28,14 @@ public class SelectedListView extends JPanel {
     private final JLabel errorLabel = new JLabel("");
 
     public SelectedListView(ViewSelectedListController controller,
-                            ViewSelectedListViewModel viewModel) {
+                            ViewSelectedListViewModel viewModel,
+                            ViewManagerModel viewManagerModel) {
         this.controller = controller;
         this.viewModel = viewModel;
+        this.viewManagerModel = viewManagerModel;
 
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // ===== TOP: title =====
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -46,9 +53,15 @@ public class SelectedListView extends JPanel {
         centerPanel.add(new JScrollPane(countriesList), BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
 
-        // ===== BOTTOM: back button (logic wired in ListsView later) + error =====
+        // ===== BOTTOM: back button + error label =====
         JPanel bottomPanel = new JPanel(new BorderLayout());
+
         JButton backButton = new JButton("Back to Lists");
+        backButton.addActionListener(e -> {
+            // switch back to the lists screen
+            viewManagerModel.setState(listsViewName);
+            viewManagerModel.firePropertyChange();
+        });
         bottomPanel.add(backButton, BorderLayout.WEST);
 
         errorLabel.setForeground(Color.RED);
@@ -57,10 +70,7 @@ public class SelectedListView extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    /**
-     * Called from ListsView when the user selects a list.
-     * This runs the use case and refreshes the screen.
-     */
+    /** Called from ListsView when a list is selected. */
     public void loadList(String username, String listName) {
         viewModel.setCurrentUsername(username);
         viewModel.setCurrentListName(listName);
@@ -68,7 +78,6 @@ public class SelectedListView extends JPanel {
         refreshFromViewModel();
     }
 
-    /** Read data from the ViewModel and show it on screen. */
     private void refreshFromViewModel() {
         String error = viewModel.getErrorMessage();
         if (error != null) {

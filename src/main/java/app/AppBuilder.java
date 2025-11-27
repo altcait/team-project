@@ -106,28 +106,22 @@ public class AppBuilder {
     // ==================================
 
     public AppBuilder addViewSelectedList() {
-        // 1. View model for the selected list screen
         ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
-
-        // 2. Presenter
         ViewSelectedListOutputBoundary selectedListPresenter =
                 new ViewSelectedListPresenter(selectedListViewModel);
-
-        // 3. Interactor
         ViewSelectedListInputBoundary selectedListInteractor =
                 new ViewSelectedListInteractor(selectedListPresenter);
-
-        // 4. Controller
         ViewSelectedListController selectedListController =
                 new ViewSelectedListController(selectedListInteractor);
 
-        // 5. View (store in field so ListsView can use it)
+        // NOTE: viewManagerModel is passed in here
         selectedListView =
-                new SelectedListView(selectedListController, selectedListViewModel);
+                new SelectedListView(selectedListController, selectedListViewModel, viewManagerModel);
         cardPanel.add(selectedListView, selectedListView.viewName);
 
         return this;
     }
+
 
     public JFrame build() {
         JFrame application = new JFrame("Example App");
