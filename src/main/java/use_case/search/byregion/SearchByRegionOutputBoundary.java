@@ -2,7 +2,7 @@ package use_case.search.byregion;
 
 /**
  * Output boundary for the Search by region use case.
- * The presenter of Search by region use case will implement this interface.
+ * The presenter of Search by region use case implements this interface.
  */
 public interface SearchByRegionOutputBoundary {
 
@@ -26,4 +26,14 @@ public interface SearchByRegionOutputBoundary {
      * Called when something goes wrong (invalid input, no results, etc.).
      */
     void prepareFailView(String errorMessage);
+
+    /**
+     * Called when the user want to add selected country to the user's list.
+     */
+    void switchToSaveCountryView();
+
+    /**
+     * Called when the user want to back to user's profile.
+     */
+    void switchToProfileView();
 }

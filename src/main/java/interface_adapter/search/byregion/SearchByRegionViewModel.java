@@ -1,31 +1,16 @@
 package interface_adapter.search.byregion;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import interface_adapter.ViewModel;
 
 /**
- * ViewModel for the Search by Region view.
- * Holds a SearchByRegionState and notifies listeners when it changes.
+ * The View Model for the Search by Region View.
  */
-public class SearchByRegionViewModel {
+public class SearchByRegionViewModel extends ViewModel<SearchByRegionState> {
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private SearchByRegionState state = new SearchByRegionState();
+    public static final String VIEW_NAME = "search by region";
 
-    public SearchByRegionState getState() {
-        return state;
-    }
-
-    public void setState(SearchByRegionState state) {
-        this.state = state;
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
+    public SearchByRegionViewModel() {
+        super(VIEW_NAME);
+        setState(new SearchByRegionState());
     }
 }

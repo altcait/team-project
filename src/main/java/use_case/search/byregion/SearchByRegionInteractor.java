@@ -6,10 +6,6 @@ import java.util.*;
 
 /**
  * Interactor for the Search by region use case.
- *  1. searching countries by region
- *  2. listing subregions for a region
- *  3. searching countries by region and subregion
- *  4. listing all regions
  */
 public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
 
@@ -23,7 +19,7 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * 1. Searching countries by region: return all the countries under the region.
+     * Searching countries by region: return all the countries under the region.
      */
     @Override
     public void searchCountriesByRegion(SearchByRegionInputData inputData) {
@@ -53,7 +49,7 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * 2. Listing subregions for a region: return all subregions under the region.
+     * Listing subregions for a region: return all subregions under the region.
      */
     @Override
     public void listSubregionsForRegion(SearchByRegionInputData inputData) {
@@ -90,7 +86,7 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * 3. Searching countries by region and subregion: return the corresponding countries.
+     * Searching countries by region and subregion: return the corresponding countries.
      */
     @Override
     public void searchCountriesByRegionAndSubregion(SearchByRegionInputData inputData) {
@@ -131,7 +127,7 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * 4. Listing all regions: return all existing regions.
+     * Listing all regions: return all existing regions.
      */
     @Override
     public void listRegions() {
@@ -155,5 +151,21 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
                     new SearchByRegionOutputData(null, null, null, null, regions);
             presenter.presentRegions(outputData);
         }
+    }
+
+    /**
+     * Listing when click the add button.
+     */
+    @Override
+    public void switchToSaveCountryView() {
+        presenter.switchToSaveCountryView();
+    }
+
+    /**
+     * Listing when click the back to profile button.
+     */
+    @Override
+    public void switchToProfileView() {
+        presenter.switchToProfileView();
     }
 }
