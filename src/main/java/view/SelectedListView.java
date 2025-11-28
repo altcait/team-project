@@ -16,7 +16,6 @@ public class SelectedListView extends JPanel {
     private final ViewSelectedListViewModel viewModel;
     private final ViewManagerModel viewManagerModel;
 
-    // card name of the lists screen
     private final String listsViewName = "lists";
 
     private final JLabel titleLabel = new JLabel("List: ");
@@ -37,22 +36,53 @@ public class SelectedListView extends JPanel {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // ===== TOP: title + Edit Description button =====
-        JPanel topPanel = new JPanel(new BorderLayout());
-        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 16f));
-        topPanel.add(titleLabel, BorderLayout.WEST);
+        // ===== TOP: title row + button row =====
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
 
-        // NEW: Edit Description button
+        // Row 1: List title
+        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 16f));
+        JPanel titleRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        titleRow.add(titleLabel);
+
+        // Row 2: Edit Description + Search + Sort buttons
+        JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        // --- Edit Description ---
         JButton editDescriptionButton = new JButton("Edit Description");
         editDescriptionButton.addActionListener(e -> editDescription());
-        topPanel.add(editDescriptionButton, BorderLayout.EAST);
+        buttonRow.add(editDescriptionButton);
+
+        // --- Search button (placeholder) ---
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(e -> JOptionPane.showMessageDialog(
+                this,
+                "Search feature not implemented yet.",
+                "Search",
+                JOptionPane.INFORMATION_MESSAGE
+        ));
+        buttonRow.add(searchButton);
+
+        // --- NEW: Sort button (placeholder) ---
+        JButton sortButton = new JButton("Sort");
+        sortButton.addActionListener(e -> JOptionPane.showMessageDialog(
+                this,
+                "Sort feature not implemented yet.",
+                "Sort",
+                JOptionPane.INFORMATION_MESSAGE
+        ));
+        buttonRow.add(sortButton);
+
+        // Add both rows to the top panel
+        topPanel.add(titleRow);
+        topPanel.add(buttonRow);
 
         add(topPanel, BorderLayout.NORTH);
 
-        // ===== CENTER: description + countries list =====
+        // ===== CENTER: description + list of countries =====
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
-        descriptionArea.setEditable(false); // stays non-editable; we use dialog instead
+        descriptionArea.setEditable(false);
 
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(new JScrollPane(descriptionArea), BorderLayout.NORTH);
@@ -75,7 +105,6 @@ public class SelectedListView extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    /** Called from ListsView when a list is selected. */
     public void loadList(String username, String listName) {
         viewModel.setCurrentUsername(username);
         viewModel.setCurrentListName(listName);
@@ -102,11 +131,6 @@ public class SelectedListView extends JPanel {
         }
     }
 
-    /**
-     * Opens a dialog that lets the user edit the list description.
-     * For now this only updates the View + ViewModel.
-     * Later, a separate use case can save it to JSON.
-     */
     private void editDescription() {
         String current = descriptionArea.getText();
         String newDesc = JOptionPane.showInputDialog(
@@ -115,10 +139,10 @@ public class SelectedListView extends JPanel {
                 current
         );
 
-        if (newDesc != null) { // user pressed OK (not Cancel)
+        if (newDesc != null) {
             descriptionArea.setText(newDesc);
             viewModel.setDescription(newDesc);
-            // TODO: later call a "UpdateListDescription" controller/use case
+            // TODO: later create UpdateListDescription use case for JSON saving
         }
     }
 }

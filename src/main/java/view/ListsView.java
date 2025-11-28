@@ -14,7 +14,6 @@ public class ListsView extends JPanel {
 
     private final ViewSavedListsController controller;
     private final ViewSavedListsViewModel viewModel;
-
     private final SelectedListView selectedListView;
     private final ViewManagerModel viewManagerModel;
 
@@ -22,35 +21,47 @@ public class ListsView extends JPanel {
     private final JList<String> listDisplay = new JList<>(listModel);
     private final JLabel errorLabel = new JLabel("");
 
+    // name of the profile view in the card layout
+    private final String profileViewName = "profile";
+
     public ListsView(ViewSavedListsController controller,
                      ViewSavedListsViewModel viewModel,
                      SelectedListView selectedListView,
                      ViewManagerModel viewManagerModel) {
+
         this.controller = controller;
         this.viewModel = viewModel;
         this.selectedListView = selectedListView;
         this.viewManagerModel = viewManagerModel;
 
-        this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // ===== TOP: simple header (no button) =====
-        JLabel header = new JLabel("My Saved Lists");
-        header.setFont(header.getFont().deriveFont(Font.BOLD, 16f));
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(header);
+        // ===== TOP: title + Back to Profile =====
+        JPanel topPanel = new JPanel(new BorderLayout());
 
-        // ===== CENTER: list of saved lists =====
+        JLabel title = new JLabel("My Saved Lists");
+        title.setFont(title.getFont().deriveFont(Font.BOLD, 18f));
+        topPanel.add(title, BorderLayout.WEST);
+
+        JButton backButton = new JButton("Back to Profile");
+        backButton.addActionListener(e -> {
+            viewManagerModel.setState(profileViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        topPanel.add(backButton, BorderLayout.EAST);
+
+        add(topPanel, BorderLayout.NORTH);
+
+        // ===== CENTER: list of lists =====
         JScrollPane scrollPane = new JScrollPane(listDisplay);
+        add(scrollPane, BorderLayout.CENTER);
 
         // ===== BOTTOM: error label =====
         errorLabel.setForeground(Color.RED);
+        add(errorLabel, BorderLayout.SOUTH);
 
-        this.add(topPanel, BorderLayout.NORTH);
-        this.add(scrollPane, BorderLayout.CENTER);
-        this.add(errorLabel, BorderLayout.SOUTH);
-
-        // ==== When user clicks a list, open SelectedListView ====
+        // When user clicks a list name, open SelectedListView
         listDisplay.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && listDisplay.getSelectedValue() != null) {
                 String username = viewModel.getCurrentUsername();
@@ -61,21 +72,20 @@ public class ListsView extends JPanel {
                 viewManagerModel.setState(selectedListView.viewName);
                 viewManagerModel.firePropertyChange();
 
-                // NEW: clear the selection so a future click will trigger again
+                // clear selection so user can click again after coming back
                 listDisplay.clearSelection();
             }
         });
 
-
         // ===== AUTO-LOAD LISTS when this view is created =====
-        // TODO: replace "testUser" with the real logged-in username later.
+        // TODO: replace "testUser" with real logged-in username once profile is done.
         String username = "testUser";
         viewModel.setCurrentUsername(username);
         controller.viewLists(username);
         refreshListDisplay();
     }
 
-    /** Re-read data from the ViewModel and show it in the JList. */
+    /** Reads data from the ViewModel and shows it in the JList. */
     private void refreshListDisplay() {
         listModel.clear();
 
