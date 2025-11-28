@@ -7,8 +7,10 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
 
         JFrame application = appBuilder
-                .addLoginView()
-                .addLoginUseCase()
+//                .addLoginView()
+//                .addLoginUseCase()
+                .addSaveCountryView()
+                .addSaveCountryUseCase()
                 .build();
 
         application.pack();
