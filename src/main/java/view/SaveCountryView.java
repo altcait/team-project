@@ -36,7 +36,7 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         this.saveCountryViewModel.addPropertyChangeListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
+
         // Instantiate panel and labels
         final JPanel saveCountryPanel = new JPanel();
         final JLabel saveCountryLabel = new JLabel("3-letter country code");

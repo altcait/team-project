@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class FileUserDataAccessObject implements SaveCountryDataAccessInterface {
     private final File jsonFile;
-    private final Map<String, Map<String, Map<String, String>>> favouritesByUser = new HashMap<>();
+    private final Map<String, Map<String, Map<String, Object>>> favouritesByUser = new HashMap<>();
 
     /**
      * Construct this DAO for saving to and reading from a local file.
@@ -37,16 +37,28 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
             // Populate favouritesByUser HashMap by looping through JSONObject
             for (String username : myObject.keySet()) {
                 JSONObject userLists = myObject.getJSONObject(username);
-                Map<String, Map<String, String>> listsWithCountries = new HashMap<>();
+
+                Map<String, Map<String, Object>> listsWithCountries = new HashMap<>();
 
                 for (String listName : userLists.keySet()) {
-                    JSONObject countriesList = userLists.getJSONObject(listName);
+                    JSONObject listDetails = userLists.getJSONObject(listName);
+                    JSONObject countriesList = listDetails.getJSONObject("countries");
+                    String listDescription = "";
+
+                    if (listDetails.has("description")) {
+                        listDescription = listDetails.getString("description");
+                    }
+
+                    Map<String, Object> details = new HashMap<>();
+
                     Map<String, String> countriesWithNotes = new HashMap<>();
 
                     for (String countryCode : countriesList.keySet()) {
                         countriesWithNotes.put(countryCode, countriesList.getString(countryCode));
                     }
-                    listsWithCountries.put(listName, countriesWithNotes);
+                    details.put("description", listDescription);
+                    details.put("countries", countriesWithNotes);
+                    listsWithCountries.put(listName, details);
                 }
                 this.favouritesByUser.put(username, listsWithCountries);
             }
@@ -69,13 +81,13 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
     @Override
     public boolean userExists(String username) {
-        return favouritesByUser.containsKey(username);
+        return favouritesByUser.containsKey(username.toLowerCase());
     }
 
     @Override
     public boolean listExists(String username, String listName) {
-        Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
-        return listsWithCountries.containsKey(listName);
+        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username);
+        return listsWithDetails.containsKey(listName.toLowerCase());
     }
 
     @Override
@@ -85,22 +97,23 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
             return false;
         }
 
-        Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
-        Map<String, String> countriesWithNotes = listsWithCountries.get(listName);
-        return countriesWithNotes.containsKey(countryCode.toUpperCase());
+        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username.toLowerCase());
+        Map<String, Object> listContents = listsWithDetails.get(listName.toLowerCase());
+        Map<String, String> countriesList = (Map<String, String>)listContents.get("countries");
+        return countriesList.containsKey(countryCode.toUpperCase());
     }
 
     @Override
     public void addUser(String username) {
         // Add user to file
-        favouritesByUser.put(username, new HashMap<>());
+        favouritesByUser.put(username.toLowerCase(), new HashMap<>());
     }
 
     @Override
     public void addList(String username, String listName) {
-        Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
+        Map<String, Map<String, Object>> listsWithCountries = favouritesByUser.get(username.toLowerCase());
         // Add list to username's list dictionary
-        listsWithCountries.put(listName, new HashMap<>());
+        listsWithCountries.put(listName.toLowerCase(), new HashMap<>());
     }
 
     @Override
@@ -115,8 +128,15 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         }
 
         // Update favouritesByUser to include the new country
-        Map<String, Map<String, String>> listsWithCountries = favouritesByUser.get(username);
-        Map<String, String> countriesWithNotes = listsWithCountries.get(listName);
+        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username.toLowerCase());
+        Map<String, Object> listContents = listsWithDetails.get(listName.toLowerCase());
+
+        // Add "countries" key if it's not yet present in the list
+        if (!listContents.containsKey("countries")) {
+            listContents.put("countries", new HashMap<>());
+        }
+
+        Map<String, String> countriesWithNotes = (Map<String, String>)listContents.get("countries");
         countriesWithNotes.put(countryCode.toUpperCase(), notes);
         // save updated favouritesByUser object to file
         save();
