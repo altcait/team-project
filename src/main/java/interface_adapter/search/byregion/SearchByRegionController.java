@@ -24,15 +24,37 @@ public class SearchByRegionController {
         // Called when the user selects a region from the dropdown
         SearchByRegionInputData inputData = new SearchByRegionInputData(region, null);
         interactor.listSubregionsForRegion(inputData);
-
-        // If you want to display all the countries under a region directly when you select it,
-        // you can also adjust this sentence incidentally
-        // interactor.searchCountriesByRegion(inputData);
     }
 
-    public void onSearchByRegionAndSubregion(String region, String subregion) {
-        // Called when the user clicks search with both region and subregion selected
-        SearchByRegionInputData inputData = new SearchByRegionInputData(region, subregion);
-        interactor.searchCountriesByRegionAndSubregion(inputData);
+    public void onSearch(String region, String subregion) {
+        if (region == null) {
+            // null case
+            interactor.searchCountriesByRegion(
+                    new SearchByRegionInputData(null, null));
+            return;
+        }
+
+        if (subregion == null || subregion.isEmpty()) {
+            // only search by region
+            SearchByRegionInputData inputData =
+                    new SearchByRegionInputData(region, null);
+            interactor.searchCountriesByRegion(inputData);
+        } else {
+            // search by both region and subregion
+            SearchByRegionInputData inputData =
+                    new SearchByRegionInputData(region, subregion);
+            interactor.searchCountriesByRegionAndSubregion(inputData);
+        }
+
+    }
+
+    public void onAddCountryButtonClicked() {
+        // Called when the user clicks the add country button
+        interactor.switchToSaveCountryView();
+    }
+
+    public void onBackToProfileButtonClicked() {
+        // Called when the user clicks the back to profile button
+        interactor.switchToProfileView();
     }
 }
