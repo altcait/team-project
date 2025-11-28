@@ -21,7 +21,6 @@ public class ListsView extends JPanel {
     private final JList<String> listDisplay = new JList<>(listModel);
     private final JLabel errorLabel = new JLabel("");
 
-    // name of the profile view in the card layout
     private final String profileViewName = "profile";
 
     public ListsView(ViewSavedListsController controller,
@@ -37,33 +36,69 @@ public class ListsView extends JPanel {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // ===== TOP: title + Back to Profile =====
-        JPanel topPanel = new JPanel(new BorderLayout());
+        // ===== TOP PANEL: Title + Action Buttons =====
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
 
+        // Row 1: Title
+        JPanel titleRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel title = new JLabel("My Saved Lists");
         title.setFont(title.getFont().deriveFont(Font.BOLD, 18f));
-        topPanel.add(title, BorderLayout.WEST);
+        titleRow.add(title);
+
+        // Row 2: Create + Delete
+        JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        JButton createListButton = new JButton("Create List");
+        createListButton.addActionListener(e ->
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Create List feature not implemented yet.",
+                        "Create List",
+                        JOptionPane.INFORMATION_MESSAGE
+                )
+        );
+        buttonRow.add(createListButton);
+
+        JButton deleteListButton = new JButton("Delete List");
+        deleteListButton.addActionListener(e ->
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Delete List feature not implemented yet.",
+                        "Delete List",
+                        JOptionPane.INFORMATION_MESSAGE
+                )
+        );
+        buttonRow.add(deleteListButton);
+
+        topPanel.add(titleRow);
+        topPanel.add(buttonRow);
+
+        add(topPanel, BorderLayout.NORTH);
+
+        // ===== CENTER: List Display =====
+        JScrollPane scrollPane = new JScrollPane(listDisplay);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // ===== BOTTOM: Back to Profile + Error Label =====
+        JPanel bottomPanel = new JPanel(new BorderLayout());
 
         JButton backButton = new JButton("Back to Profile");
         backButton.addActionListener(e -> {
             viewManagerModel.setState(profileViewName);
             viewManagerModel.firePropertyChange();
         });
-        topPanel.add(backButton, BorderLayout.EAST);
+        bottomPanel.add(backButton, BorderLayout.WEST);
 
-        add(topPanel, BorderLayout.NORTH);
-
-        // ===== CENTER: list of lists =====
-        JScrollPane scrollPane = new JScrollPane(listDisplay);
-        add(scrollPane, BorderLayout.CENTER);
-
-        // ===== BOTTOM: error label =====
         errorLabel.setForeground(Color.RED);
-        add(errorLabel, BorderLayout.SOUTH);
+        bottomPanel.add(errorLabel, BorderLayout.CENTER);
 
-        // When user clicks a list name, open SelectedListView
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // ===== LIST CLICK HANDLER =====
         listDisplay.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && listDisplay.getSelectedValue() != null) {
+
                 String username = viewModel.getCurrentUsername();
                 String listName = listDisplay.getSelectedValue();
 
@@ -72,20 +107,17 @@ public class ListsView extends JPanel {
                 viewManagerModel.setState(selectedListView.viewName);
                 viewManagerModel.firePropertyChange();
 
-                // clear selection so user can click again after coming back
                 listDisplay.clearSelection();
             }
         });
 
-        // ===== AUTO-LOAD LISTS when this view is created =====
-        // TODO: replace "testUser" with real logged-in username once profile is done.
-        String username = "testUser";
+        // ===== AUTO-LOAD LISTS =====
+        String username = "testUser"; // TODO: replace with profile username
         viewModel.setCurrentUsername(username);
         controller.viewLists(username);
         refreshListDisplay();
     }
 
-    /** Reads data from the ViewModel and shows it in the JList. */
     private void refreshListDisplay() {
         listModel.clear();
 
