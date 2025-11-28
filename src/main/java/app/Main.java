@@ -9,6 +9,8 @@ public class Main {
         JFrame application = appBuilder
                 .addLoginView()
                 .addLoginUseCase()
+                .addViewSelectedList() // must be before ViewSavedList
+                .addViewSavedLists()
                 .build();
 
         application.pack();
