@@ -4,20 +4,19 @@ import java.util.List;
 
 public class ViewSavedListsResponseModel {
 
+    private final String username;
     private final List<String> listNames;
-    private final List<String> descriptions;
 
-    public ViewSavedListsResponseModel(List<String> listNames,
-                                       List<String> descriptions) {
+    public ViewSavedListsResponseModel(String username, List<String> listNames) {
+        this.username = username;
         this.listNames = listNames;
-        this.descriptions = descriptions;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public List<String> getListNames() {
         return listNames;
-    }
-
-    public List<String> getDescriptions() {
-        return descriptions;
     }
 }

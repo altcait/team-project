@@ -4,8 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Added UI buttons for future implementation">
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
+    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Added more UI buttons for future implementation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsOutputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsResponseModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListOutputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListResponseModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764288528820</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added more UI buttons for future implementation">
+      <option name="closed" value="true" />
+      <created>1764289303370</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764289303370</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +224,7 @@
     <MESSAGE value="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window." />
     <MESSAGE value="Added description button that works but doesn't save because I didn't add json file stuff yet." />
     <MESSAGE value="Added UI buttons for future implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added UI buttons for future implementation" />
+    <MESSAGE value="Added more UI buttons for future implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added more UI buttons for future implementation" />
   </component>
 </project>

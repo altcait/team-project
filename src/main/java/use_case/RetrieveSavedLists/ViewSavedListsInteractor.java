@@ -7,24 +7,22 @@ public class ViewSavedListsInteractor implements ViewSavedListsInputBoundary {
 
     private final ViewSavedListsOutputBoundary presenter;
 
-    // Later you can add a data access object here (e.g., UserDataAccessInterface) if needed.
     public ViewSavedListsInteractor(ViewSavedListsOutputBoundary presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public ViewSavedListsResponseModel viewLists(ViewSavedListsRequestModel requestModel) {
+        String username = requestModel.getUsername();
 
-        // TODO: replace this dummy data with real lists from the logged-in user.
+        // DUMMY DATA: pretend this user has 3 lists
         List<String> listNames = new ArrayList<>();
-        List<String> descriptions = new ArrayList<>();
-
-        // Example dummy entry (you can delete this once real logic is added)
         listNames.add("Example List");
-        descriptions.add("This is a placeholder list.");
+        listNames.add("Asia Trip");
+        listNames.add("Europe Bucket List");
 
         ViewSavedListsResponseModel response =
-                new ViewSavedListsResponseModel(listNames, descriptions);
+                new ViewSavedListsResponseModel(username, listNames);
 
         return presenter.prepareSuccessView(response);
     }

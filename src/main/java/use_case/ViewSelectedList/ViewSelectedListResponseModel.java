@@ -4,16 +4,23 @@ import java.util.List;
 
 public class ViewSelectedListResponseModel {
 
+    private final String username;
     private final String listName;
     private final String description;
     private final List<String> countries;
 
-    public ViewSelectedListResponseModel(String listName,
+    public ViewSelectedListResponseModel(String username,
+                                         String listName,
                                          String description,
                                          List<String> countries) {
+        this.username = username;
         this.listName = listName;
         this.description = description;
         this.countries = countries;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getListName() {

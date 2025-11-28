@@ -13,17 +13,18 @@ public class ViewSavedListsPresenter implements ViewSavedListsOutputBoundary {
 
     @Override
     public ViewSavedListsResponseModel prepareSuccessView(ViewSavedListsResponseModel response) {
+        // Save username and list names into the ViewModel
+        viewModel.setCurrentUsername(response.getUsername());
         viewModel.setListNames(response.getListNames());
-        viewModel.setDescriptions(response.getDescriptions());
         viewModel.setErrorMessage(null);
         return response;
     }
 
     @Override
     public ViewSavedListsResponseModel prepareFailView(String errorMessage) {
-        viewModel.setErrorMessage(errorMessage);
         viewModel.setListNames(null);
-        viewModel.setDescriptions(null);
-        return new ViewSavedListsResponseModel(null, null);
+        viewModel.setErrorMessage(errorMessage);
+        // Keep whatever username is already in the view model
+        return new ViewSavedListsResponseModel(viewModel.getCurrentUsername(), null);
     }
 }

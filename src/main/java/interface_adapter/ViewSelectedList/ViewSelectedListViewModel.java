@@ -4,15 +4,10 @@ import java.util.List;
 
 public class ViewSelectedListViewModel {
 
-    // Which user and list we are currently looking at
     private String currentUsername;
     private String currentListName;
-
-    // Data to display
     private String description;
     private List<String> countries;
-
-    // For any errors
     private String errorMessage;
 
     public String getCurrentUsername() {

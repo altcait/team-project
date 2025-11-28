@@ -13,6 +13,7 @@ public class ViewSelectedListPresenter implements ViewSelectedListOutputBoundary
 
     @Override
     public ViewSelectedListResponseModel prepareSuccessView(ViewSelectedListResponseModel response) {
+        viewModel.setCurrentUsername(response.getUsername());
         viewModel.setCurrentListName(response.getListName());
         viewModel.setDescription(response.getDescription());
         viewModel.setCountries(response.getCountries());
@@ -23,8 +24,12 @@ public class ViewSelectedListPresenter implements ViewSelectedListOutputBoundary
     @Override
     public ViewSelectedListResponseModel prepareFailView(String errorMessage) {
         viewModel.setErrorMessage(errorMessage);
-        viewModel.setDescription(null);
-        viewModel.setCountries(null);
-        return new ViewSelectedListResponseModel(null, null, null);
+        // Return current state of the view model as a response
+        return new ViewSelectedListResponseModel(
+                viewModel.getCurrentUsername(),
+                viewModel.getCurrentListName(),
+                viewModel.getDescription(),
+                viewModel.getCountries()
+        );
     }
 }

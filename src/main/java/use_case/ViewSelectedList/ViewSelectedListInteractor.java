@@ -7,28 +7,46 @@ public class ViewSelectedListInteractor implements ViewSelectedListInputBoundary
 
     private final ViewSelectedListOutputBoundary presenter;
 
-    // Later you can add a data access object here (to read from JSON).
     public ViewSelectedListInteractor(ViewSelectedListOutputBoundary presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public ViewSelectedListResponseModel viewSelectedList(ViewSelectedListRequestModel requestModel) {
-
         String username = requestModel.getUsername();
         String listName = requestModel.getListName();
 
-        // TODO: replace this dummy data with real data from JSON for (username, listName).
-
-        String description = "Example description for " + listName;
-
+        String description;
         List<String> countries = new ArrayList<>();
-        countries.add("Canada");
-        countries.add("Japan");
-        countries.add("Germany");
+
+        switch (listName) {
+            case "Example List":
+                description = "Example description for Example List";
+                countries.add("Canada");
+                countries.add("Japan");
+                countries.add("Germany");
+                break;
+
+            case "Asia Trip":
+                description = "Countries I'd like to visit on a future Asia trip.";
+                countries.add("Japan");
+                countries.add("South Korea");
+                countries.add("Thailand");
+                break;
+
+            case "Europe Bucket List":
+                description = "Dream destinations across Europe.";
+                countries.add("France");
+                countries.add("Italy");
+                countries.add("Spain");
+                break;
+
+            default:
+                description = "No description yet for " + listName + ".";
+        }
 
         ViewSelectedListResponseModel response =
-                new ViewSelectedListResponseModel(listName, description, countries);
+                new ViewSelectedListResponseModel(username, listName, description, countries);
 
         return presenter.prepareSuccessView(response);
     }
