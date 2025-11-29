@@ -6,9 +6,8 @@ public class User {
 
     private final String name;
     private final String password;
-    private final List<String> favouriteCountries;
 
-    public User(String name, String password, List<String> favouriteCountries) {
+    public User(String name, String password) {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
@@ -17,9 +16,7 @@ public class User {
         }
         this.name = name;
         this.password = password;
-        this.favouriteCountries = favouriteCountries;
     }
     public String getName() {return name;}
     public String getPassword() {return password;}
-    public List<String> getFavouriteCountries() {return favouriteCountries;}
 }

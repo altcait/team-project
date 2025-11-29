@@ -33,27 +33,43 @@ public class LoginSignUpView extends JPanel implements PropertyChangeListener {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Login");
-        title.setAlignmentX(CENTER_ALIGNMENT);
+        title.setFont(new Font("Arial", Font.BOLD, 22));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        add(title);
-        add(makeInputRow("Username:", usernameField));
-        add(makeInputRow("Password:", passwordField));
-        add(errorLabel);
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel buttonRow = new JPanel();
+        JPanel usernameRow = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        usernameRow.add(new JLabel("Username:"));
+        usernameRow.add(usernameField);
+
+        JPanel passwordRow = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        passwordRow.add(new JLabel("Password:"));
+        passwordRow.add(passwordField);
+
+        JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
         buttonRow.add(loginButton);
         buttonRow.add(signupButton);
         buttonRow.add(cancelButton);
+
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        centerPanel.add(usernameRow);
+        centerPanel.add(passwordRow);
+        centerPanel.add(Box.createVerticalStrut(5));
+        centerPanel.add(errorLabel);
+
+        add(Box.createVerticalStrut(15));
+        add(title);
+        add(Box.createVerticalStrut(20));
+        add(centerPanel);
+        add(Box.createVerticalStrut(15));
         add(buttonRow);
+        add(Box.createVerticalGlue());
 
         attachListeners();
-    }
-
-    private JPanel makeInputRow(String labelText, JComponent inputField) {
-        JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row.add(new JLabel(labelText));
-        row.add(inputField);
-        return row;
     }
 
     private void attachListeners() {
@@ -64,15 +80,9 @@ public class LoginSignUpView extends JPanel implements PropertyChangeListener {
                 state.setUsername(usernameField.getText());
                 viewModel.setState(state);
             }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) { update(); }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) { update(); }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) { update(); }
+            @Override public void insertUpdate(DocumentEvent e) { update(); }
+            @Override public void removeUpdate(DocumentEvent e) { update(); }
+            @Override public void changedUpdate(DocumentEvent e) { update(); }
         });
 
         passwordField.getDocument().addDocumentListener(new DocumentListener() {
@@ -81,30 +91,21 @@ public class LoginSignUpView extends JPanel implements PropertyChangeListener {
                 state.setPassword(new String(passwordField.getPassword()));
                 viewModel.setState(state);
             }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) { update(); }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) { update(); }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) { update(); }
+            @Override public void insertUpdate(DocumentEvent e) { update(); }
+            @Override public void removeUpdate(DocumentEvent e) { update(); }
+            @Override public void changedUpdate(DocumentEvent e) { update(); }
         });
 
-        // Login button
         loginButton.addActionListener(e -> {
             LoginState state = viewModel.getState();
             loginController.execute(state.getUsername(), state.getPassword());
         });
 
-        //Create Account button
         signupButton.addActionListener(e -> {
             LoginState state = viewModel.getState();
             signupController.execute(state.getUsername(), state.getPassword());
         });
 
-        // Cancel button
         cancelButton.addActionListener(e -> clearFields());
     }
 
@@ -118,6 +119,7 @@ public class LoginSignUpView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState newState = (LoginState) evt.getNewValue();
         usernameField.setText(newState.getUsername());
+        passwordField.setText(newState.getPassword());
         errorLabel.setText(newState.getLoginError());
     }
 
@@ -125,7 +127,7 @@ public class LoginSignUpView extends JPanel implements PropertyChangeListener {
         this.loginController = loginController;
     }
 
-    public void  setSignupController(SignUpController signupController) {
+    public void setSignupController(SignUpController signupController) {
         this.signupController = signupController;
     }
 
@@ -133,4 +135,5 @@ public class LoginSignUpView extends JPanel implements PropertyChangeListener {
         return "login";
     }
 }
+
 
