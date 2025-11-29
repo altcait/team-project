@@ -10,8 +10,10 @@ import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
-import view.LoginView;
+import view.LoginSignUpView;
 import view.ViewManager;
+import interface_adapter.signup.*;
+import use_case.signup.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,29 +26,44 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-    private LoginView loginView;
+    private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
+    private SignUpViewModel signUpViewModel;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
-    public AppBuilder addLoginView() {
+    public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
-        loginView = new LoginView(loginViewModel);
+        loginSignUpView = new LoginSignUpView(loginViewModel);
 
-        cardPanel.add(loginView, loginView.getViewName());
+        cardPanel.add(loginSignUpView, loginSignUpView.getViewName());
         return this;
     }
 
     public AppBuilder addLoginUseCase() {
-        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+        LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
-        LoginOutputBoundary presenter = new LoginPresenter(loginViewModel);
-        LoginInputBoundary interactor = new LoginInteractor(dataAccess, presenter);
+        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel);
+        LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
 
-        LoginController controller = new LoginController(interactor);
-        loginView.setLoginController(controller);
+        LoginController loginController = new LoginController(loginInteractor);
+        loginSignUpView.setLoginController(loginController);
+
+        return this;
+    }
+
+    public AppBuilder addSignUpUseCase() {
+        signUpViewModel = new SignUpViewModel();
+        SignUpUserAccess signupDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+
+        SignUpOutputBoundary signupPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
+        SignUpInputBoundary signupInteractor =
+                new SignUpInteractor(signupDataAccess, signupPresenter, new UserFactory());
+
+        SignUpController signupController = new SignUpController(signupInteractor);
+        loginSignUpView.setSignupController(signupController);
 
         return this;
     }
@@ -59,7 +76,7 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        viewManagerModel.setState(loginView.getViewName());
+        viewManagerModel.setState(loginSignUpView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
