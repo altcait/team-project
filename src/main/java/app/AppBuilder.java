@@ -1,5 +1,6 @@
 package app;
 
+import data_access.ApiSearchByRegionDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.ProfileViewModel;
 import interface_adapter.search.ByLanguage.SearchByLanguageController;
@@ -302,7 +303,7 @@ public class AppBuilder {
 
     public AppBuilder addSearchByLanguageUseCase() {
         final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
-                searchByLanguageViewModel, viewManagerModel, profileViewModel);
+                searchByLanguageViewModel, viewManagerModel);
         final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
                 countryDataAccessObject, searchByLanguagePresenter);
 

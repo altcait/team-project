@@ -8,6 +8,8 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.search.by_region.SearchByRegionDataAccessInterface;
+import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.ByRegion.SearchByRegionDataAccessInterface;
 
 import java.io.IOException;
 import java.util.*;
@@ -18,8 +20,10 @@ import java.util.*;
  * into Country entities (via CountryFactory), and caches them in memory
  * (both as a List and in a HashMap indexed by cca3).
  */
-public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAccessInterface {
+public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAccessInterface,
+        SearchByLanguageCountryDataAccessInterface {
 
+    // REST Countries endpoint: independent countries with selected fields
     private static final String API_URL =
             "https://restcountries.com/v3.1/independent?status=true" +
                     "&fields=name,languages,currencies,region,subregion,cca3";
