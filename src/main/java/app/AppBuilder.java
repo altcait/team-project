@@ -11,6 +11,16 @@ import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
 import view.LoginView;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.login.ProfileViewModel;
+import interface_adapter.search.ByLanguage.SearchByLanguageController;
+import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
+import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
+import use_case.search.ByLanguage.SearchByLanguageInteractor;
+import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
+import view.SearchByLanguageView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -26,6 +36,14 @@ public class AppBuilder {
 
     private LoginView loginView;
     private LoginViewModel loginViewModel;
+    private SearchByLanguageView searchByLanguageView;
+    private SearchByLanguageViewModel searchByLanguageViewModel;
+    SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
+    private SearchByLanguagePresenter searchByLanguagePresenter;
+
+    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+
+    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -48,18 +66,33 @@ public class AppBuilder {
         LoginController controller = new LoginController(interactor);
         loginView.setLoginController(controller);
 
+    public AppBuilder addSearchByLanguageView() {
+        searchByLanguageViewModel = new SearchByLanguageViewModel();
+        searchByLanguageView = new SearchByLanguageView(searchByLanguageViewModel);
+        cardPanel.add(searchByLanguageView, searchByLanguageView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSearchByLanguageUseCase() {
+        final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
+                searchByLanguageViewModel, viewManagerModel, profileViewModel);
+        final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
+                countryDataAccessObject, searchByLanguagePresenter);
+
+        SearchByLanguageController searchByLanguageController = new SearchByLanguageController(searchByLanguageInteractor);
+        searchByLanguageView.setSearchByLanguageController(searchByLanguageController);
         return this;
     }
 
     public JFrame build() {
-        JFrame application = new JFrame("Example App");
+        JFrame application = new JFrame("Country Exploration App");
 
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(cardPanel);
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        viewManagerModel.setState(loginView.getViewName());
+//        viewManagerModel.setState(loginView.getViewName()); // TODO: pull login use case code
         viewManagerModel.firePropertyChange();
 
         return application;
