@@ -27,6 +27,9 @@ public class Main {
                     .addSearchByCurrencyView()
                     .addSearchByCurrencyUseCase()
 
+                    .addSearchByLanguageView()
+                    .addSearchByLanguageUseCase()
+
                     .addSearchesView()
 
                     .build();
