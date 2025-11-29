@@ -1,7 +1,7 @@
 package app;
 
+import data_access.ApiSearchByRegionDataAccessObject;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.ProfileViewModel;
 import interface_adapter.search.ByLanguage.SearchByLanguageController;
 import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
 import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
@@ -28,7 +28,7 @@ public class AppBuilder {
     SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
     private SearchByLanguagePresenter searchByLanguagePresenter;
 
-    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+    // private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
 
     private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
 
@@ -45,7 +45,7 @@ public class AppBuilder {
 
     public AppBuilder addSearchByLanguageUseCase() {
         final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
-                searchByLanguageViewModel, viewManagerModel, profileViewModel);
+                searchByLanguageViewModel, viewManagerModel);
         final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
                 countryDataAccessObject, searchByLanguagePresenter);
 
