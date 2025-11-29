@@ -2,16 +2,23 @@ package app;
 
 import data_access.UserCSVDataAccess;
 import entity.UserFactory;
+
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.profile.*;
+
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
+import use_case.profile.*;
+
 import view.LoginSignUpView;
+import view.ProfileView;
 import view.ViewManager;
+
 import interface_adapter.signup.*;
 import use_case.signup.*;
 
@@ -29,9 +36,12 @@ public class AppBuilder {
     private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
     private SignUpViewModel signUpViewModel;
+    private ProfileViewModel profileViewModel;
+    private UserCSVDataAccess userDataAccess;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
+        userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
     }
 
     public AppBuilder addLoginSignUpView() {
@@ -43,9 +53,11 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
-        LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
-        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel);
+        LoginUserAccess loginDataAccess = userDataAccess;
+
+        LoginOutputBoundary loginPresenter = new LoginPresenter(
+                loginViewModel, viewManagerModel, this::getProfileViewModel);
         LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
 
         LoginController loginController = new LoginController(loginInteractor);
@@ -56,7 +68,8 @@ public class AppBuilder {
 
     public AppBuilder addSignUpUseCase() {
         signUpViewModel = new SignUpViewModel();
-        SignUpUserAccess signupDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+
+        SignUpUserAccess signupDataAccess = userDataAccess;
 
         SignUpOutputBoundary signupPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
         SignUpInputBoundary signupInteractor =
@@ -68,8 +81,27 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addProfileUseCase() {
+
+        profileViewModel = new ProfileViewModel();
+
+        ProfileOutputBoundary profilePresenter = new ProfilePresenter(viewManagerModel, loginViewModel);
+        ProfileInputBoundary profileInteractor = new ProfileInteractor(profilePresenter);
+        ProfileController profileController = new ProfileController(profileInteractor);
+        ProfileView profileView = new ProfileView(profileViewModel);
+        profileView.setController(profileController);
+
+        cardPanel.add(profileView, profileView.getViewName());
+
+        return this;
+    }
+
+    private ProfileViewModel getProfileViewModel() {
+        return profileViewModel;
+    }
+
     public JFrame build() {
-        JFrame application = new JFrame("Example App");
+        JFrame application = new JFrame("Country Explorer");
 
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(cardPanel);
@@ -82,4 +114,5 @@ public class AppBuilder {
         return application;
     }
 }
+
 
