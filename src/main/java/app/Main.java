@@ -10,6 +10,10 @@ public class Main {
                 .addSearchByLanguageUseCase()
                 .build();
 
+        JFrame application = appBuilder
+                .addLoginView()
+                .addLoginUseCase()
+                .build();
 
         application.pack();
         application.setLocationRelativeTo(null);
