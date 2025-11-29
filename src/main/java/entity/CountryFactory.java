@@ -16,7 +16,8 @@ public class CountryFactory {
                           List<String> currencies,
                           String region,
                           String subregion,
-                          List<String> languages) {
-        return new Country(name, cca3, currencies, region, subregion, languages);
+                          List<String> languages,
+                          List<String> nativeNames) {
+        return new Country(name, cca3, currencies, region, subregion, languages, nativeNames);
     }
 }
