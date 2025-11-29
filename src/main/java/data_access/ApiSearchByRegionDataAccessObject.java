@@ -114,7 +114,16 @@ public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAcce
      *
      * Example JSON:
      * {
-     *   "name":{"common":"Brunei", ...},
+     *   "name":{
+     *      "common":"Brunei",
+     *      ...,
+     *      "nativeName": {
+     *         "msa": {
+     *           "official": "Nation of Brunei, Abode Damai",
+     *           "common": "Negara Brunei Darussalam"
+     *         }
+     *       }
+     *       },
      *   "cca3":"BRN",
      *   "currencies":{
      *       "BND":{"name":"Brunei dollar","symbol":"$"},
@@ -146,8 +155,11 @@ public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAcce
         // currencies: collect all currency names into a List<String>
         List<String> currencies = extractCurrencyNames(countryJson.optJSONObject("currencies"));
 
+        // nativeNames: collect a List<String> of the country's name in its native language(s)
+        List<String> nativeNames = extractNativeNames(nameObj.optJSONObject("nativeName"));
+
         // Use CountryFactory to create Country
-        return countryFactory.create(name, cca3, currencies, region, subregion, languages);
+        return countryFactory.create(name, cca3, currencies, region, subregion, languages, nativeNames);
     }
 
     /**
@@ -194,5 +206,33 @@ public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAcce
         }
 
         return languageNames;
+    }
+
+    /**
+     * Extracts nativeNames List from nativeNames JSONObject.
+     * @param nativeNamesObj object from which the names are extracted
+     * @return List<String> of countries' name in its native language(s)
+     */
+    private List<String> extractNativeNames(JSONObject nativeNamesObj) {
+        List<String> nativeNames = new ArrayList<>();
+
+        if (nativeNamesObj == null) {
+            return nativeNames;
+        }
+
+        Iterator<String> keys = nativeNamesObj.keys();
+        while (keys.hasNext()) {
+            String languageCode = keys.next();
+            JSONObject nativeNameObj = nativeNamesObj.optJSONObject(languageCode);
+            if (nativeNameObj != null) {
+                String officialName = nativeNameObj.optString("official", "");
+                String commonName = nativeNameObj.optString("common", "");
+                if (!commonName.isEmpty() && !officialName.isEmpty()) {
+                    nativeNames.add(officialName + "(" + commonName + ")");
+                }
+            }
+
+        }
+        return nativeNames;
     }
 }
