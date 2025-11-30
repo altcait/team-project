@@ -11,6 +11,13 @@ public class Main {
                 .addSearchByLanguageView()
                 .addSearchByRegionView()
                 .addSearchByCurrencyView()
+                .addSaveCountryView()
+                .addSaveCountryUseCase()
+                .addLoginSignUpView()
+                .addLoginUseCase()
+                .addViewSelectedList() // must be before ViewSavedList
+                .addViewSavedLists()
+                .addSignUpUseCase()
                 .build();
 
         application.pack();

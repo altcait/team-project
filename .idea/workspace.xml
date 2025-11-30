@@ -4,13 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="Added more UI buttons for future implementation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsOutputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsResponseModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListOutputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListResponseModel.java" afterDir="false" />
     <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/src/main/java/view/SearchByCurrencyView.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/view/SearchByLanguageView.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/view/SearchByRegionView.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/DBUserDataAccessObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/save_country/SaveCountryInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/save_country/SaveCountryInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SaveCountryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SaveCountryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/save_country/SaveCountryInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/save_country/SaveCountryInteractorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
     </list>
@@ -22,7 +42,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -30,10 +49,12 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="project-structure" />
+        <entry key="$PROJECT_DIR$" value="search_by_region_view_modification_on_project_structure_branch" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -41,28 +62,35 @@
     &quot;assignee&quot;: &quot;mafereyesb&quot;
   }
 }</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/altcait/team-project.git",
+    "accountId": "2008fc1d-2ecd-4a29-8e39-5536951851b6"
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/altcait/team-project.git&quot;,
-    &quot;accountId&quot;: &quot;c9c5b615-3a23-46c1-8a33-8fa7f546e7da&quot;
+    &quot;url&quot;: &quot;git@github.com:altcait/team-project.git&quot;,
+    &quot;accountId&quot;: &quot;b38c12ed-1f8b-42c1-ad53-0ce247958c70&quot;
   },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
     },
-    &quot;owner&quot;: &quot;altcait&quot;,
-    &quot;repository&quot;: &quot;team-project&quot;
+    "owner": "altcait",
+    "repository": "team-project"
   }
-}</component>
+}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="34AQuKcDR5WEd1nu7HNJuh98E5d" />
   <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -76,6 +104,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "searchesView",
+    "git-widget-placeholder": "#25 on Retrieve-saved-countries",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -84,6 +113,22 @@
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#20 on signup&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }]]></component>
   <component name="RunManager">
@@ -98,11 +143,20 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SaveCountryInteractorTest.failureCountryAlreadyInListTest" />
+        <item itemvalue="JUnit.SaveCountryInteractorTest" />
+        <item itemvalue="JUnit.SaveCountryInteractorTest.successTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>
@@ -116,10 +170,161 @@
       <workItem from="1760654119388" duration="566000" />
       <workItem from="1760994849776" duration="5000" />
       <workItem from="1760998674722" duration="2000" />
+      <workItem from="1763931235680" duration="18411000" />
+      <workItem from="1763998012368" duration="2539000" />
     </task>
+    <task id="LOCAL-00001" summary="Basic RetrieveSavedList Window">
+      <option name="closed" value="true" />
+      <created>1764279928906</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764279928906</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Merge branch 'main' into Retrieve-saved-countries&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/app/AppBuilder.java&#10;#&#9;src/main/java/app/Main.java">
+      <option name="closed" value="true" />
+      <created>1764280070916</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764280070916</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Basic Window for Viewing Saved Lists.">
+      <option name="closed" value="true" />
+      <created>1764280471467</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764280471467</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Created a basic window for viewing the selected list from the Lists window.">
+      <option name="closed" value="true" />
+      <created>1764281058015</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764281058015</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Updated View Saved List window and View Selected List window. They now are connected.">
+      <option name="closed" value="true" />
+      <created>1764281324734</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764281324734</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Updated View Saved List Window, Removed Load Lists Button">
+      <option name="closed" value="true" />
+      <created>1764282396159</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764282396159</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated Bug where you couldn't go back to the Viewed saved list window after clicking back to lists in selected list window.">
+      <option name="closed" value="true" />
+      <created>1764282857953</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764282857953</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window.">
+      <option name="closed" value="true" />
+      <created>1764282945901</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764282945901</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added description button that works but doesn't save because I didn't add json file stuff yet.">
+      <option name="closed" value="true" />
+      <created>1764286250448</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764286250448</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added UI buttons for future implementation">
+      <option name="closed" value="true" />
+      <created>1764288528820</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764288528820</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added more UI buttons for future implementation">
+      <option name="closed" value="true" />
+      <created>1764289303370</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764289303370</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Basic RetrieveSavedList Window" />
+    <MESSAGE value="Fixed Errors from Main-&gt;retrieve-saved-countries merge" />
+    <MESSAGE value="Merge branch 'main' into Retrieve-saved-countries&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/app/AppBuilder.java&#10;#&#9;src/main/java/app/Main.java" />
+    <MESSAGE value="Basic Window for Viewing Saved Lists." />
+    <MESSAGE value="Created a basic window for viewing the selected list from the Lists window." />
+    <MESSAGE value="Updated View Saved List window and View Selected List window. They now are connected." />
+    <MESSAGE value="Updated View Saved List Window, Removed Load Lists Button" />
+    <MESSAGE value="Updated Bug where you couldn't go back to the Viewed saved list window after clicking back to lists in selected list window." />
+    <MESSAGE value="Fixed Bug where you couldn't go back and forth between the View Saved Lists and Selected list window." />
+    <MESSAGE value="Added description button that works but doesn't save because I didn't add json file stuff yet." />
+    <MESSAGE value="Added UI buttons for future implementation" />
+    <MESSAGE value="Added more UI buttons for future implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added more UI buttons for future implementation" />
+  </component>
+</project>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="languageSearch-Country" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="languageSearch-Country" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/team_project$SaveCountryInteractorTest.ic" NAME="SaveCountryInteractorTest Coverage Results" MODIFIED="1763955787720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.save_country.*</FILTER>
+    </SUITE>
   </component>
 </project>
