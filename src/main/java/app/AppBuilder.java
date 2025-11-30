@@ -1,17 +1,25 @@
 package app;
 
 import data_access.UserCSVDataAccess;
+import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.save_country.SaveCountryController;
+import interface_adapter.save_country.SaveCountryPresenter;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
+import use_case.save_country.SaveCountryInputBoundary;
+import use_case.save_country.SaveCountryOutputBoundary;
+import use_case.save_country.SaveCountryInteractor;
 import view.LoginSignUpView;
 import view.ViewManager;
+import view.SaveCountryView;
 import interface_adapter.signup.*;
 import use_case.signup.*;
 
@@ -19,7 +27,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AppBuilder {
-
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
@@ -28,7 +35,12 @@ public class AppBuilder {
 
     private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
+    private SaveCountryView saveCountryView;
+    private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
+    final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+    final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -43,7 +55,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
-        LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+//        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
         LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel);
         LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
@@ -65,6 +77,26 @@ public class AppBuilder {
         SignUpController signupController = new SignUpController(signupInteractor);
         loginSignUpView.setSignupController(signupController);
 
+        return this;
+    }
+
+    public AppBuilder addSaveCountryView() {
+        saveCountryViewModel = new SaveCountryViewModel();
+        saveCountryView = new SaveCountryView(saveCountryViewModel);
+        cardPanel.add(saveCountryView);
+        return this;
+    }
+
+    public AppBuilder addSaveCountryUseCase() {
+        final SaveCountryOutputBoundary saveCountryOutputBoundary = new SaveCountryPresenter(saveCountryViewModel);
+        final SaveCountryInputBoundary saveCountryInteractor = new SaveCountryInteractor(
+                loginDataAccess,
+                fileUserDataAccessObject,
+                saveCountryOutputBoundary
+        );
+
+        SaveCountryController saveCountryController = new SaveCountryController(saveCountryInteractor);
+        saveCountryView.setSaveCountryController(saveCountryController);
         return this;
     }
 
