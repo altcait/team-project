@@ -11,7 +11,8 @@ import java.util.List;
  * - a list of currency names (no symbols)
  * - region
  * - subregion
- * - one main language
+ * - a list of country languages
+ * - a list of county name in its native language(s)
  */
 public class Country {
 
@@ -21,19 +22,22 @@ public class Country {
     private final String region;
     private final String subregion;
     private final List<String> languages;
+    private final List<String> nativeNames;
 
     public Country(String name,
                    String cca3,
                    List<String> currencies,
                    String region,
                    String subregion,
-                   List<String> languages) {
+                   List<String> languages,
+                   List<String> nativeNames) {
         this.name = name;
         this.cca3 = cca3;
         this.currencies = currencies;
         this.region = region;
         this.subregion = subregion;
         this.languages = languages;
+        this.nativeNames = nativeNames;
     }
 
     public String getName() {
@@ -60,6 +64,10 @@ public class Country {
         return languages;
     }
 
+    public List<String> getNativeNames() {
+        return nativeNames;
+    }
+
     @Override
     public String toString() {
         return "Country{" +
@@ -69,6 +77,7 @@ public class Country {
                 ", region='" + region + '\'' +
                 ", subregion='" + subregion + '\'' +
                 ", language='" + languages + '\'' +
+                ", nativeNames=" + nativeNames + '\'' +
                 '}';
     }
 }
