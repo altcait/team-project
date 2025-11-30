@@ -6,9 +6,9 @@ public class User {
 
     private final String name;
     private final String password;
-    private final Map<String, Map<String, String>> favouriteCountries;
+    private final Map<String, Map<String, Object>> favouriteCountries;
 
-    public User(String name, String password, Map<String, Map<String, String>> favouriteCountries) {
+    public User(String name, String password, Map<String, Map<String, Object>> favouriteCountries) {
         if ("".equals(name)) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
@@ -21,5 +21,5 @@ public class User {
     }
     public String getName() {return name;}
     public String getPassword() {return password;}
-    public Map<String, Map<String, String>> getFavouriteCountries() {return favouriteCountries;}
+    public Map<String, Map<String, Object>> getFavouriteCountries() {return favouriteCountries;}
 }
