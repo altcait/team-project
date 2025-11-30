@@ -26,7 +26,6 @@ import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInteractor;
 import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
-import view.LoginView;
 import view.ListsView;
 import view.SelectedListView;
 import use_case.save_country.SaveCountryInputBoundary;
@@ -68,7 +67,6 @@ public class AppBuilder {
     // Login feature wiring
     // ======================
 
-    public AppBuilder addLoginView() {
     public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
         loginSignUpView = new LoginSignUpView(loginViewModel);
