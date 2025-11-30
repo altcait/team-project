@@ -39,7 +39,7 @@ public class AppBuilder {
     private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
     final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
-    final LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+    final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
 
     public AppBuilder() {
@@ -90,7 +90,7 @@ public class AppBuilder {
     public AppBuilder addSaveCountryUseCase() {
         final SaveCountryOutputBoundary saveCountryOutputBoundary = new SaveCountryPresenter(saveCountryViewModel);
         final SaveCountryInputBoundary saveCountryInteractor = new SaveCountryInteractor(
-                dataAccess,
+                loginDataAccess,
                 fileUserDataAccessObject,
                 saveCountryOutputBoundary
         );
