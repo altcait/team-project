@@ -5,11 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByRegionDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByRegionDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/Country.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/CountryFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/CountryFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/DBUserDataAccessObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/save_country/SaveCountryInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/save_country/SaveCountryInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SaveCountryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SaveCountryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/save_country/SaveCountryInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/save_country/SaveCountryInteractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/UserCSVDataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/UserCSVDataAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/signup/SignUpViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpOutputBoundary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpUserAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpUserAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/LoginSignUpView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SignUpView.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +36,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -28,6 +44,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="search_by_region_view_modification_on_project_structure_branch" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,8 +58,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/altcait/team-project.git&quot;,
-    &quot;accountId&quot;: &quot;51d9b6a4-9782-49ac-b087-1daefd2ec436&quot;
+    &quot;url&quot;: &quot;git@github.com:altcait/team-project.git&quot;,
+    &quot;accountId&quot;: &quot;b38c12ed-1f8b-42c1-ad53-0ce247958c70&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -60,32 +77,30 @@
 }</component>
   <component name="ProjectId" id="34AQuKcDR5WEd1nu7HNJuh98E5d" />
   <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ApiSearchByRegionDataAccessObjectTest.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.SearchByRegionDemo.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "languageSearch-Country",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#20 on signup&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="team-project" />
@@ -98,11 +113,20 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SaveCountryInteractorTest.failureCountryAlreadyInListTest" />
+        <item itemvalue="JUnit.SaveCountryInteractorTest" />
+        <item itemvalue="JUnit.SaveCountryInteractorTest.successTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>
@@ -116,6 +140,8 @@
       <workItem from="1760654119388" duration="566000" />
       <workItem from="1760994849776" duration="5000" />
       <workItem from="1760998674722" duration="2000" />
+      <workItem from="1763931235680" duration="18411000" />
+      <workItem from="1763998012368" duration="2539000" />
     </task>
     <servers />
   </component>
@@ -159,5 +185,11 @@
         </entry>
       </map>
     </option>
+  </component>
+</project>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/team_project$SaveCountryInteractorTest.ic" NAME="SaveCountryInteractorTest Coverage Results" MODIFIED="1763955787720" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.save_country.*</FILTER>
+    </SUITE>
   </component>
 </project>

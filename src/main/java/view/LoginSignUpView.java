@@ -3,6 +3,7 @@ package view;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignUpController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -11,19 +12,21 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class LoginView extends JPanel implements PropertyChangeListener {
+public class LoginSignUpView extends JPanel implements PropertyChangeListener {
 
     private final LoginViewModel viewModel;
-    private LoginController controller;
+    private LoginController loginController;
+    private SignUpController signupController;
 
     private final JTextField usernameField = new JTextField(15);
     private final JPasswordField passwordField = new JPasswordField(15);
     private final JLabel errorLabel = new JLabel();
 
     private final JButton loginButton = new JButton("Login");
+    private final JButton signupButton = new JButton("Create Account");
     private final JButton cancelButton = new JButton("Cancel");
 
-    public LoginView(LoginViewModel viewModel) {
+    public LoginSignUpView(LoginViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
@@ -39,6 +42,7 @@ public class LoginView extends JPanel implements PropertyChangeListener {
 
         JPanel buttonRow = new JPanel();
         buttonRow.add(loginButton);
+        buttonRow.add(signupButton);
         buttonRow.add(cancelButton);
         add(buttonRow);
 
@@ -54,7 +58,6 @@ public class LoginView extends JPanel implements PropertyChangeListener {
 
     private void attachListeners() {
 
-        // Username listener (CSC207 style)
         usernameField.getDocument().addDocumentListener(new DocumentListener() {
             private void update() {
                 LoginState state = viewModel.getState();
@@ -72,7 +75,6 @@ public class LoginView extends JPanel implements PropertyChangeListener {
             public void changedUpdate(DocumentEvent e) { update(); }
         });
 
-        // Password listener (CSC207 style)
         passwordField.getDocument().addDocumentListener(new DocumentListener() {
             private void update() {
                 LoginState state = viewModel.getState();
@@ -93,7 +95,13 @@ public class LoginView extends JPanel implements PropertyChangeListener {
         // Login button
         loginButton.addActionListener(e -> {
             LoginState state = viewModel.getState();
-            controller.execute(state.getUsername(), state.getPassword());
+            loginController.execute(state.getUsername(), state.getPassword());
+        });
+
+        //Create Account button
+        signupButton.addActionListener(e -> {
+            LoginState state = viewModel.getState();
+            signupController.execute(state.getUsername(), state.getPassword());
         });
 
         // Cancel button
@@ -113,8 +121,12 @@ public class LoginView extends JPanel implements PropertyChangeListener {
         errorLabel.setText(newState.getLoginError());
     }
 
-    public void setLoginController(LoginController controller) {
-        this.controller = controller;
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+    public void  setSignupController(SignUpController signupController) {
+        this.signupController = signupController;
     }
 
     public String getViewName() {
