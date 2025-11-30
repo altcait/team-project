@@ -11,6 +11,8 @@ public class Main {
                 .addSaveCountryUseCase()
                 .addLoginSignUpView()
                 .addLoginUseCase()
+                .addViewSelectedList() // must be before ViewSavedList
+                .addViewSavedLists()
                 .addSignUpUseCase()
                 .addProfileUseCase()
                 .build();
