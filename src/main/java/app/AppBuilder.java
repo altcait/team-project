@@ -1,17 +1,7 @@
 package app;
 
-import data_access.UserCSVDataAccess;
-import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.login.LoginViewModel;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
-import use_case.login.LoginUserAccess;
-import view.LoginSignUpView;
-import view.ViewManager;
+import view.*;
 import interface_adapter.signup.*;
 import use_case.signup.*;
 
@@ -26,57 +16,53 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-    private LoginSignUpView loginSignUpView;
-    private LoginViewModel loginViewModel;
-    private SignUpViewModel signUpViewModel;
+
+    private SearchesView searchesView;
+    private SearchByLanguageView searchByLanguageView;
+    private SearchByRegionView searchByRegionView;
+    private SearchByCurrencyView searchByCurrencyView;
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
-    public AppBuilder addLoginSignUpView() {
-        loginViewModel = new LoginViewModel();
-        loginSignUpView = new LoginSignUpView(loginViewModel);
-
-        cardPanel.add(loginSignUpView, loginSignUpView.getViewName());
+    public AppBuilder addSearchesView() {
+        searchesView = new SearchesView(viewManagerModel);
+        cardPanel.add(searchesView, searchesView.getViewName());
         return this;
     }
 
-    public AppBuilder addLoginUseCase() {
-        LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
-
-        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel);
-        LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
-
-        LoginController loginController = new LoginController(loginInteractor);
-        loginSignUpView.setLoginController(loginController);
-
+    // TODO placeholder: update when merged with Search by Language use case
+    public AppBuilder addSearchByLanguageView() {
+        searchByLanguageView = new SearchByLanguageView();
+        cardPanel.add(searchByLanguageView, searchByLanguageView.getViewName());
         return this;
     }
 
-    public AppBuilder addSignUpUseCase() {
-        signUpViewModel = new SignUpViewModel();
-        SignUpUserAccess signupDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+    // TODO placeholder: update when merged with Search by Region use case
+    public AppBuilder addSearchByRegionView() {
+        searchByRegionView = new SearchByRegionView();
+        cardPanel.add(searchByRegionView, searchByRegionView.getViewName());
+        return this;
+    }
 
-        SignUpOutputBoundary signupPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
-        SignUpInputBoundary signupInteractor =
-                new SignUpInteractor(signupDataAccess, signupPresenter, new UserFactory());
-
-        SignUpController signupController = new SignUpController(signupInteractor);
-        loginSignUpView.setSignupController(signupController);
-
+    // TODO placeholder: update when merged with Search by Currency use case
+    public AppBuilder addSearchByCurrencyView() {
+        searchByCurrencyView = new SearchByCurrencyView();
+        cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
         return this;
     }
 
     public JFrame build() {
-        JFrame application = new JFrame("Example App");
+        JFrame application = new JFrame("Searches View");
 
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(cardPanel);
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        viewManagerModel.setState(loginSignUpView.getViewName());
+        viewManagerModel.setState(searchesView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
