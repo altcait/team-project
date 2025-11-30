@@ -67,15 +67,24 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         }
     }
 
-    private void ensureJsonExists() {
+    private void ensureJsonExists() throws RuntimeException {
         Path jsonFilePath = Paths.get(jsonFile.getAbsolutePath());
+        // If file doesn't exist, create it and initialize it with empty json brackets
         if (!Files.exists(jsonFilePath)) {
             try {
                 Files.createFile(jsonFilePath);
-                Files.write(jsonFilePath, "".getBytes());
+                Files.writeString(jsonFilePath, "{}");
             } catch (IOException e) {
                 throw new RuntimeException("Failed to create json file", e);
             }
+        }
+        // If file exists but is empty, add empty json brackets
+        try {
+            if (Files.size(jsonFilePath) == 0) {
+                Files.writeString(jsonFilePath, "{}");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

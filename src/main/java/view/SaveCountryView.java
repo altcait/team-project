@@ -126,8 +126,8 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         countryNotesInputField.setText(saveCountryState.getNotes());
         listNameDropdown.setSelectedIndex(-1);
         // show error or success message
-//        saveCountryResultField.setText(saveCountryState.getResultString());
-        JOptionPane.showMessageDialog(null, saveCountryState.getResultString(), "Result", JOptionPane.INFORMATION_MESSAGE);
+        saveCountryResultField.setText(saveCountryState.getResultString());
+//        JOptionPane.showMessageDialog(null, saveCountryState.getResultString(), "Result", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void setSaveCountryController(SaveCountryController saveCountryController) { this.saveCountryController = saveCountryController; }

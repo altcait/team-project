@@ -38,6 +38,7 @@ public class AppBuilder {
     private SaveCountryViewModel saveCountryViewModel;
 
     final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+    final LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
 
     public AppBuilder() {
@@ -47,13 +48,12 @@ public class AppBuilder {
     public AppBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
-
         cardPanel.add(loginView, loginView.getViewName());
         return this;
     }
 
     public AppBuilder addLoginUseCase() {
-        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+//        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
         LoginOutputBoundary presenter = new LoginPresenter(loginViewModel);
         LoginInputBoundary interactor = new LoginInteractor(dataAccess, presenter);
@@ -74,6 +74,7 @@ public class AppBuilder {
     public AppBuilder addSaveCountryUseCase() {
         final SaveCountryOutputBoundary saveCountryOutputBoundary = new SaveCountryPresenter(saveCountryViewModel);
         final SaveCountryInputBoundary saveCountryInteractor = new SaveCountryInteractor(
+                dataAccess,
                 fileUserDataAccessObject,
                 saveCountryOutputBoundary
         );
@@ -91,7 +92,7 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        viewManagerModel.setState(saveCountryView.getViewName());
+        viewManagerModel.setState(loginView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;

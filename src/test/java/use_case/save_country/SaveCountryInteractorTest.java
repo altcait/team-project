@@ -1,38 +1,68 @@
 package use_case.save_country;
 
 import data_access.FileUserDataAccessObject;
+import data_access.UserCSVDataAccess;
+import entity.UserFactory;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SaveCountryInteractorTest {
     @Test
-    public void successTest(){
+    public void successTest() throws IOException {
         // test adding a new country to an existing user's existing list
         SaveCountryInputData inputData = new SaveCountryInputData("AUS", "visited", "dream vacation");
-        // Create in-memory DAO for testing purposes
-        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject("favourites_for_test.json");
+
+        // Create in-memory DAOs for testing purposes
+        Path tempFile = Files.createTempFile("favourites_for_test", ".json");
+        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject(tempFile.toString());
+        UserCSVDataAccess userCSVDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
         // Stub presenter
         SaveCountryOutputBoundary successPresenter = createSuccessPresenter(favouritesRepository);
 
         // create an interactor and execute it
-        SaveCountryInputBoundary interactor = new SaveCountryInteractor(favouritesRepository, successPresenter);
+        SaveCountryInputBoundary interactor = new SaveCountryInteractor(userCSVDataAccess, favouritesRepository, successPresenter);
         interactor.execute(inputData);
+        // Clean up test file
+        Files.deleteIfExists(tempFile);
     }
 
     @Test
-    public void failureCountryAlreadyInListTest(){
+    public void failureCountryAlreadyInListTest() throws IOException{
         // test adding a new country to an existing user's existing list
         SaveCountryInputData inputData = new SaveCountryInputData("HKG", "visited", "was great!");
-        // Create in-memory DAO for testing purposes
-        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject("favourites_for_test.json");
+
+        // Create in-memory DAOs for testing purposes
+        Path tempFile = Files.createTempFile("favourites_for_test", ".json");
+        SaveCountryDataAccessInterface favouritesRepository = new FileUserDataAccessObject(tempFile.toString());
+        String json = "{"
+                + "\"caitlinhen001\":{"
+                + "\"visited\":{"
+                + "\"description\":\"\","
+                + "\"countries\":{"
+                + "\"HKG\":\"amazing!\""
+                + "}"
+                + "}"
+                + "}"
+                + "}";
+        Files.writeString(tempFile, json);
+        UserCSVDataAccess userCSVDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
         // Stub presenter
         SaveCountryOutputBoundary failurePresenter = createFailurePresenter(inputData);
 
         // create an interactor and execute it
-        SaveCountryInputBoundary interactor = new SaveCountryInteractor(favouritesRepository, failurePresenter);
+        SaveCountryInputBoundary interactor = new SaveCountryInteractor(userCSVDataAccess, favouritesRepository, failurePresenter);
         interactor.execute(inputData);
+
+        Files.deleteIfExists(tempFile);
     }
 
     private static SaveCountryOutputBoundary createSuccessPresenter(SaveCountryDataAccessInterface favouritesRepository) {

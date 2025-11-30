@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aeeff307-1dc0-4490-bf26-2384f6b74d4d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/DBUserDataAccessObject.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/save_country/SaveCountryInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/save_country/SaveCountryInteractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/SaveCountryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SaveCountryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/save_country/SaveCountryInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/save_country/SaveCountryInteractorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +70,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "JUnit.SaveCountryInteractorTest.executor": "Coverage",
+    "JUnit.SaveCountryInteractorTest.executor": "Run",
+    "JUnit.SaveCountryInteractorTest.failureCountryAlreadyInListTest.executor": "Debug",
     "JUnit.SaveCountryInteractorTest.successTest.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -90,10 +93,12 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+      <recent name="$PROJECT_DIR$/src/test/java/use_case/save_country" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.SaveCountryInteractorTest.failureCountryAlreadyInListTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="app.Main" />
       <module name="TeamProject" />
@@ -118,6 +123,22 @@
       <option name="PACKAGE_NAME" value="use_case.save_country" />
       <option name="MAIN_CLASS_NAME" value="use_case.save_country.SaveCountryInteractorTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SaveCountryInteractorTest.failureCountryAlreadyInListTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="use_case.save_country.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="use_case.save_country" />
+      <option name="MAIN_CLASS_NAME" value="use_case.save_country.SaveCountryInteractorTest" />
+      <option name="METHOD_NAME" value="failureCountryAlreadyInListTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -151,9 +172,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.SaveCountryInteractorTest.failureCountryAlreadyInListTest" />
         <item itemvalue="JUnit.SaveCountryInteractorTest" />
         <item itemvalue="JUnit.SaveCountryInteractorTest.successTest" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
