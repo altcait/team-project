@@ -1,6 +1,7 @@
 package app;
 
 import data_access.UserCSVDataAccess;
+import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
@@ -12,6 +13,9 @@ import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
 import interface_adapter.ViewSelectedList.ViewSelectedListController;
 import interface_adapter.ViewSelectedList.ViewSelectedListPresenter;
 import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.save_country.SaveCountryController;
+import interface_adapter.save_country.SaveCountryPresenter;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -25,21 +29,33 @@ import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
 import view.LoginView;
 import view.ListsView;
 import view.SelectedListView;
+import use_case.save_country.SaveCountryInputBoundary;
+import use_case.save_country.SaveCountryOutputBoundary;
+import use_case.save_country.SaveCountryInteractor;
+import view.LoginSignUpView;
 import view.ViewManager;
+import view.SaveCountryView;
+import interface_adapter.signup.*;
+import use_case.signup.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AppBuilder {
-
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-    private LoginView loginView;
+    private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
+    private SaveCountryView saveCountryView;
+    private SaveCountryViewModel saveCountryViewModel;
+    private SignUpViewModel signUpViewModel;
+    final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+    final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+
 
     // NEW: we keep a reference so ListsView can call SelectedListView
     private SelectedListView selectedListView;
@@ -53,22 +69,57 @@ public class AppBuilder {
     // ======================
 
     public AppBuilder addLoginView() {
+    public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
-        loginView = new LoginView(loginViewModel);
+        loginSignUpView = new LoginSignUpView(loginViewModel);
 
-        cardPanel.add(loginView, loginView.getViewName());
+        cardPanel.add(loginSignUpView, loginSignUpView.getViewName());
         return this;
     }
 
     public AppBuilder addLoginUseCase() {
-        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+//        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
-        LoginOutputBoundary presenter = new LoginPresenter(loginViewModel);
-        LoginInputBoundary interactor = new LoginInteractor(dataAccess, presenter);
+        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel);
+        LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
 
-        LoginController controller = new LoginController(interactor);
-        loginView.setLoginController(controller);
+        LoginController loginController = new LoginController(loginInteractor);
+        loginSignUpView.setLoginController(loginController);
 
+        return this;
+    }
+
+    public AppBuilder addSignUpUseCase() {
+        signUpViewModel = new SignUpViewModel();
+        SignUpUserAccess signupDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+
+        SignUpOutputBoundary signupPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
+        SignUpInputBoundary signupInteractor =
+                new SignUpInteractor(signupDataAccess, signupPresenter, new UserFactory());
+
+        SignUpController signupController = new SignUpController(signupInteractor);
+        loginSignUpView.setSignupController(signupController);
+
+        return this;
+    }
+
+    public AppBuilder addSaveCountryView() {
+        saveCountryViewModel = new SaveCountryViewModel();
+        saveCountryView = new SaveCountryView(saveCountryViewModel);
+        cardPanel.add(saveCountryView);
+        return this;
+    }
+
+    public AppBuilder addSaveCountryUseCase() {
+        final SaveCountryOutputBoundary saveCountryOutputBoundary = new SaveCountryPresenter(saveCountryViewModel);
+        final SaveCountryInputBoundary saveCountryInteractor = new SaveCountryInteractor(
+                loginDataAccess,
+                fileUserDataAccessObject,
+                saveCountryOutputBoundary
+        );
+
+        SaveCountryController saveCountryController = new SaveCountryController(saveCountryInteractor);
+        saveCountryView.setSaveCountryController(saveCountryController);
         return this;
     }
 
@@ -135,6 +186,7 @@ public class AppBuilder {
         // 1) Load My Lists
         // 2) Click Example List -> goes to SelectedListView
         viewManagerModel.setState("lists");
+        viewManagerModel.setState(loginSignUpView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
