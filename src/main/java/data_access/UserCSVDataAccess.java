@@ -3,11 +3,12 @@ package data_access;
 import entity.User;
 import entity.UserFactory;
 import use_case.login.LoginUserAccess;
+import use_case.signup.SignUpUserAccess;
 
 import java.io.*;
 import java.util.*;
 
-public class UserCSVDataAccess implements LoginUserAccess {
+public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
     private static final String HEADER = "username,password,countries";
 
