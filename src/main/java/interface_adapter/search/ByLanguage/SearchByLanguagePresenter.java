@@ -12,7 +12,7 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     private final SearchByLanguageViewModel searchByLanguageViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    //private final ProfileViewModel profileViewModel;    // TODO: update to appropriate "previous view" ViewModel
+    private final SearchesView searchesView;    // TODO: update to appropriate "previous view" ViewModel
 
     public SearchByLanguagePresenter(SearchByLanguageViewModel searchByLanguageViewModel,
                                      ViewManagerModel viewManagerModel) {
@@ -55,9 +55,9 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     }
 
     // TODO: back" from Search view(s)
-//    @Override
-//    public void switchToPreviousView() {
-//        viewManagerModel.setState(profileViewModel.getViewName());  // TODO: update to appropriate "previous view" ViewModel
-//        viewManagerModel.firePropertyChange();
-//    }
+    @Override
+    public void switchToPreviousView() {
+        viewManagerModel.setState(searchesView.getViewName());
+        viewManagerModel.firePropertyChange();
+    }
 }
