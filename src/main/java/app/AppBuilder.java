@@ -26,7 +26,7 @@ import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInteractor;
 import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
-    import view.ListsView;
+import view.ListsView;
 import view.SelectedListView;
 import use_case.save_country.SaveCountryInputBoundary;
 import use_case.save_country.SaveCountryOutputBoundary;
