@@ -3,6 +3,7 @@ package use_case.signup;
 import entity.User;
 import entity.UserFactory;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SignUpInteractor implements SignUpInputBoundary {
     private final SignUpUserAccess userAccess;
@@ -30,6 +31,7 @@ public class SignUpInteractor implements SignUpInputBoundary {
         }
 
         User newUser = userFactory.create(input.getUsername(), input.getPassword());
+        User newUser = userFactory.create(input.getUsername(), input.getPassword(), new HashMap<>());
         userAccess.save(newUser);
 
         presenter.prepareSuccessView(new SignUpOutput(input.getUsername()));

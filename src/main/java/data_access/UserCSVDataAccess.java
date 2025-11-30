@@ -65,6 +65,11 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
                 String password = cols[headers.get("password")].trim();
 
                 User user = userFactory.create(username, password);
+//                List<String> favourites = countriesStr.isEmpty()
+//                        ? new ArrayList<>()
+//                        : Arrays.asList(countriesStr.split(";"));
+
+                User user = userFactory.create(username, password, new HashMap<>());
                 users.put(username, user);
             }
         } catch (IOException e) {
@@ -81,6 +86,12 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
                 writer.write(String.format("%s,%s",
                         user.getName(),
                         user.getPassword()));
+//                String countriesJoined = String.join(";", user.getFavouriteCountries());
+
+                writer.write(String.format("%s,%s",
+                        user.getName(),
+                        user.getPassword()
+                        ));
                 writer.newLine();
             }
 
