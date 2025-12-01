@@ -27,6 +27,9 @@ public class ListsView extends JPanel {
 
     private final String profileViewName = "profile";
 
+    // 🔹 sort state for lists: true = A–Z, false = Z–A
+    private boolean sortAscending = true;
+
     public ListsView(ViewSavedListsController controller,
                      ViewSavedListsViewModel viewModel,
                      SelectedListView selectedListView,
@@ -54,7 +57,7 @@ public class ListsView extends JPanel {
         title.setFont(title.getFont().deriveFont(Font.BOLD, 18f));
         titleRow.add(title);
 
-        // Row 2: Create + Delete
+        // Row 2: Create + Delete + Sort
         JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton createListButton = new JButton("Create List");
@@ -64,6 +67,10 @@ public class ListsView extends JPanel {
         JButton deleteListButton = new JButton("Delete List");
         deleteListButton.addActionListener(e -> deleteSelectedList());
         buttonRow.add(deleteListButton);
+
+        JButton sortListsButton = new JButton("Sort A–Z");
+        sortListsButton.addActionListener(e -> sortListsAlphabetically(sortListsButton));
+        buttonRow.add(sortListsButton);
 
         topPanel.add(titleRow);
         topPanel.add(buttonRow);
@@ -106,12 +113,56 @@ public class ListsView extends JPanel {
         });
     }
 
+    /**
+     * Toggle sort of lists between A–Z and Z–A based on what is currently displayed.
+     */
+    private void sortListsAlphabetically(JButton sortButton) {
+        if (listModel.isEmpty()) {
+            errorLabel.setText("No lists to sort.");
+            return;
+        }
+
+        // Copy current items from the model
+        java.util.List<String> names = new java.util.ArrayList<>();
+        for (int i = 0; i < listModel.size(); i++) {
+            names.add(listModel.getElementAt(i));
+        }
+
+        // Sort A–Z
+        names.sort(String.CASE_INSENSITIVE_ORDER);
+
+        // If we’re currently in descending mode, reverse after sorting
+        if (!sortAscending) {
+            java.util.Collections.reverse(names);
+        }
+
+        // Put back into model
+        listModel.clear();
+        for (String n : names) {
+            listModel.addElement(n);
+        }
+
+        // Flip direction for next click
+        sortAscending = !sortAscending;
+
+        // Update button text to indicate what the *next* click will do
+        if (sortAscending) {
+            sortButton.setText("Sort A–Z");
+        } else {
+            sortButton.setText("Sort Z–A");
+        }
+
+        errorLabel.setText("");
+    }
+
     // Called when CardLayout shows this view
     @Override
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
         if (aFlag) {
             loadListsForCurrentUser();
+            // Reset sort state whenever we come back to this view
+            sortAscending = true;
         }
     }
 
@@ -233,7 +284,6 @@ public class ListsView extends JPanel {
             loadListsForCurrentUser();
         }
     }
-
 
     // ==== LOAD + REFRESH UI ====
     private void loadListsForCurrentUser() {

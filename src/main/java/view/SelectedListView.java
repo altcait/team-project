@@ -33,6 +33,9 @@ public class SelectedListView extends JPanel {
 
     private final JLabel errorLabel = new JLabel("");
 
+    // 🔹 sort state: true = A–Z, false = Z–A
+    private boolean sortAscending = true;
+
     public SelectedListView(ViewSelectedListController controller,
                             ViewSelectedListViewModel viewModel,
                             ViewManagerModel viewManagerModel,
@@ -74,14 +77,9 @@ public class SelectedListView extends JPanel {
         ));
         buttonRow.add(searchButton);
 
-        // --- Sort button (placeholder) ---
-        JButton sortButton = new JButton("Sort");
-        sortButton.addActionListener(e -> JOptionPane.showMessageDialog(
-                this,
-                "Sort feature not implemented yet.",
-                "Sort",
-                JOptionPane.INFORMATION_MESSAGE
-        ));
+        // --- Sort button (toggles A–Z / Z–A) ---
+        JButton sortButton = new JButton("Sort A–Z");
+        sortButton.addActionListener(e -> sortCountriesAlphabetically(sortButton));
         buttonRow.add(sortButton);
 
         // --- Delete Country (popup-based) ---
@@ -140,6 +138,53 @@ public class SelectedListView extends JPanel {
         viewModel.setCurrentListName(listName);
         controller.viewSelectedList(username, listName);
         refreshFromViewModel();
+        // reset sort direction whenever we load a list
+        sortAscending = true;
+    }
+
+    /**
+     * Sort countries currently shown in the JList, toggling between A–Z and Z–A.
+     */
+    private void sortCountriesAlphabetically(JButton sortButton) {
+        if (countriesModel.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "There are no countries to sort in this list.",
+                    "Sort Countries",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        // Copy items from the model into a List
+        java.util.List<String> countries = new java.util.ArrayList<>();
+        for (int i = 0; i < countriesModel.size(); i++) {
+            countries.add(countriesModel.getElementAt(i));
+        }
+
+        // Sort A–Z first
+        countries.sort(String.CASE_INSENSITIVE_ORDER);
+
+        // If current direction is descending, reverse after sort
+        if (!sortAscending) {
+            java.util.Collections.reverse(countries);
+        }
+
+        // Put them back into the model
+        countriesModel.clear();
+        for (String c : countries) {
+            countriesModel.addElement(c);
+        }
+
+        // Flip the direction for next time
+        sortAscending = !sortAscending;
+
+        // Update button label to show what the *next* click will do
+        if (sortAscending) {
+            sortButton.setText("Sort A–Z");
+        } else {
+            sortButton.setText("Sort Z–A");
+        }
     }
 
     private void refreshFromViewModel() {
@@ -336,7 +381,6 @@ public class SelectedListView extends JPanel {
         // Persist to JSON
         favouritesDao.save();
 
-        // No visible change in list (still codes), but notes are now stored.
         JOptionPane.showMessageDialog(
                 this,
                 "Notes saved for " + countryCode + ".",
