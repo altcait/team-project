@@ -10,7 +10,7 @@ import java.util.*;
 
 public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
-    private static final String HEADER = "username,password,countries";
+    private static final String HEADER = "username,password";
 
     private final File userCSVFile;
     private final UserFactory userFactory;
@@ -26,7 +26,6 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
         headers.put("username", 0);
         headers.put("password", 1);
-        headers.put("countries", 2);
 
         try {
             if (!userCSVFile.exists()) {
@@ -60,17 +59,18 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
             String row;
             while ((row = reader.readLine()) != null) {
-                String[] cols = row.split(",", 3);
+                String[] cols = row.split(",", 2);
 
                 String username = cols[headers.get("username")].trim();
                 String password = cols[headers.get("password")].trim();
-                String countriesStr = cols.length > 2 ? cols[2].trim() : "";
 
 //                List<String> favourites = countriesStr.isEmpty()
 //                        ? new ArrayList<>()
 //                        : Arrays.asList(countriesStr.split(";"));
 
-                User user = userFactory.create(username, password, new HashMap<>());
+                Map<String, Map<String, Object>> favourites = new HashMap<>();
+
+                User user = userFactory.create(username, password, favourites);
                 users.put(username, user);
             }
         } catch (IOException e) {
@@ -84,14 +84,13 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
             writer.newLine();
 
             for (User user : users.values()) {
-//                String countriesJoined = String.join(";", user.getFavouriteCountries());
-
                 writer.write(String.format("%s,%s",
                         user.getName(),
-                        user.getPassword()
-                        ));
+                        user.getPassword()));
+
                 writer.newLine();
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -120,6 +119,6 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
     @Override
     public String getCurrentUsername() {
-        return this.currentUsername;
+        return currentUsername;
     }
 }

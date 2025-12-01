@@ -3,6 +3,7 @@ package app;
 import data_access.UserCSVDataAccess;
 import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
+
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -16,24 +17,25 @@ import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
 import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryPresenter;
+import interface_adapter.profile.*;
+
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
+import use_case.profile.*;
+
 import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
 import use_case.RetrieveSavedLists.ViewSavedListsInteractor;
 import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInteractor;
 import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
-import view.ListsView;
-import view.SelectedListView;
+import view.*;
 import use_case.save_country.SaveCountryInputBoundary;
 import use_case.save_country.SaveCountryOutputBoundary;
 import use_case.save_country.SaveCountryInteractor;
-import view.LoginSignUpView;
-import view.ViewManager;
-import view.SaveCountryView;
+
 import interface_adapter.signup.*;
 import use_case.signup.*;
 
@@ -58,14 +60,14 @@ public class AppBuilder {
 
     // NEW: we keep a reference so ListsView can call SelectedListView
     private SelectedListView selectedListView;
+    private ProfileViewModel profileViewModel;
+    private EditProfileViewModel editProfileViewModel;
+    private UserCSVDataAccess userDataAccess;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
+        userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
     }
-
-    // ======================
-    // Login feature wiring
-    // ======================
 
     public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
@@ -78,7 +80,10 @@ public class AppBuilder {
     public AppBuilder addLoginUseCase() {
 //        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
-        LoginOutputBoundary loginPresenter = new LoginPresenter(loginViewModel);
+        LoginUserAccess loginDataAccess = userDataAccess;
+
+        LoginOutputBoundary loginPresenter = new LoginPresenter(
+                loginViewModel, viewManagerModel, this::getProfileViewModel);
         LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
 
         LoginController loginController = new LoginController(loginInteractor);
@@ -89,7 +94,8 @@ public class AppBuilder {
 
     public AppBuilder addSignUpUseCase() {
         signUpViewModel = new SignUpViewModel();
-        SignUpUserAccess signupDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+
+        SignUpUserAccess signupDataAccess = userDataAccess;
 
         SignUpOutputBoundary signupPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
         SignUpInputBoundary signupInteractor =
@@ -120,10 +126,6 @@ public class AppBuilder {
         saveCountryView.setSaveCountryController(saveCountryController);
         return this;
     }
-
-    // ============================
-    // View saved lists (lists page)
-    // ============================
 
     public AppBuilder addViewSavedLists() {
         // 1. Create the view model for the lists screen
@@ -172,8 +174,47 @@ public class AppBuilder {
     }
 
 
+    public AppBuilder addProfileUseCase() {
+
+        profileViewModel = new ProfileViewModel();
+
+        ProfileOutputBoundary profilePresenter =
+                new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel);
+
+        ProfileInputBoundary profileInteractor =
+                new ProfileInteractor(profilePresenter);
+
+        ProfileController profileController =
+                new ProfileController(profileInteractor);
+
+        ProfileView profileView = new ProfileView(profileViewModel);
+        profileView.setController(profileController);
+
+        cardPanel.add(profileView, profileView.getViewName());
+
+        return this;
+    }
+
+    public AppBuilder addEditProfileUseCase() {
+        editProfileViewModel = new EditProfileViewModel();
+        EditProfileView editProfileView = new EditProfileView(editProfileViewModel);
+
+        ProfileController profileController = new ProfileController(
+                new ProfileInteractor(new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel)));
+
+        editProfileView.setController(profileController);
+
+        cardPanel.add(editProfileView, editProfileView.getViewName());
+
+        return this;
+    }
+
+    private ProfileViewModel getProfileViewModel() {
+        return profileViewModel;
+    }
+
     public JFrame build() {
-        JFrame application = new JFrame("Example App");
+        JFrame application = new JFrame("Country Explorer");
 
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(cardPanel);
@@ -190,3 +231,5 @@ public class AppBuilder {
         return application;
     }
 }
+
+
