@@ -9,8 +9,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FileUserDataAccessObject implements SaveCountryDataAccessInterface {
     private final File jsonFile;
@@ -95,7 +94,10 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
     @Override
     public boolean listExists(String username, String listName) {
-        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username);
+        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username.toLowerCase());
+        if (listsWithDetails == null) {
+            return false;
+        }
         return listsWithDetails.containsKey(listName.toLowerCase());
     }
 
@@ -164,5 +166,70 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // ============================================
+    // NEW READ METHODS ADDED FOR RETRIEVING DATA
+    // ============================================
+
+    /**
+     * Get all list names for a user.
+     * @param username the user to get lists for
+     * @return list of list names (empty list if user has no lists or doesn't exist)
+     */
+    public List<String> getUserLists(String username) {
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
+        if (userLists == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(userLists.keySet());
+    }
+
+    /**
+     * Get details of a specific list (description and countries map).
+     * @param username the user who owns the list
+     * @param listName the name of the list
+     * @return map containing "description" and "countries", or null if list doesn't exist
+     */
+    public Map<String, Object> getListDetails(String username, String listName) {
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
+        if (userLists == null) {
+            return null;
+        }
+        return userLists.get(listName.toLowerCase());
+    }
+
+    /**
+     * Get country codes in a specific list.
+     * @param username the user who owns the list
+     * @param listName the name of the list
+     * @return list of country codes (empty list if list has no countries or doesn't exist)
+     */
+    public List<String> getCountriesInList(String username, String listName) {
+        Map<String, Object> listDetails = getListDetails(username, listName);
+        if (listDetails == null) {
+            return new ArrayList<>();
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> countries = (Map<String, String>) listDetails.get("countries");
+        if (countries == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(countries.keySet());
+    }
+
+    /**
+     * Get description of a specific list.
+     * @param username the user who owns the list
+     * @param listName the name of the list
+     * @return description string (empty string if no description or list doesn't exist)
+     */
+    public String getListDescription(String username, String listName) {
+        Map<String, Object> listDetails = getListDetails(username, listName);
+        if (listDetails == null) {
+            return "";
+        }
+        return (String) listDetails.getOrDefault("description", "");
     }
 }
