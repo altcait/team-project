@@ -7,6 +7,10 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
 
         JFrame application = appBuilder
+                .addSearchesView()
+                .addSearchByLanguageView()
+                .addSearchByRegionView()
+                .addSearchByCurrencyView()
                 .addSaveCountryView()
                 .addSaveCountryUseCase()
                 .addLoginSignUpView()
@@ -14,6 +18,8 @@ public class Main {
                 .addViewSelectedList() // must be before ViewSavedList
                 .addViewSavedLists()
                 .addSignUpUseCase()
+                .addProfileUseCase()
+                .addEditProfileUseCase()
                 .build();
 
         application.pack();
