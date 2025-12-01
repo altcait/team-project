@@ -106,11 +106,23 @@ public class SelectedListView extends JPanel {
     }
 
     public void loadList(String username, String listName) {
+        // If we're already showing this same list, just use whatever is in the
+        // ViewModel (which includes any edited description) and DON'T reload
+        // from the JSON file.
+        if (username.equals(viewModel.getCurrentUsername())
+                && listName.equals(viewModel.getCurrentListName())) {
+            refreshFromViewModel();
+            return;
+        }
+
+        // First time opening this list (or switching to a different list):
+        // load from the use case / DAO
         viewModel.setCurrentUsername(username);
         viewModel.setCurrentListName(listName);
         controller.viewSelectedList(username, listName);
         refreshFromViewModel();
     }
+
 
     private void refreshFromViewModel() {
         String error = viewModel.getErrorMessage();
