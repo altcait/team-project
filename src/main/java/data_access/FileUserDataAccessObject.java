@@ -1,7 +1,6 @@
 package data_access;
 
-import org.json.JSONException;
-import use_case.FavoritesList.FavoritesReadDataAccess;
+import use_case.FavoriteLists.FavoritesReadDataAccess;
 import use_case.save_country.SaveCountryDataAccessInterface;
 
 import org.json.JSONObject;

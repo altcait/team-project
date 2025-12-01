@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/use_case/FavoritesList/FavoritesReadDataAccess.java" afterDir="false" />
+    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Cleaner View Saved Lists Interactor and View Selected list Interactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/FavoritesList/FavoriteList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/FavoriteLists/FavoriteList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/FavoritesList/FavoritesReadDataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/FavoriteLists/FavoritesReadDataAccess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,15 +57,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Retrieve-saved-countries&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "retrieve-saved-countries",
+    "kotlin-language-version-configured": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,6 +81,28 @@
       <option name="presentableId" value="Default" />
       <updated>1764560661428</updated>
     </task>
+    <task id="LOCAL-00001" summary="Made the code be able to read JSON File instead of dummy data">
+      <option name="closed" value="true" />
+      <created>1764586099265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764586099265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Cleaner View Saved Lists Interactor and View Selected list Interactor">
+      <option name="closed" value="true" />
+      <created>1764586286615</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764586286615</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Made the code be able to read JSON File instead of dummy data" />
+    <MESSAGE value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
   </component>
 </project>

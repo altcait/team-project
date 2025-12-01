@@ -1,1 +1,59 @@
-{"caitlinhen001":{"visited":{"description":"","countries":{"HKG":"amazing!"}}, "bucket list":{"description":"","countries":{"AUS":""}}}}
+{
+  "caitlinhen001": {
+    "visited": {
+      "description": "",
+      "countries": {
+        "HKG": "amazing!"
+      }
+    },
+    "bucket list": {
+      "description": "",
+      "countries": {
+        "AUS": ""
+      }
+    }
+  },
+  "derek": {
+    "visited": {
+      "description": "Countries I've traveled to",
+      "countries": {
+        "USA": "Loved New York!",
+        "CAN": "Beautiful mountains",
+        "MEX": "Amazing food"
+      }
+    },
+    "want to travel": {
+      "description": "Places I want to visit next",
+      "countries": {
+        "JPN": "Want to see Tokyo",
+        "ITA": "Visit Rome and Venice",
+        "FRA": "See the Eiffel Tower"
+      }
+    },
+    "favorites": {
+      "description": "My all-time favorite destinations",
+      "countries": {
+        "GBR": "London was fantastic",
+        "ESP": "Barcelona beaches"
+      }
+    }
+  },
+  "mafe": {
+    "asia trip": {
+      "description": "Dream trip through Asia",
+      "countries": {
+        "JPN": "",
+        "KOR": "Love K-pop",
+        "THA": "Beaches"
+      }
+    },
+    "europe tour": {
+      "description": "Planned European adventure",
+      "countries": {
+        "FRA": "",
+        "ITA": "",
+        "ESP": ""
+      }
+    }
+  }
+}

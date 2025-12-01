@@ -1,4 +1,4 @@
-package use_case.FavoritesList;
+package use_case.FavoriteLists;
 
 import java.util.List;
 import java.util.Map;
