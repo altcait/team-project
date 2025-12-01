@@ -6,7 +6,7 @@ import java.util.List;
 public class ViewSavedListsInteractor implements ViewSavedListsInputBoundary {
 
     private final ViewSavedListsOutputBoundary presenter;
-    private final FavoritesReadDataAccess dataAccess;  // Changed to interface
+    private final FavoritesReadDataAccess dataAccess;
 
     public ViewSavedListsInteractor(ViewSavedListsOutputBoundary presenter,
                                     FavoritesReadDataAccess dataAccess) {

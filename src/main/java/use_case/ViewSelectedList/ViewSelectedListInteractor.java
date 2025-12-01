@@ -6,7 +6,7 @@ import java.util.List;
 public class ViewSelectedListInteractor implements ViewSelectedListInputBoundary {
 
     private final ViewSelectedListOutputBoundary presenter;
-    private final FavoritesReadDataAccess dataAccess;  // Changed to interface
+    private final FavoritesReadDataAccess dataAccess;
 
     public ViewSelectedListInteractor(ViewSelectedListOutputBoundary presenter,
                                       FavoritesReadDataAccess dataAccess) {
