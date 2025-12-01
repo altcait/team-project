@@ -72,6 +72,7 @@ public class AppBuilder {
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
         loginDataAccess = userDataAccess;
 
+        // single favourites JSON DAO
         fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
     }
 
@@ -162,7 +163,7 @@ public class AppBuilder {
         ViewSavedListsOutputBoundary listsPresenter =
                 new ViewSavedListsPresenter(listsViewModel);
 
-        // 3. Create the interactor
+        // 3. Create the interactor (use case)
         ViewSavedListsInputBoundary listsInteractor =
                 new ViewSavedListsInteractor(listsPresenter, fileUserDataAccessObject);
 
@@ -170,25 +171,30 @@ public class AppBuilder {
         ViewSavedListsController listsController =
                 new ViewSavedListsController(listsInteractor);
 
-        // 5. Create the view, giving it a way to ask "who is logged in?"
+        // 5. Create the view and add it to the card layout.
+        //    We pass:
+        //    - controller + viewModel
+        //    - selectedListView (detail view)
+        //    - viewManagerModel (for navigation)
+        //    - a Supplier<String> that returns the currently logged-in username
+        //    - fileUserDataAccessObject so Create List can write to JSON
         ListsView listsView =
                 new ListsView(
                         listsController,
                         listsViewModel,
                         selectedListView,
                         viewManagerModel,
-                        () -> ((UserCSVDataAccess) loginDataAccess).getCurrentUsername()
+                        () -> {
+                            String current = loginDataAccess.getCurrentUsername();
+                            return current != null ? current : "";
+                        },
+                        fileUserDataAccessObject
                 );
-
-        // Let ListsView know when the visible view changes
-        viewManagerModel.addPropertyChangeListener(listsView);
 
         cardPanel.add(listsView, listsView.viewName);
 
         return this;
     }
-
-
 
     public AppBuilder addProfileUseCase() {
         profileViewModel = new ProfileViewModel();

@@ -40,30 +40,41 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface,
 
                 for (String listName : userLists.keySet()) {
                     JSONObject listDetails = userLists.getJSONObject(listName);
-                    JSONObject countriesList = listDetails.getJSONObject("countries");
-                    String listDescription = "";
 
+                    // 🔹 NEW: handle missing "countries" safely
+                    JSONObject countriesList;
+                    if (listDetails.has("countries")) {
+                        countriesList = listDetails.getJSONObject("countries");
+                    } else {
+                        countriesList = new JSONObject();  // treat as empty
+                    }
+
+                    String listDescription = "";
                     if (listDetails.has("description")) {
                         listDescription = listDetails.getString("description");
                     }
 
                     Map<String, Object> details = new HashMap<>();
-
                     Map<String, String> countriesWithNotes = new HashMap<>();
 
                     for (String countryCode : countriesList.keySet()) {
                         countriesWithNotes.put(countryCode, countriesList.getString(countryCode));
                     }
+
                     details.put("description", listDescription);
                     details.put("countries", countriesWithNotes);
+
                     listsWithCountries.put(listName, details);
                 }
+
                 this.favouritesByUser.put(username, listsWithCountries);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     private void ensureJsonExists() throws RuntimeException {
         Path jsonFilePath = Paths.get(jsonFile.getAbsolutePath());
@@ -121,10 +132,29 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface,
 
     @Override
     public void addList(String username, String listName) {
-        Map<String, Map<String, Object>> listsWithCountries = favouritesByUser.get(username.toLowerCase());
-        // Add list to username's list dictionary
-        listsWithCountries.put(listName.toLowerCase(), new HashMap<>());
+        // Default: create list with empty description
+        addList(username, listName, "");
     }
+
+    // NEW: create list with description + empty countries map
+    public void addList(String username, String listName, String description) {
+        String userKey = username.toLowerCase();
+        String listKey = listName.toLowerCase();
+
+        // Ensure user entry exists
+        Map<String, Map<String, Object>> listsWithCountries =
+                favouritesByUser.computeIfAbsent(userKey, k -> new HashMap<>());
+
+        // Build details for this list
+        Map<String, Object> listDetails = new HashMap<>();
+        listDetails.put("description", description);
+        listDetails.put("countries", new HashMap<String, String>());
+
+        // Store under the normalized list name
+        listsWithCountries.put(listKey, listDetails);
+    }
+
+
 
     @Override
     public void addCountry(String username, String listName, String countryCode, String notes) {

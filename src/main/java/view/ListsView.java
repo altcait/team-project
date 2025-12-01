@@ -1,17 +1,16 @@
 package view;
 
+import data_access.FileUserDataAccessObject;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsController;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
 import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ListsView extends JPanel implements PropertyChangeListener {
+public class ListsView extends JPanel {
 
     public final String viewName = "lists";
 
@@ -19,7 +18,8 @@ public class ListsView extends JPanel implements PropertyChangeListener {
     private final ViewSavedListsViewModel viewModel;
     private final SelectedListView selectedListView;
     private final ViewManagerModel viewManagerModel;
-    private final Supplier<String> currentUserSupplier;   // NEW
+    private final Supplier<String> currentUserSupplier;   // who is logged in?
+    private final FileUserDataAccessObject favouritesDao; // write + read JSON
 
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JList<String> listDisplay = new JList<>(listModel);
@@ -31,13 +31,15 @@ public class ListsView extends JPanel implements PropertyChangeListener {
                      ViewSavedListsViewModel viewModel,
                      SelectedListView selectedListView,
                      ViewManagerModel viewManagerModel,
-                     Supplier<String> currentUserSupplier) {   // NEW PARAM
+                     Supplier<String> currentUserSupplier,
+                     FileUserDataAccessObject favouritesDao) {
 
         this.controller = controller;
         this.viewModel = viewModel;
         this.selectedListView = selectedListView;
         this.viewManagerModel = viewManagerModel;
         this.currentUserSupplier = currentUserSupplier;
+        this.favouritesDao = favouritesDao;
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -56,14 +58,7 @@ public class ListsView extends JPanel implements PropertyChangeListener {
         JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton createListButton = new JButton("Create List");
-        createListButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Create List feature not implemented yet.",
-                        "Create List",
-                        JOptionPane.INFORMATION_MESSAGE
-                )
-        );
+        createListButton.addActionListener(e -> openCreateListDialog());
         buttonRow.add(createListButton);
 
         JButton deleteListButton = new JButton("Delete List");
@@ -117,31 +112,25 @@ public class ListsView extends JPanel implements PropertyChangeListener {
             }
         });
 
-        // IMPORTANT: we **no longer** auto-load here.
-        // We’ll load when this view becomes active (see propertyChange).
+        // 🔹 We don't auto-load here with a hardcoded user.
+        //    Instead, we reload whenever this panel becomes visible (see setVisible override).
     }
 
-    /** Called when the ViewManagerModel changes view. */
+    // 🔹 When CardLayout switches to this view, this gets called with aFlag = true.
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (!"state".equals(evt.getPropertyName())) {
-            return;
-        }
-        String newViewName = (String) evt.getNewValue();
-
-        // When the "lists" view becomes active, load data for the current user.
-        if (viewName.equals(newViewName)) {
-            loadForCurrentUser();
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+            loadListsForCurrentUser();
         }
     }
 
-    /** Load lists for whatever user is currently logged in. */
-    private void loadForCurrentUser() {
+    private void loadListsForCurrentUser() {
         String username = currentUserSupplier.get();
 
         if (username == null || username.isEmpty()) {
-            listModel.clear();
             errorLabel.setText("No user is currently logged in.");
+            listModel.clear();
             return;
         }
 
@@ -169,5 +158,92 @@ public class ListsView extends JPanel implements PropertyChangeListener {
         } else {
             errorLabel.setText("No lists found.");
         }
+    }
+
+    // ===== CREATE LIST DIALOG + JSON UPDATE =====
+    private void openCreateListDialog() {
+        String username = currentUserSupplier.get();
+        if (username == null || username.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No user is currently logged in.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Build a small panel with Name + Description fields
+        JTextField nameField = new JTextField(15);
+        JTextField descriptionField = new JTextField(20);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JPanel nameRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        nameRow.add(new JLabel("List name:"));
+        nameRow.add(nameField);
+        panel.add(nameRow);
+
+        JPanel descRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        descRow.add(new JLabel("Description:"));
+        descRow.add(descriptionField);
+        panel.add(descRow);
+
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                panel,
+                "Create New List",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result != JOptionPane.OK_OPTION) {
+            return; // user cancelled
+        }
+
+        String listName = nameField.getText().trim();
+        String description = descriptionField.getText().trim(); // not yet persisted, but we keep it
+
+        if (listName.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "List name cannot be empty.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Make sure user exists in JSON
+        if (!favouritesDao.userExists(username)) {
+            favouritesDao.addUser(username);
+        }
+
+        // Avoid duplicate list names for this user
+        if (favouritesDao.listExists(username, listName)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "A list with that name already exists.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Create the empty list in favouritesRepository.json
+        favouritesDao.addList(username, listName, description);
+        favouritesDao.save();  // persist to file
+
+        // Reload from use case so ViewModel + UI are in sync
+        loadListsForCurrentUser();
+
+        // Optional feedback
+        JOptionPane.showMessageDialog(
+                this,
+                "List \"" + listName + "\" created.",
+                "List Created",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
