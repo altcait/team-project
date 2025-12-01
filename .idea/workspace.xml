@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/EditProfileState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/EditProfileViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/view/EditProfileView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/UserCSVDataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/UserCSVDataAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entity/UserFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/UserFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/ProfilePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/ProfilePresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/ProfileState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/profile/ProfileState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileInputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/profile/ProfileUserAccess.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/signup/SignUpInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ProfileView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ProfileView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
-    </list>
+    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
