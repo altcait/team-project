@@ -27,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -57,7 +62,7 @@
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#34 on profile&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;retrieve-saved-countries&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
 }</component>
@@ -76,6 +81,64 @@
       <option name="presentableId" value="Default" />
       <updated>1764560661428</updated>
     </task>
+    <task id="LOCAL-00001" summary="Made the code be able to read JSON File instead of dummy data">
+      <option name="closed" value="true" />
+      <created>1764586099265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764586099265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Cleaner View Saved Lists Interactor and View Selected list Interactor">
+      <option name="closed" value="true" />
+      <created>1764586286615</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764586286615</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Small Name Change">
+      <option name="closed" value="true" />
+      <created>1764590230402</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764590230402</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Create List Button is now working">
+      <option name="closed" value="true" />
+      <created>1764606491816</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764606491816</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Finished Delete List and Delete Country BUTTONS">
+      <option name="closed" value="true" />
+      <created>1764607789646</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764607789646</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Extra Credit - You can have notes for countries">
+      <option name="closed" value="true" />
+      <created>1764608282321</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764608282321</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Made the code be able to read JSON File instead of dummy data" />
+    <MESSAGE value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
+    <MESSAGE value="Small Name Change" />
+    <MESSAGE value="Create List Button is now working" />
+    <MESSAGE value="Finished Delete List and Delete Country BUTTONS" />
+    <MESSAGE value="Extra Credit - You can have notes for countries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Extra Credit - You can have notes for countries" />
   </component>
 </project>

@@ -3,13 +3,11 @@ package interface_adapter.profile;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import use_case.profile.ProfileOutputBoundary;
-//import interface_adapter.lists.ViewSavedListsViewModel;
 
 public class ProfilePresenter implements ProfileOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
     private final ProfileViewModel profileViewModel;
-    //private final ViewSavedListsViewModel savedViewModel;
 
     public ProfilePresenter(ViewManagerModel viewManagerModel,
                             LoginViewModel loginViewModel,
@@ -19,10 +17,12 @@ public class ProfilePresenter implements ProfileOutputBoundary {
         this.profileViewModel = profileViewModel;
     }
 
-
     @Override
     public void switchToFavoritesView() {
-        //body
+        // Go to the "My Saved Lists" screen
+        // "lists" MUST match ListsView.viewName
+        viewManagerModel.setState("lists");
+        viewManagerModel.firePropertyChange();
     }
 
     @Override

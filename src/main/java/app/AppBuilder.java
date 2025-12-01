@@ -68,15 +68,20 @@ public class AppBuilder {
     final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
     final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
+    // --- Data access objects ---
+    private final FileUserDataAccessObject fileUserDataAccessObject;
+    private final UserCSVDataAccess userDataAccess;   // single CSV DAO
+    private final LoginUserAccess loginDataAccess;    // alias to same DAO
 
-    // NEW: we keep a reference so ListsView can call SelectedListView
+    // For views
     private SelectedListView selectedListView;
     private ProfileViewModel profileViewModel;
     private EditProfileViewModel editProfileViewModel;
-    private UserCSVDataAccess userDataAccess;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
+
+        // one shared CSV DAO
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
         profileViewModel = new ProfileViewModel();
     }
@@ -113,7 +118,8 @@ public class AppBuilder {
 
         SignUpUserAccess signupDataAccess = userDataAccess;
 
-        SignUpOutputBoundary signupPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
+        SignUpOutputBoundary signupPresenter =
+                new SignUpPresenter(viewManagerModel, signUpViewModel, loginViewModel);
         SignUpInputBoundary signupInteractor =
                 new SignUpInteractor(signupDataAccess, signupPresenter, new UserFactory());
 
@@ -135,18 +141,52 @@ public class AppBuilder {
     }
 
     public AppBuilder addSaveCountryUseCase() {
-        final SaveCountryOutputBoundary saveCountryOutputBoundary = new SaveCountryPresenter(saveCountryViewModel);
-        final SaveCountryInputBoundary saveCountryInteractor = new SaveCountryInteractor(
-                loginDataAccess,
-                fileUserDataAccessObject,
-                saveCountryOutputBoundary
-        );
+        final SaveCountryOutputBoundary saveCountryOutputBoundary =
+                new SaveCountryPresenter(saveCountryViewModel);
+        final SaveCountryInputBoundary saveCountryInteractor =
+                new SaveCountryInteractor(
+                        loginDataAccess,
+                        fileUserDataAccessObject,
+                        saveCountryOutputBoundary
+                );
 
-        SaveCountryController saveCountryController = new SaveCountryController(saveCountryInteractor);
+        SaveCountryController saveCountryController =
+                new SaveCountryController(saveCountryInteractor);
         saveCountryView.setSaveCountryController(saveCountryController);
         return this;
     }
 
+    // ---------- Selected list (detail) ----------
+    public AppBuilder addViewSelectedList() {
+        ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
+        ViewSelectedListOutputBoundary selectedListPresenter =
+                new ViewSelectedListPresenter(selectedListViewModel);
+
+        ViewSelectedListInputBoundary selectedListInteractor =
+                new ViewSelectedListInteractor(selectedListPresenter, fileUserDataAccessObject);
+
+        ViewSelectedListController selectedListController =
+                new ViewSelectedListController(selectedListInteractor);
+
+        selectedListView =
+                new SelectedListView(
+                        selectedListController,
+                        selectedListViewModel,
+                        viewManagerModel,
+                        () -> {
+                            String current = userDataAccess.getCurrentUsername();
+                            return current != null ? current : "";
+                        },
+                        fileUserDataAccessObject
+                );
+
+        cardPanel.add(selectedListView, selectedListView.viewName);
+
+        return this;
+    }
+
+
+    // ---------- Saved lists (overview) ----------
     public AppBuilder addViewSavedLists() {
         // 1. Create the view model for the lists screen
         ViewSavedListsViewModel listsViewModel = new ViewSavedListsViewModel();
@@ -157,42 +197,36 @@ public class AppBuilder {
 
         // 3. Create the interactor (use case)
         ViewSavedListsInputBoundary listsInteractor =
-                new ViewSavedListsInteractor(listsPresenter);
+                new ViewSavedListsInteractor(listsPresenter, fileUserDataAccessObject);
 
         // 4. Create the controller
         ViewSavedListsController listsController =
                 new ViewSavedListsController(listsInteractor);
 
         // 5. Create the view and add it to the card layout.
-        //    Note: selectedListView must already have been created in addViewSelectedList().
+        //    We pass:
+        //    - controller + viewModel
+        //    - selectedListView (detail view)
+        //    - viewManagerModel (for navigation)
+        //    - a Supplier<String> that returns the currently logged-in username
+        //    - fileUserDataAccessObject so Create List can write to JSON
         ListsView listsView =
-                new ListsView(listsController, listsViewModel, selectedListView, viewManagerModel);
+                new ListsView(
+                        listsController,
+                        listsViewModel,
+                        selectedListView,
+                        viewManagerModel,
+                        () -> {
+                            String current = loginDataAccess.getCurrentUsername();
+                            return current != null ? current : "";
+                        },
+                        fileUserDataAccessObject
+                );
+
         cardPanel.add(listsView, listsView.viewName);
 
         return this;
     }
-
-    // ==================================
-    // View selected list (detail page)
-    // ==================================
-
-    public AppBuilder addViewSelectedList() {
-        ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
-        ViewSelectedListOutputBoundary selectedListPresenter =
-                new ViewSelectedListPresenter(selectedListViewModel);
-        ViewSelectedListInputBoundary selectedListInteractor =
-                new ViewSelectedListInteractor(selectedListPresenter);
-        ViewSelectedListController selectedListController =
-                new ViewSelectedListController(selectedListInteractor);
-
-        // NOTE: viewManagerModel is passed in here
-        selectedListView =
-                new SelectedListView(selectedListController, selectedListViewModel, viewManagerModel);
-        cardPanel.add(selectedListView, selectedListView.viewName);
-
-        return this;
-    }
-
 
     public AppBuilder addProfileUseCase() {
 
@@ -209,7 +243,6 @@ public class AppBuilder {
         profileView.setController(profileController);
 
         cardPanel.add(profileView, profileView.getViewName());
-
         return this;
     }
 
@@ -221,7 +254,6 @@ public class AppBuilder {
         ProfileController profileController = new ProfileController(profileInteractor);
 
         editProfileView.setController(profileController);
-
         cardPanel.add(editProfileView, editProfileView.getViewName());
         return this;
     }
@@ -232,7 +264,6 @@ public class AppBuilder {
 
     public JFrame build() {
         JFrame application = new JFrame("Country Explorer");
-
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         application.add(cardPanel);
 
@@ -249,5 +280,3 @@ public class AppBuilder {
         return application;
     }
 }
-
-
