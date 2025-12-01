@@ -7,6 +7,10 @@ public class Main {
         AppBuilder appBuilder = new AppBuilder();
 
         JFrame application = appBuilder
+                .addSearchesView()
+                .addSearchByLanguageView()
+                .addSearchByRegionView()
+                .addSearchByCurrencyView()
                 .addSaveCountryView()
                 .addSaveCountryUseCase()
                 .addLoginSignUpView()

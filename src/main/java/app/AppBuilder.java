@@ -1,5 +1,7 @@
 package app;
 
+import interface_adapter.ViewManagerModel;
+import view.*;
 import data_access.UserCSVDataAccess;
 import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
@@ -48,6 +50,12 @@ public class AppBuilder {
 
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
+
+
+    private SearchesView searchesView;
+    private SearchByLanguageView searchByLanguageView;
+    private SearchByRegionView searchByRegionView;
+    private SearchByCurrencyView searchByCurrencyView;
 
     private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
@@ -112,6 +120,10 @@ public class AppBuilder {
         SignUpController signupController = new SignUpController(signupInteractor);
         loginSignUpView.setSignupController(signupController);
 
+    // TODO placeholder: update when merged with Search by Currency use case
+    public AppBuilder addSearchByCurrencyView() {
+        searchByCurrencyView = new SearchByCurrencyView();
+        cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
         return this;
     }
 
@@ -226,6 +238,7 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
+        viewManagerModel.setState(searchesView.getViewName());
         // Start on the lists screen so you can test:
         // 1) Load My Lists
         // 2) Click Example List -> goes to SelectedListView
