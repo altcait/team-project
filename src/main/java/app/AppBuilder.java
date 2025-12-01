@@ -86,6 +86,12 @@ public class AppBuilder {
         profileViewModel = new ProfileViewModel();
     }
 
+    public AppBuilder addSearchesView() {
+        searchesView = new SearchesView(viewManagerModel);
+        cardPanel.add(searchesView, searchesView.getViewName());
+        return this;
+    }
+
     public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
         loginSignUpView = new LoginSignUpView(loginViewModel);
@@ -125,6 +131,8 @@ public class AppBuilder {
 
         SignUpController signupController = new SignUpController(signupInteractor);
         loginSignUpView.setSignupController(signupController);
+        return this;
+    }
 
     // TODO placeholder: update when merged with Search by Currency use case
     public AppBuilder addSearchByCurrencyView() {
