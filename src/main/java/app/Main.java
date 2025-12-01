@@ -18,6 +18,8 @@ public class Main {
                 .addViewSelectedList() // must be before ViewSavedList
                 .addViewSavedLists()
                 .addSignUpUseCase()
+                .addProfileUseCase()
+                .addEditProfileUseCase()
                 .build();
 
         application.pack();
