@@ -1,14 +1,17 @@
 package use_case.ViewSelectedList;
 
-import java.util.ArrayList;
+import use_case.FavoritesList.FavoritesReadDataAccess;
 import java.util.List;
 
 public class ViewSelectedListInteractor implements ViewSelectedListInputBoundary {
 
     private final ViewSelectedListOutputBoundary presenter;
+    private final FavoritesReadDataAccess dataAccess;  // Changed to interface
 
-    public ViewSelectedListInteractor(ViewSelectedListOutputBoundary presenter) {
+    public ViewSelectedListInteractor(ViewSelectedListOutputBoundary presenter,
+                                      FavoritesReadDataAccess dataAccess) {
         this.presenter = presenter;
+        this.dataAccess = dataAccess;
     }
 
     @Override
@@ -16,34 +19,9 @@ public class ViewSelectedListInteractor implements ViewSelectedListInputBoundary
         String username = requestModel.getUsername();
         String listName = requestModel.getListName();
 
-        String description;
-        List<String> countries = new ArrayList<>();
-
-        switch (listName) {
-            case "Example List":
-                description = "Example description for Example List";
-                countries.add("Canada");
-                countries.add("Japan");
-                countries.add("Germany");
-                break;
-
-            case "Asia Trip":
-                description = "Countries I'd like to visit on a future Asia trip.";
-                countries.add("Japan");
-                countries.add("South Korea");
-                countries.add("Thailand");
-                break;
-
-            case "Europe Bucket List":
-                description = "Dream destinations across Europe.";
-                countries.add("France");
-                countries.add("Italy");
-                countries.add("Spain");
-                break;
-
-            default:
-                description = "No description yet for " + listName + ".";
-        }
+        // Get actual data from JSON file via interface
+        String description = dataAccess.getListDescription(username, listName);
+        List<String> countries = dataAccess.getCountriesInList(username, listName);
 
         ViewSelectedListResponseModel response =
                 new ViewSelectedListResponseModel(username, listName, description, countries);

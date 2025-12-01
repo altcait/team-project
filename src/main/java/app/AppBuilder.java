@@ -78,8 +78,6 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
-//        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
-
         LoginUserAccess loginDataAccess = userDataAccess;
 
         LoginOutputBoundary loginPresenter = new LoginPresenter(
@@ -135,9 +133,9 @@ public class AppBuilder {
         ViewSavedListsOutputBoundary listsPresenter =
                 new ViewSavedListsPresenter(listsViewModel);
 
-        // 3. Create the interactor (use case)
+        // 3. Create the interactor (use case) - UPDATED: Pass fileUserDataAccessObject
         ViewSavedListsInputBoundary listsInteractor =
-                new ViewSavedListsInteractor(listsPresenter);
+                new ViewSavedListsInteractor(listsPresenter, fileUserDataAccessObject);
 
         // 4. Create the controller
         ViewSavedListsController listsController =
@@ -160,8 +158,11 @@ public class AppBuilder {
         ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
         ViewSelectedListOutputBoundary selectedListPresenter =
                 new ViewSelectedListPresenter(selectedListViewModel);
+
+        // UPDATED: Pass fileUserDataAccessObject
         ViewSelectedListInputBoundary selectedListInteractor =
-                new ViewSelectedListInteractor(selectedListPresenter);
+                new ViewSelectedListInteractor(selectedListPresenter, fileUserDataAccessObject);
+
         ViewSelectedListController selectedListController =
                 new ViewSelectedListController(selectedListInteractor);
 
@@ -221,15 +222,10 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        // Start on the lists screen so you can test:
-        // 1) Load My Lists
-        // 2) Click Example List -> goes to SelectedListView
-        viewManagerModel.setState("lists");
+        // Start on the login screen
         viewManagerModel.setState(loginSignUpView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;
     }
 }
-
-

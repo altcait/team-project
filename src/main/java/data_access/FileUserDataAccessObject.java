@@ -1,6 +1,7 @@
 package data_access;
 
 import org.json.JSONException;
+import use_case.FavoritesList.FavoritesReadDataAccess;
 import use_case.save_country.SaveCountryDataAccessInterface;
 
 import org.json.JSONObject;
@@ -11,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class FileUserDataAccessObject implements SaveCountryDataAccessInterface {
+public class FileUserDataAccessObject implements SaveCountryDataAccessInterface, FavoritesReadDataAccess {
     private final File jsonFile;
     private final Map<String, Map<String, Map<String, Object>>> favouritesByUser = new HashMap<>();
 
@@ -169,14 +170,10 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
     }
 
     // ============================================
-    // NEW READ METHODS ADDED FOR RETRIEVING DATA
+    // FavoritesReadDataAccess Interface Methods
     // ============================================
 
-    /**
-     * Get all list names for a user.
-     * @param username the user to get lists for
-     * @return list of list names (empty list if user has no lists or doesn't exist)
-     */
+    @Override
     public List<String> getUserLists(String username) {
         Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
         if (userLists == null) {
@@ -185,12 +182,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         return new ArrayList<>(userLists.keySet());
     }
 
-    /**
-     * Get details of a specific list (description and countries map).
-     * @param username the user who owns the list
-     * @param listName the name of the list
-     * @return map containing "description" and "countries", or null if list doesn't exist
-     */
+    @Override
     public Map<String, Object> getListDetails(String username, String listName) {
         Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
         if (userLists == null) {
@@ -199,12 +191,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         return userLists.get(listName.toLowerCase());
     }
 
-    /**
-     * Get country codes in a specific list.
-     * @param username the user who owns the list
-     * @param listName the name of the list
-     * @return list of country codes (empty list if list has no countries or doesn't exist)
-     */
+    @Override
     public List<String> getCountriesInList(String username, String listName) {
         Map<String, Object> listDetails = getListDetails(username, listName);
         if (listDetails == null) {
@@ -219,12 +206,7 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         return new ArrayList<>(countries.keySet());
     }
 
-    /**
-     * Get description of a specific list.
-     * @param username the user who owns the list
-     * @param listName the name of the list
-     * @return description string (empty string if no description or list doesn't exist)
-     */
+    @Override
     public String getListDescription(String username, String listName) {
         Map<String, Object> listDetails = getListDetails(username, listName);
         if (listDetails == null) {
