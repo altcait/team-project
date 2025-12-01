@@ -33,7 +33,6 @@ public class SignUpInteractor implements SignUpInputBoundary {
             return;
         }
 
-        User newUser = userFactory.create(input.getUsername(), input.getPassword());
         User newUser = userFactory.create(input.getUsername(), input.getPassword(), new HashMap<>());
         userAccess.save(newUser);
 

@@ -31,16 +31,11 @@ import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInteractor;
 import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
-import view.ListsView;
-import view.SelectedListView;
+import view.*;
 import use_case.save_country.SaveCountryInputBoundary;
 import use_case.save_country.SaveCountryOutputBoundary;
 import use_case.save_country.SaveCountryInteractor;
-import view.LoginSignUpView;
-import view.ProfileView;
-import view.ViewManager;
 
-import view.SaveCountryView;
 import interface_adapter.signup.*;
 import use_case.signup.*;
 
@@ -66,16 +61,13 @@ public class AppBuilder {
     // NEW: we keep a reference so ListsView can call SelectedListView
     private SelectedListView selectedListView;
     private ProfileViewModel profileViewModel;
+    private EditProfileViewModel editProfileViewModel;
     private UserCSVDataAccess userDataAccess;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
     }
-
-    // ======================
-    // Login feature wiring
-    // ======================
 
     public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
@@ -135,10 +127,6 @@ public class AppBuilder {
         return this;
     }
 
-    // ============================
-    // View saved lists (lists page)
-    // ============================
-
     public AppBuilder addViewSavedLists() {
         // 1. Create the view model for the lists screen
         ViewSavedListsViewModel listsViewModel = new ViewSavedListsViewModel();
@@ -190,13 +178,33 @@ public class AppBuilder {
 
         profileViewModel = new ProfileViewModel();
 
-        ProfileOutputBoundary profilePresenter = new ProfilePresenter(viewManagerModel, loginViewModel);
-        ProfileInputBoundary profileInteractor = new ProfileInteractor(profilePresenter);
-        ProfileController profileController = new ProfileController(profileInteractor);
+        ProfileOutputBoundary profilePresenter =
+                new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel);
+
+        ProfileInputBoundary profileInteractor =
+                new ProfileInteractor(profilePresenter);
+
+        ProfileController profileController =
+                new ProfileController(profileInteractor);
+
         ProfileView profileView = new ProfileView(profileViewModel);
         profileView.setController(profileController);
 
         cardPanel.add(profileView, profileView.getViewName());
+
+        return this;
+    }
+
+    public AppBuilder addEditProfileUseCase() {
+        editProfileViewModel = new EditProfileViewModel();
+        EditProfileView editProfileView = new EditProfileView(editProfileViewModel);
+
+        ProfileController profileController = new ProfileController(
+                new ProfileInteractor(new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel)));
+
+        editProfileView.setController(profileController);
+
+        cardPanel.add(editProfileView, editProfileView.getViewName());
 
         return this;
     }

@@ -30,10 +30,8 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
 
         JLabel title = new JLabel("Profile");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setFont(new Font("Arial", Font.BOLD, 20));
 
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        usernameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 
         languageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         bioLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -69,6 +67,8 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         ProfileState state = (ProfileState) evt.getNewValue();
         usernameLabel.setText("Logged in as: " + state.getUsername());
+        languageLabel.setText("Language: " + state.getLanguage());
+        bioLabel.setText("Bio: " + state.getBio());
     }
 
     public void setController(ProfileController controller) {

@@ -15,6 +15,7 @@ public class Main {
                 .addViewSavedLists()
                 .addSignUpUseCase()
                 .addProfileUseCase()
+                .addEditProfileUseCase()
                 .build();
 
         application.pack();

@@ -21,4 +21,14 @@ public class ProfileInteractor implements ProfileInputBoundary {
     public void editProfile() {
         presenter.switchToEditProfileView();
     }
+
+    @Override
+    public void backToProfile() {
+        presenter.switchToProfileView();
+    }
+
+    @Override
+    public void updateProfile(String language, String bio) {
+        presenter.updateProfile(language, bio);
+    }
 }

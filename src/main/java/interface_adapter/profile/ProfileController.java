@@ -21,4 +21,12 @@ public class ProfileController {
     public void onEditProfile() {
         interactor.editProfile();
     }
+
+    public void onBackToProfile() {
+        interactor.backToProfile();
+    }
+
+    public void onSaveProfile(String language, String bio) {
+        interactor.updateProfile(language, bio);
+    }
 }

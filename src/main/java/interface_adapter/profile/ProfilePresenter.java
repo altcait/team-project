@@ -8,12 +8,17 @@ import use_case.profile.ProfileOutputBoundary;
 public class ProfilePresenter implements ProfileOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
+    private final ProfileViewModel profileViewModel;
     //private final ViewSavedListsViewModel savedViewModel;
 
-    public ProfilePresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
+    public ProfilePresenter(ViewManagerModel viewManagerModel,
+                            LoginViewModel loginViewModel,
+                            ProfileViewModel profileViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
+        this.profileViewModel = profileViewModel;
     }
+
 
     @Override
     public void switchToFavoritesView() {
@@ -28,6 +33,23 @@ public class ProfilePresenter implements ProfileOutputBoundary {
 
     @Override
     public void switchToEditProfileView() {
-        //body
+        viewManagerModel.setState("edit-profile");
+        viewManagerModel.firePropertyChange();
+    }
+
+    @Override
+    public void switchToProfileView() {
+        viewManagerModel.setState("profile");
+        viewManagerModel.firePropertyChange();
+    }
+
+    @Override
+    public void updateProfile(String language, String bio) {
+        ProfileState state = profileViewModel.getState();
+        state.setLanguage(language);
+        state.setBio(bio);
+
+        profileViewModel.setState(state);
+        profileViewModel.firePropertyChange();
     }
 }

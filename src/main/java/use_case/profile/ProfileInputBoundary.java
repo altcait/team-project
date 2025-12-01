@@ -4,4 +4,6 @@ public interface ProfileInputBoundary {
     void goToFavorites();
     void logout();
     void editProfile();
+    void backToProfile();
+    void updateProfile(String language, String bio);
 }
