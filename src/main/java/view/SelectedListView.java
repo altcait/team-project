@@ -7,7 +7,10 @@ import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class SelectedListView extends JPanel {
@@ -81,7 +84,7 @@ public class SelectedListView extends JPanel {
         ));
         buttonRow.add(sortButton);
 
-        // --- Delete Country (ALWAYS uses popup) ---
+        // --- Delete Country (popup-based) ---
         JButton deleteCountryButton = new JButton("Delete Country");
         deleteCountryButton.addActionListener(e -> deleteCountryViaPopup());
         buttonRow.add(deleteCountryButton);
@@ -101,6 +104,20 @@ public class SelectedListView extends JPanel {
         centerPanel.add(new JScrollPane(descriptionArea), BorderLayout.NORTH);
         centerPanel.add(new JScrollPane(countriesList), BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
+
+        // 🔹 Double-click a country to edit notes
+        countriesList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && !e.isConsumed()) {
+                    e.consume();
+                    String selected = countriesList.getSelectedValue();
+                    if (selected != null) {
+                        editCountryNotes(selected);
+                    }
+                }
+            }
+        });
 
         // ===== BOTTOM: Back button + error label =====
         JPanel bottomPanel = new JPanel(new BorderLayout());
@@ -155,7 +172,7 @@ public class SelectedListView extends JPanel {
         if (newDesc != null) {
             descriptionArea.setText(newDesc);
             viewModel.setDescription(newDesc);
-            // TODO: later create UpdateListDescription use case for JSON saving
+            // (Optional) add a use case later to persist description
         }
     }
 
@@ -239,5 +256,92 @@ public class SelectedListView extends JPanel {
 
         controller.viewSelectedList(username, listName);
         refreshFromViewModel();
+    }
+
+    /**
+     * Double-click handler: edit notes for a specific country.
+     */
+    private void editCountryNotes(String countryCode) {
+        String username = currentUserSupplier.get();
+        if (username == null || username.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No user is currently logged in.",
+                    "Edit Notes",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        String listName = viewModel.getCurrentListName();
+        if (listName == null || listName.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No list is currently selected.",
+                    "Edit Notes",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Get the list details from the DAO (description + countries map)
+        Map<String, Object> listDetails = favouritesDao.getListDetails(username, listName);
+        if (listDetails == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Could not find list data.",
+                    "Edit Notes",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> countriesWithNotes =
+                (Map<String, String>) listDetails.get("countries");
+
+        if (countriesWithNotes == null) {
+            // If no countries map yet, create one
+            countriesWithNotes = new java.util.HashMap<>();
+            listDetails.put("countries", countriesWithNotes);
+        }
+
+        String currentNote = countriesWithNotes.getOrDefault(countryCode, "");
+
+        // Text area inside scroll pane for editing notes
+        JTextArea noteArea = new JTextArea(5, 25);
+        noteArea.setLineWrap(true);
+        noteArea.setWrapStyleWord(true);
+        noteArea.setText(currentNote);
+
+        JScrollPane scrollPane = new JScrollPane(noteArea);
+
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                scrollPane,
+                "Edit notes for " + countryCode,
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result != JOptionPane.OK_OPTION) {
+            return; // user cancelled
+        }
+
+        String newNote = noteArea.getText();
+
+        // Update in-memory map
+        countriesWithNotes.put(countryCode, newNote);
+
+        // Persist to JSON
+        favouritesDao.save();
+
+        // No visible change in list (still codes), but notes are now stored.
+        JOptionPane.showMessageDialog(
+                this,
+                "Notes saved for " + countryCode + ".",
+                "Edit Notes",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }

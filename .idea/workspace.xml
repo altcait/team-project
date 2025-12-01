@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Create List Button is now working">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Finished Delete List and Delete Country BUTTONS">
       <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764606491816</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Finished Delete List and Delete Country BUTTONS">
+      <option name="closed" value="true" />
+      <created>1764607789646</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764607789646</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -119,6 +122,7 @@
     <MESSAGE value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
     <MESSAGE value="Small Name Change" />
     <MESSAGE value="Create List Button is now working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create List Button is now working" />
+    <MESSAGE value="Finished Delete List and Delete Country BUTTONS" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished Delete List and Delete Country BUTTONS" />
   </component>
 </project>
