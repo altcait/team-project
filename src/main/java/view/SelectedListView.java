@@ -214,12 +214,40 @@ public class SelectedListView extends JPanel {
                 current
         );
 
-        if (newDesc != null) {
-            descriptionArea.setText(newDesc);
-            viewModel.setDescription(newDesc);
-            // (Optional) add a use case later to persist description
+        if (newDesc == null) {
+            // user pressed Cancel
+            return;
         }
+
+        // Update UI + view model
+        descriptionArea.setText(newDesc);
+        viewModel.setDescription(newDesc);
+
+        // --- Persist to JSON via favouritesDao ---
+        String username = currentUserSupplier.get();
+        String listName = viewModel.getCurrentListName();
+
+        if (username == null || username.isEmpty()
+                || listName == null || listName.isEmpty()) {
+            // Shouldn't happen in normal flow, but fail gracefully
+            return;
+        }
+
+        // Get the existing list details and update the description
+        java.util.Map<String, Object> listDetails =
+                favouritesDao.getListDetails(username, listName);
+
+        if (listDetails == null) {
+            // List not found in JSON; nothing more we can safely do
+            return;
+        }
+
+        listDetails.put("description", newDesc);
+
+        // Write the updated structure back to favouritesRepository.json
+        favouritesDao.save();
     }
+
 
     /**
      * Delete a country using a popup dialog only
