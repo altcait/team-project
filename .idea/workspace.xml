@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Small Name Change">
+    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Create List Button is now working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,13 +103,22 @@
       <option name="project" value="LOCAL" />
       <updated>1764590230402</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Create List Button is now working">
+      <option name="closed" value="true" />
+      <created>1764606491816</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764606491816</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Made the code be able to read JSON File instead of dummy data" />
     <MESSAGE value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
     <MESSAGE value="Small Name Change" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small Name Change" />
+    <MESSAGE value="Create List Button is now working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create List Button is now working" />
   </component>
 </project>

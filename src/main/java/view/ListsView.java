@@ -18,8 +18,8 @@ public class ListsView extends JPanel {
     private final ViewSavedListsViewModel viewModel;
     private final SelectedListView selectedListView;
     private final ViewManagerModel viewManagerModel;
-    private final Supplier<String> currentUserSupplier;   // who is logged in?
-    private final FileUserDataAccessObject favouritesDao; // write + read JSON
+    private final Supplier<String> currentUserSupplier;
+    private final FileUserDataAccessObject favouritesDao;
 
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JList<String> listDisplay = new JList<>(listModel);
@@ -62,14 +62,7 @@ public class ListsView extends JPanel {
         buttonRow.add(createListButton);
 
         JButton deleteListButton = new JButton("Delete List");
-        deleteListButton.addActionListener(e ->
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Delete List feature not implemented yet.",
-                        "Delete List",
-                        JOptionPane.INFORMATION_MESSAGE
-                )
-        );
+        deleteListButton.addActionListener(e -> deleteSelectedList());
         buttonRow.add(deleteListButton);
 
         topPanel.add(titleRow);
@@ -111,12 +104,9 @@ public class ListsView extends JPanel {
                 listDisplay.clearSelection();
             }
         });
-
-        // 🔹 We don't auto-load here with a hardcoded user.
-        //    Instead, we reload whenever this panel becomes visible (see setVisible override).
     }
 
-    // 🔹 When CardLayout switches to this view, this gets called with aFlag = true.
+    // Called when CardLayout shows this view
     @Override
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
@@ -125,6 +115,127 @@ public class ListsView extends JPanel {
         }
     }
 
+    // ==== CREATE LIST DIALOG ====
+    private void openCreateListDialog() {
+        String username = currentUserSupplier.get();
+        if (username == null || username.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No user is currently logged in.",
+                    "Create List",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        JTextField nameField = new JTextField(15);
+        JTextField descField = new JTextField(20);
+
+        JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
+        panel.add(new JLabel("List name:"));
+        panel.add(nameField);
+        panel.add(new JLabel("Description:"));
+        panel.add(descField);
+
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                panel,
+                "Create New List",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result == JOptionPane.OK_OPTION) {
+            String listName = nameField.getText().trim();
+            String description = descField.getText().trim();
+
+            if (listName.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "List name cannot be empty.",
+                        "Create List",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Create list WITH description, empty countries
+            favouritesDao.addList(username, listName, description);
+            favouritesDao.save();
+
+            // Refresh the list display
+            loadListsForCurrentUser();
+        }
+    }
+
+    // ==== DELETE LIST LOGIC ====
+    private void deleteSelectedList() {
+        String username = currentUserSupplier.get();
+        if (username == null || username.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No user is currently logged in.",
+                    "Delete List",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // 1. Try to use the currently selected list
+        String selected = listDisplay.getSelectedValue();
+
+        // 2. If nothing is selected, let the user choose from a dropdown IN the popup
+        if (selected == null) {
+            if (listModel.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "You don't have any lists to delete.",
+                        "Delete List",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                return;
+            }
+
+            JComboBox<String> comboBox = new JComboBox<>();
+            for (int i = 0; i < listModel.size(); i++) {
+                comboBox.addItem(listModel.get(i));
+            }
+
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    comboBox,
+                    "Choose a list to delete",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            if (result != JOptionPane.OK_OPTION) {
+                return; // user cancelled
+            }
+
+            selected = (String) comboBox.getSelectedItem();
+            if (selected == null) {
+                return;
+            }
+        }
+
+        // 3. Now confirm deletion of the chosen list
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete the list \"" + selected + "\"?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            favouritesDao.removeList(username, selected);
+            favouritesDao.save();
+            loadListsForCurrentUser();
+        }
+    }
+
+
+    // ==== LOAD + REFRESH UI ====
     private void loadListsForCurrentUser() {
         String username = currentUserSupplier.get();
 
@@ -158,92 +269,5 @@ public class ListsView extends JPanel {
         } else {
             errorLabel.setText("No lists found.");
         }
-    }
-
-    // ===== CREATE LIST DIALOG + JSON UPDATE =====
-    private void openCreateListDialog() {
-        String username = currentUserSupplier.get();
-        if (username == null || username.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "No user is currently logged in.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
-
-        // Build a small panel with Name + Description fields
-        JTextField nameField = new JTextField(15);
-        JTextField descriptionField = new JTextField(20);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-        JPanel nameRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        nameRow.add(new JLabel("List name:"));
-        nameRow.add(nameField);
-        panel.add(nameRow);
-
-        JPanel descRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        descRow.add(new JLabel("Description:"));
-        descRow.add(descriptionField);
-        panel.add(descRow);
-
-        int result = JOptionPane.showConfirmDialog(
-                this,
-                panel,
-                "Create New List",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE
-        );
-
-        if (result != JOptionPane.OK_OPTION) {
-            return; // user cancelled
-        }
-
-        String listName = nameField.getText().trim();
-        String description = descriptionField.getText().trim(); // not yet persisted, but we keep it
-
-        if (listName.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "List name cannot be empty.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
-
-        // Make sure user exists in JSON
-        if (!favouritesDao.userExists(username)) {
-            favouritesDao.addUser(username);
-        }
-
-        // Avoid duplicate list names for this user
-        if (favouritesDao.listExists(username, listName)) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "A list with that name already exists.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
-
-        // Create the empty list in favouritesRepository.json
-        favouritesDao.addList(username, listName, description);
-        favouritesDao.save();  // persist to file
-
-        // Reload from use case so ViewModel + UI are in sync
-        loadListsForCurrentUser();
-
-        // Optional feedback
-        JOptionPane.showMessageDialog(
-                this,
-                "List \"" + listName + "\" created.",
-                "List Created",
-                JOptionPane.INFORMATION_MESSAGE
-        );
     }
 }

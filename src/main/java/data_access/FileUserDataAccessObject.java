@@ -154,6 +154,18 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface,
         listsWithCountries.put(listKey, listDetails);
     }
 
+    // Remove a whole list for a user
+    public void removeList(String username, String listName) {
+        String userKey = username.toLowerCase();
+        String listKey = listName.toLowerCase();
+
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(userKey);
+        if (userLists == null) {
+            return; // nothing to do
+        }
+
+        userLists.remove(listKey);
+    }
 
 
     @Override
@@ -181,6 +193,31 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface,
         // save updated favouritesByUser object to file
         save();
     }
+
+    public void removeCountry(String username, String listName, String countryCode) {
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
+        if (userLists == null) {
+            return;
+        }
+
+        Map<String, Object> listDetails = userLists.get(listName.toLowerCase());
+        if (listDetails == null) {
+            return;
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> countries =
+                (Map<String, String>) listDetails.get("countries");
+        if (countries == null) {
+            return;
+        }
+
+        countries.remove(countryCode.toUpperCase());
+
+        // persist change
+        save();
+    }
+
 
     @Override
     public void save() {

@@ -1,5 +1,6 @@
 package view;
 
+import data_access.FileUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewSelectedList.ViewSelectedListController;
 import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
@@ -7,6 +8,7 @@ import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class SelectedListView extends JPanel {
 
@@ -15,6 +17,8 @@ public class SelectedListView extends JPanel {
     private final ViewSelectedListController controller;
     private final ViewSelectedListViewModel viewModel;
     private final ViewManagerModel viewManagerModel;
+    private final Supplier<String> currentUserSupplier;
+    private final FileUserDataAccessObject favouritesDao;
 
     private final String listsViewName = "lists";
 
@@ -28,10 +32,14 @@ public class SelectedListView extends JPanel {
 
     public SelectedListView(ViewSelectedListController controller,
                             ViewSelectedListViewModel viewModel,
-                            ViewManagerModel viewManagerModel) {
+                            ViewManagerModel viewManagerModel,
+                            Supplier<String> currentUserSupplier,
+                            FileUserDataAccessObject favouritesDao) {
         this.controller = controller;
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
+        this.currentUserSupplier = currentUserSupplier;
+        this.favouritesDao = favouritesDao;
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -45,7 +53,7 @@ public class SelectedListView extends JPanel {
         JPanel titleRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         titleRow.add(titleLabel);
 
-        // Row 2: Edit Description + Search + Sort buttons
+        // Row 2: Edit Description + Search + Sort + Delete Country
         JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         // --- Edit Description ---
@@ -63,7 +71,7 @@ public class SelectedListView extends JPanel {
         ));
         buttonRow.add(searchButton);
 
-        // --- NEW: Sort button (placeholder) ---
+        // --- Sort button (placeholder) ---
         JButton sortButton = new JButton("Sort");
         sortButton.addActionListener(e -> JOptionPane.showMessageDialog(
                 this,
@@ -72,6 +80,11 @@ public class SelectedListView extends JPanel {
                 JOptionPane.INFORMATION_MESSAGE
         ));
         buttonRow.add(sortButton);
+
+        // --- Delete Country (ALWAYS uses popup) ---
+        JButton deleteCountryButton = new JButton("Delete Country");
+        deleteCountryButton.addActionListener(e -> deleteCountryViaPopup());
+        buttonRow.add(deleteCountryButton);
 
         // Add both rows to the top panel
         topPanel.add(titleRow);
@@ -106,23 +119,11 @@ public class SelectedListView extends JPanel {
     }
 
     public void loadList(String username, String listName) {
-        // If we're already showing this same list, just use whatever is in the
-        // ViewModel (which includes any edited description) and DON'T reload
-        // from the JSON file.
-        if (username.equals(viewModel.getCurrentUsername())
-                && listName.equals(viewModel.getCurrentListName())) {
-            refreshFromViewModel();
-            return;
-        }
-
-        // First time opening this list (or switching to a different list):
-        // load from the use case / DAO
         viewModel.setCurrentUsername(username);
         viewModel.setCurrentListName(listName);
         controller.viewSelectedList(username, listName);
         refreshFromViewModel();
     }
-
 
     private void refreshFromViewModel() {
         String error = viewModel.getErrorMessage();
@@ -156,5 +157,87 @@ public class SelectedListView extends JPanel {
             viewModel.setDescription(newDesc);
             // TODO: later create UpdateListDescription use case for JSON saving
         }
+    }
+
+    /**
+     * Delete a country using a popup dialog only
+     * (no need to click it in the JList first).
+     */
+    private void deleteCountryViaPopup() {
+        String username = currentUserSupplier.get();
+        if (username == null || username.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No user is currently logged in.",
+                    "Delete Country",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        String listName = viewModel.getCurrentListName();
+        if (listName == null || listName.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No list is currently selected.",
+                    "Delete Country",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Get the current countries from the view model
+        List<String> countries = viewModel.getCountries();
+        if (countries == null || countries.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "There are no countries to delete in this list.",
+                    "Delete Country",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        // Build combo box with all countries
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (String c : countries) {
+            comboBox.addItem(c);
+        }
+
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                comboBox,
+                "Choose a country to delete",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result != JOptionPane.OK_OPTION) {
+            return; // user cancelled
+        }
+
+        String selected = (String) comboBox.getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
+        // Confirm deletion
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete country \"" + selected
+                        + "\" from list \"" + listName + "\"?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (choice != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Perform deletion & reload
+        favouritesDao.removeCountry(username, listName, selected);
+
+        controller.viewSelectedList(username, listName);
+        refreshFromViewModel();
     }
 }

@@ -148,11 +148,22 @@ public class AppBuilder {
                 new ViewSelectedListController(selectedListInteractor);
 
         selectedListView =
-                new SelectedListView(selectedListController, selectedListViewModel, viewManagerModel);
+                new SelectedListView(
+                        selectedListController,
+                        selectedListViewModel,
+                        viewManagerModel,
+                        () -> {
+                            String current = userDataAccess.getCurrentUsername();
+                            return current != null ? current : "";
+                        },
+                        fileUserDataAccessObject
+                );
+
         cardPanel.add(selectedListView, selectedListView.viewName);
 
         return this;
     }
+
 
     // ---------- Saved lists (overview) ----------
     public AppBuilder addViewSavedLists() {
