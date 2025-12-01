@@ -1,5 +1,7 @@
 package app;
 
+import interface_adapter.ViewManagerModel;
+import view.*;
 import data_access.UserCSVDataAccess;
 import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
@@ -49,11 +51,22 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
+
+    private SearchesView searchesView;
+    private SearchByLanguageView searchByLanguageView;
+    private SearchByRegionView searchByRegionView;
+    private SearchByCurrencyView searchByCurrencyView;
+
     private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
     private SaveCountryView saveCountryView;
     private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
+    private ProfilePresenter profilePresenter;
+    private ProfileInteractor profileInteractor;
+
+    final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+    final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
     // --- Data access objects ---
     private final FileUserDataAccessObject fileUserDataAccessObject;
@@ -70,10 +83,7 @@ public class AppBuilder {
 
         // one shared CSV DAO
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
-        loginDataAccess = userDataAccess;
-
-        // single favourites JSON DAO
-        fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+        profileViewModel = new ProfileViewModel();
     }
 
     public AppBuilder addLoginSignUpView() {
@@ -85,16 +95,23 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
+
         LoginOutputBoundary loginPresenter = new LoginPresenter(
-                loginViewModel, viewManagerModel, this::getProfileViewModel);
+                loginViewModel,
+                viewManagerModel,
+                profileViewModel,
+                userDataAccess
+        );
+
         LoginInputBoundary loginInteractor =
-                new LoginInteractor(loginDataAccess, loginPresenter);
+                new LoginInteractor(userDataAccess, loginPresenter);
 
         LoginController loginController = new LoginController(loginInteractor);
         loginSignUpView.setLoginController(loginController);
 
         return this;
     }
+
 
     public AppBuilder addSignUpUseCase() {
         signUpViewModel = new SignUpViewModel();
@@ -109,6 +126,10 @@ public class AppBuilder {
         SignUpController signupController = new SignUpController(signupInteractor);
         loginSignUpView.setSignupController(signupController);
 
+    // TODO placeholder: update when merged with Search by Currency use case
+    public AppBuilder addSearchByCurrencyView() {
+        searchByCurrencyView = new SearchByCurrencyView();
+        cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
         return this;
     }
 
@@ -208,13 +229,12 @@ public class AppBuilder {
     }
 
     public AppBuilder addProfileUseCase() {
-        profileViewModel = new ProfileViewModel();
 
-        ProfileOutputBoundary profilePresenter =
+        profilePresenter =
                 new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel);
 
-        ProfileInputBoundary profileInteractor =
-                new ProfileInteractor(profilePresenter);
+        profileInteractor =
+                new ProfileInteractor(profilePresenter, userDataAccess);
 
         ProfileController profileController =
                 new ProfileController(profileInteractor);
@@ -226,16 +246,15 @@ public class AppBuilder {
         return this;
     }
 
+
     public AppBuilder addEditProfileUseCase() {
         editProfileViewModel = new EditProfileViewModel();
         EditProfileView editProfileView = new EditProfileView(editProfileViewModel);
 
-        ProfileController profileController = new ProfileController(
-                new ProfileInteractor(new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel)));
+        ProfileController profileController = new ProfileController(profileInteractor);
 
         editProfileView.setController(profileController);
         cardPanel.add(editProfileView, editProfileView.getViewName());
-
         return this;
     }
 
@@ -250,7 +269,11 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        // Start on the login screen
+        viewManagerModel.setState(searchesView.getViewName());
+        // Start on the lists screen so you can test:
+        // 1) Load My Lists
+        // 2) Click Example List -> goes to SelectedListView
+        viewManagerModel.setState("lists");
         viewManagerModel.setState(loginSignUpView.getViewName());
         viewManagerModel.firePropertyChange();
 
