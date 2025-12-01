@@ -1,31 +1,24 @@
 package app;
 
-import interface_adapter.ViewManagerModel;
-import view.*;
-import data_access.UserCSVDataAccess;
 import data_access.FileUserDataAccessObject;
+import data_access.UserCSVDataAccess;
 import entity.UserFactory;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsController;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsPresenter;
 import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
 import interface_adapter.ViewSelectedList.ViewSelectedListController;
 import interface_adapter.ViewSelectedList.ViewSelectedListPresenter;
 import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
-import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.profile.*;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryPresenter;
-import interface_adapter.profile.*;
-
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
-import use_case.login.LoginUserAccess;
-import use_case.profile.*;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.signup.*;
 
 import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
 import use_case.RetrieveSavedLists.ViewSavedListsInteractor;
@@ -33,25 +26,30 @@ import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
 import use_case.ViewSelectedList.ViewSelectedListInteractor;
 import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
-import view.*;
+import use_case.login.LoginInputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
+import use_case.login.LoginUserAccess;
+import use_case.profile.*;
 import use_case.save_country.SaveCountryInputBoundary;
-import use_case.save_country.SaveCountryOutputBoundary;
 import use_case.save_country.SaveCountryInteractor;
-
-import interface_adapter.signup.*;
+import use_case.save_country.SaveCountryOutputBoundary;
 import use_case.signup.*;
+
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AppBuilder {
+
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-
+    // Search views
     private SearchesView searchesView;
     private SearchByLanguageView searchByLanguageView;
     private SearchByRegionView searchByRegionView;
@@ -62,18 +60,16 @@ public class AppBuilder {
     private SaveCountryView saveCountryView;
     private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
+
     private ProfilePresenter profilePresenter;
     private ProfileInteractor profileInteractor;
 
-    final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
-    final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
-
-    // --- Data access objects ---
+    // --- Data access objects (single instances) ---
     private final FileUserDataAccessObject fileUserDataAccessObject;
-    private final UserCSVDataAccess userDataAccess;   // single CSV DAO
+    private final UserCSVDataAccess userDataAccess;   // CSV DAO
     private final LoginUserAccess loginDataAccess;    // alias to same DAO
 
-    // For views
+    // Views / view-models
     private SelectedListView selectedListView;
     private ProfileViewModel profileViewModel;
     private EditProfileViewModel editProfileViewModel;
@@ -81,10 +77,15 @@ public class AppBuilder {
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
 
-        // one shared CSV DAO
+        // Shared DAOs
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+        loginDataAccess = userDataAccess; // same object, typed by interface
+        fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+
         profileViewModel = new ProfileViewModel();
     }
+
+    // ---------- Searches view ----------
 
     public AppBuilder addSearchesView() {
         searchesView = new SearchesView(viewManagerModel);
@@ -92,10 +93,11 @@ public class AppBuilder {
         return this;
     }
 
+    // ---------- Login & Sign-up ----------
+
     public AppBuilder addLoginSignUpView() {
         loginViewModel = new LoginViewModel();
         loginSignUpView = new LoginSignUpView(loginViewModel);
-
         cardPanel.add(loginSignUpView, loginSignUpView.getViewName());
         return this;
     }
@@ -118,7 +120,6 @@ public class AppBuilder {
         return this;
     }
 
-
     public AppBuilder addSignUpUseCase() {
         signUpViewModel = new SignUpViewModel();
 
@@ -134,12 +135,15 @@ public class AppBuilder {
         return this;
     }
 
-    // TODO placeholder: update when merged with Search by Currency use case
+    // ---------- Search by Currency (placeholder) ----------
+
     public AppBuilder addSearchByCurrencyView() {
         searchByCurrencyView = new SearchByCurrencyView();
         cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
         return this;
     }
+
+    // ---------- Save Country ----------
 
     public AppBuilder addSaveCountryView() {
         saveCountryViewModel = new SaveCountryViewModel();
@@ -149,9 +153,9 @@ public class AppBuilder {
     }
 
     public AppBuilder addSaveCountryUseCase() {
-        final SaveCountryOutputBoundary saveCountryOutputBoundary =
+        SaveCountryOutputBoundary saveCountryOutputBoundary =
                 new SaveCountryPresenter(saveCountryViewModel);
-        final SaveCountryInputBoundary saveCountryInteractor =
+        SaveCountryInputBoundary saveCountryInteractor =
                 new SaveCountryInteractor(
                         loginDataAccess,
                         fileUserDataAccessObject,
@@ -165,6 +169,7 @@ public class AppBuilder {
     }
 
     // ---------- Selected list (detail) ----------
+
     public AppBuilder addViewSelectedList() {
         ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
         ViewSelectedListOutputBoundary selectedListPresenter =
@@ -193,31 +198,20 @@ public class AppBuilder {
         return this;
     }
 
-
     // ---------- Saved lists (overview) ----------
+
     public AppBuilder addViewSavedLists() {
-        // 1. Create the view model for the lists screen
         ViewSavedListsViewModel listsViewModel = new ViewSavedListsViewModel();
 
-        // 2. Create the presenter
         ViewSavedListsOutputBoundary listsPresenter =
                 new ViewSavedListsPresenter(listsViewModel);
 
-        // 3. Create the interactor (use case)
         ViewSavedListsInputBoundary listsInteractor =
                 new ViewSavedListsInteractor(listsPresenter, fileUserDataAccessObject);
 
-        // 4. Create the controller
         ViewSavedListsController listsController =
                 new ViewSavedListsController(listsInteractor);
 
-        // 5. Create the view and add it to the card layout.
-        //    We pass:
-        //    - controller + viewModel
-        //    - selectedListView (detail view)
-        //    - viewManagerModel (for navigation)
-        //    - a Supplier<String> that returns the currently logged-in username
-        //    - fileUserDataAccessObject so Create List can write to JSON
         ListsView listsView =
                 new ListsView(
                         listsController,
@@ -235,6 +229,8 @@ public class AppBuilder {
 
         return this;
     }
+
+    // ---------- Profile & Edit Profile ----------
 
     public AppBuilder addProfileUseCase() {
 
@@ -254,7 +250,6 @@ public class AppBuilder {
         return this;
     }
 
-
     public AppBuilder addEditProfileUseCase() {
         editProfileViewModel = new EditProfileViewModel();
         EditProfileView editProfileView = new EditProfileView(editProfileViewModel);
@@ -270,6 +265,8 @@ public class AppBuilder {
         return profileViewModel;
     }
 
+    // ---------- Build frame ----------
+
     public JFrame build() {
         JFrame application = new JFrame("Country Explorer");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -277,11 +274,7 @@ public class AppBuilder {
 
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-        viewManagerModel.setState(searchesView.getViewName());
-        // Start on the lists screen so you can test:
-        // 1) Load My Lists
-        // 2) Click Example List -> goes to SelectedListView
-        viewManagerModel.setState("lists");
+        // Start on login screen
         viewManagerModel.setState(loginSignUpView.getViewName());
         viewManagerModel.firePropertyChange();
 
