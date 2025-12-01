@@ -7,7 +7,7 @@ public class LoginOutput {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
+    public String getUsername() {
         return displayName;
     }
 }
