@@ -24,6 +24,8 @@ public class SelectedListView extends JPanel {
     private final FileUserDataAccessObject favouritesDao;
 
     private final String listsViewName = "lists";
+    // 🔹 MUST match SearchesView.getViewName()
+    private final String searchesViewName = "searchesView";
 
     private final JLabel titleLabel = new JLabel("List: ");
     private final JTextArea descriptionArea = new JTextArea(3, 30);
@@ -67,14 +69,12 @@ public class SelectedListView extends JPanel {
         editDescriptionButton.addActionListener(e -> editDescription());
         buttonRow.add(editDescriptionButton);
 
-        // --- Search button (placeholder) ---
+        // --- Search button: go to SearchesView ---
         JButton searchButton = new JButton("Search");
-        searchButton.addActionListener(e -> JOptionPane.showMessageDialog(
-                this,
-                "Search feature not implemented yet.",
-                "Search",
-                JOptionPane.INFORMATION_MESSAGE
-        ));
+        searchButton.addActionListener(e -> {
+            viewManagerModel.setState(searchesViewName);
+            viewManagerModel.firePropertyChange();
+        });
         buttonRow.add(searchButton);
 
         // --- Sort button (toggles A–Z / Z–A) ---
@@ -234,7 +234,7 @@ public class SelectedListView extends JPanel {
         }
 
         // Get the existing list details and update the description
-        java.util.Map<String, Object> listDetails =
+        Map<String, Object> listDetails =
                 favouritesDao.getListDetails(username, listName);
 
         if (listDetails == null) {
@@ -247,7 +247,6 @@ public class SelectedListView extends JPanel {
         // Write the updated structure back to favouritesRepository.json
         favouritesDao.save();
     }
-
 
     /**
      * Delete a country using a popup dialog only
