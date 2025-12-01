@@ -6,5 +6,4 @@ public interface ProfileInputBoundary {
     void editProfile();
     void backToProfile();
     void updateProfile(String language, String bio);
-    void goToSearches();
 }

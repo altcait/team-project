@@ -29,6 +29,4 @@ public class ProfileController {
     public void onSaveProfile(String language, String bio) {
         interactor.updateProfile(language, bio);
     }
-
-    public void onSearches() { interactor.goToSearches(); }
 }

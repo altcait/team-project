@@ -19,12 +19,6 @@ public class ProfilePresenter implements ProfileOutputBoundary {
         this.profileViewModel = profileViewModel;
     }
 
-    public void goToSearches() {
-        viewManagerModel.setState("searchesView");
-        viewManagerModel.firePropertyChange();
-    }
-
-
     @Override
     public void switchToFavoritesView() {
         //body

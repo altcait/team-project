@@ -21,7 +21,6 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
     private final JButton savedListsButton = new JButton("Saved Lists");
     private final JButton editProfileButton = new JButton("Edit Profile");
     private final JButton logoutButton = new JButton("Logout");
-    private final JButton searchesButton = new JButton("Search Countries");
 
     public ProfileView(ProfileViewModel viewModel) {
         this.viewModel = viewModel;
@@ -41,7 +40,6 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         buttonRow.add(savedListsButton);
         buttonRow.add(editProfileButton);
         buttonRow.add(logoutButton);
-        buttonRow.add(searchesButton);
         buttonRow.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         add(Box.createVerticalStrut(20));
@@ -63,7 +61,6 @@ public class ProfileView extends JPanel implements PropertyChangeListener {
         savedListsButton.addActionListener(e -> controller.onFavorites());
         editProfileButton.addActionListener(e -> controller.onEditProfile());   // NEW
         logoutButton.addActionListener(e -> controller.onLogout());
-        searchesButton.addActionListener(e -> controller.onSearches());
     }
 
     @Override
