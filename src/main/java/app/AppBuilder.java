@@ -54,6 +54,9 @@ public class AppBuilder {
     private SaveCountryView saveCountryView;
     private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
+    private ProfilePresenter profilePresenter;
+    private ProfileInteractor profileInteractor;
+
     final FileUserDataAccessObject fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
     final LoginUserAccess loginDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
 
@@ -67,6 +70,7 @@ public class AppBuilder {
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
+        profileViewModel = new ProfileViewModel();
     }
 
     public AppBuilder addLoginSignUpView() {
@@ -78,19 +82,23 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
-//        LoginUserAccess dataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
-
-        LoginUserAccess loginDataAccess = userDataAccess;
 
         LoginOutputBoundary loginPresenter = new LoginPresenter(
-                loginViewModel, viewManagerModel, this::getProfileViewModel);
-        LoginInputBoundary loginInteractor = new LoginInteractor(loginDataAccess, loginPresenter);
+                loginViewModel,
+                viewManagerModel,
+                profileViewModel,
+                userDataAccess
+        );
+
+        LoginInputBoundary loginInteractor =
+                new LoginInteractor(userDataAccess, loginPresenter);
 
         LoginController loginController = new LoginController(loginInteractor);
         loginSignUpView.setLoginController(loginController);
 
         return this;
     }
+
 
     public AppBuilder addSignUpUseCase() {
         signUpViewModel = new SignUpViewModel();
@@ -176,13 +184,11 @@ public class AppBuilder {
 
     public AppBuilder addProfileUseCase() {
 
-        profileViewModel = new ProfileViewModel();
-
-        ProfileOutputBoundary profilePresenter =
+        profilePresenter =
                 new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel);
 
-        ProfileInputBoundary profileInteractor =
-                new ProfileInteractor(profilePresenter);
+        profileInteractor =
+                new ProfileInteractor(profilePresenter, userDataAccess);
 
         ProfileController profileController =
                 new ProfileController(profileInteractor);
@@ -195,17 +201,16 @@ public class AppBuilder {
         return this;
     }
 
+
     public AppBuilder addEditProfileUseCase() {
         editProfileViewModel = new EditProfileViewModel();
         EditProfileView editProfileView = new EditProfileView(editProfileViewModel);
 
-        ProfileController profileController = new ProfileController(
-                new ProfileInteractor(new ProfilePresenter(viewManagerModel, loginViewModel, profileViewModel)));
+        ProfileController profileController = new ProfileController(profileInteractor);
 
         editProfileView.setController(profileController);
 
         cardPanel.add(editProfileView, editProfileView.getViewName());
-
         return this;
     }
 

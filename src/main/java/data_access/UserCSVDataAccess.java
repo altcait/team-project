@@ -10,7 +10,7 @@ import java.util.*;
 
 public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
-    private static final String HEADER = "username,password";
+    private static final String HEADER = "username,password,language,bio";
 
     private final File userCSVFile;
     private final UserFactory userFactory;
@@ -59,11 +59,12 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
 
             String row;
             while ((row = reader.readLine()) != null) {
-                String[] cols = row.split(",", 2);
+                String[] cols = row.split(",", 4);
 
                 String username = cols[headers.get("username")].trim();
                 String password = cols[headers.get("password")].trim();
-
+                String language = cols.length > 2 ? cols[2].trim() : "";
+                String bio = cols.length > 3 ? cols[3].trim() : "";
 //                List<String> favourites = countriesStr.isEmpty()
 //                        ? new ArrayList<>()
 //                        : Arrays.asList(countriesStr.split(";"));
@@ -71,6 +72,8 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
                 Map<String, Map<String, Object>> favourites = new HashMap<>();
 
                 User user = userFactory.create(username, password, favourites);
+                user.setLanguage(language);
+                user.setBio(bio);
                 users.put(username, user);
             }
         } catch (IOException e) {
@@ -84,9 +87,11 @@ public class UserCSVDataAccess implements LoginUserAccess, SignUpUserAccess {
             writer.newLine();
 
             for (User user : users.values()) {
-                writer.write(String.format("%s,%s",
+                writer.write(String.format("%s,%s,%s,%s",
                         user.getName(),
-                        user.getPassword()));
+                        user.getPassword(),
+                        user.getLanguage(),
+                        user.getBio()));
 
                 writer.newLine();
             }
