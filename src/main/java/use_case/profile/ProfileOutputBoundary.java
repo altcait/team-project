@@ -6,4 +6,5 @@ public interface ProfileOutputBoundary {
     void switchToEditProfileView();
     void switchToProfileView();
     void updateProfile(String language, String bio);
+    void goToSearches();
 }

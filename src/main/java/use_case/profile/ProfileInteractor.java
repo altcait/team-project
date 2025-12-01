@@ -17,6 +17,8 @@ public class ProfileInteractor implements ProfileInputBoundary {
         presenter.switchToFavoritesView();
     }
 
+    public void goToSearches() { presenter.goToSearches();}
+
     @Override
     public void logout() {
         presenter.switchToLoginView();
