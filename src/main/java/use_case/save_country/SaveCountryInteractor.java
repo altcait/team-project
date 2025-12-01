@@ -2,6 +2,8 @@ package use_case.save_country;
 
 import use_case.login.LoginUserAccess;
 
+import java.util.List;
+
 /**
  * The Save Country Interactor.
  */
@@ -16,6 +18,14 @@ public class SaveCountryInteractor implements SaveCountryInputBoundary {
         this.loginUserAccess = loginUserAccess;
         this.saveCountryDataAccessObject = saveCountryDataAccessInterface;
         this.saveCountryPresenter = saveCountryOutputBoundary;
+    }
+
+    @Override
+    public void fetchListNames() {
+        String username = loginUserAccess.getCurrentUsername();
+        username = (username != null) ? username : "caitlinhen001";
+        List<String> listNames = saveCountryDataAccessObject.getListNames(username);
+        saveCountryPresenter.prepareListNames(listNames);
     }
 
     @Override

@@ -9,7 +9,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileUserDataAccessObject implements SaveCountryDataAccessInterface {
@@ -86,6 +88,17 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<String> getListNames(String username) {
+        // check that user exists in favouritesByUser and return early if not
+        if (!userExists(username)) {
+            return new ArrayList<>();
+        }
+        // pull all list names for user
+        Map<String, Map<String, Object>> listsWithCountries = favouritesByUser.get(username.toLowerCase());
+        // populate listNames with list names
+        return new ArrayList<>(listsWithCountries.keySet());
     }
 
     @Override

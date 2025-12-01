@@ -5,13 +5,12 @@ import interface_adapter.save_country.SaveCountryState;
 import interface_adapter.save_country.SaveCountryViewModel;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 /**
  * The View for the SaveCountry Use Case.
@@ -19,15 +18,15 @@ import java.beans.PropertyChangeListener;
 public class SaveCountryView extends JPanel implements ActionListener, PropertyChangeListener {
     private final SaveCountryViewModel saveCountryViewModel;
 
-    // result of operations:
+    // result of operations - success or error message:
     private final JLabel saveCountryResultField = new JLabel();
 
-    private final JTextField countryCodeInputField = new JTextField(3);
-    private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
-    private final JTextField countryNotesInputField = new JTextField(15);
+    private final JTextField countryCodeInputField = new JTextField(15);
+    private final JComboBox<String> listNameDropdown = new JComboBox<>();
+//    private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
+//    DefaultListModel<String> listModel = new DefaultListModel<>();
+    private final JTextField countryNotesInputField = new JTextField(30);
     private final JButton saveCountryButton = new JButton("Save");
-
-
 
     private SaveCountryController saveCountryController = null;
 
@@ -39,21 +38,39 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
 
         // Instantiate panel and labels
         final JPanel saveCountryPanel = new JPanel();
-        final JLabel saveCountryLabel = new JLabel("3-letter country code");
-        final JLabel listNameLabel = new JLabel("Choose which list you want to add this country to.");
+        saveCountryPanel.setLayout(new BoxLayout(saveCountryPanel, BoxLayout.Y_AXIS));
+        final JLabel saveCountryLabel = new JLabel("Country:");
+        final JLabel listNameLabel = new JLabel("Choose which list you want to add this country to:");
+        final JLabel notesLabel = new JLabel("Add some notes if you want:");
 
         // Error message
-        saveCountryPanel.add(saveCountryResultField);
+        JPanel result = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        result.add(saveCountryResultField);
+        saveCountryPanel.add(result);
 
         // Country code
-        saveCountryPanel.add(saveCountryLabel);
-        saveCountryPanel.add(countryCodeInputField);
+        JPanel country = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        country.add(saveCountryLabel);
+        country.add(countryCodeInputField);
+        saveCountryPanel.add(country);
+
         // List name
-        saveCountryPanel.add(listNameLabel);
+        JPanel list = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        list.add(listNameLabel);
+        list.add(listNameDropdown);
         listNameDropdown.setSelectedIndex(-1);
-        saveCountryPanel.add(listNameDropdown);
+        saveCountryPanel.add(list);
+
+        listNameDropdown.addItem("Visited");
+        listNameDropdown.addItem("Want to go");
+
         // Notes
-        saveCountryPanel.add(countryNotesInputField);
+        JPanel notes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        notes.add(notesLabel);
+        notes.add(countryNotesInputField);
+        saveCountryPanel.add(notes);
+
+        // Submit button
         saveCountryPanel.add(saveCountryButton);
 
         saveCountryButton.addActionListener(
@@ -65,7 +82,7 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
                             String listName = (String)listNameDropdown.getSelectedItem();
 //                            final SaveCountryState  currentState = saveCountryViewModel.getState();
 
-                            if (countryCode.isEmpty() || listName.isEmpty()) {
+                            if (countryCode == null || listName == null) {
                                 JOptionPane.showMessageDialog(null, "Please enter at minimum a country code and select a list.", "Error", JOptionPane.ERROR_MESSAGE);
                             } else if (countryCode.length() != 3) {
                                 JOptionPane.showMessageDialog(null, "Please enter a 3-letter country code", "Error", JOptionPane.ERROR_MESSAGE);
@@ -76,37 +93,8 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
                     }
                 }
         );
-
-//        addCountryCodeListener();
         this.add(saveCountryPanel);
     }
-
-//    private void addCountryCodeListener() {
-//        countryCodeInputField.getDocument().addDocumentListener(new DocumentListener() {
-//            private void documentListenerHelper() {
-//                final SaveCountryState savedState = saveCountryViewModel.getState();
-//                savedState.setCountryCode(countryCodeInputField.getText());
-//                saveCountryViewModel.setState(savedState);
-//                System.out.println("Enter country code");
-//
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-//    }
 
     /**
      * React to a button click that results in evt.
@@ -120,14 +108,35 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SaveCountryState saveCountryState = (SaveCountryState)evt.getNewValue();
+        // get all list names from the back end to populate the dropdown
+        saveCountryController.fetchListNames();
+        // get list names from state
+        List<String> listNames = saveCountryState.getLists();
 
-        // reset form fields
+        if (listNames != null) {
+            DefaultComboBoxModel listNamesModel =  new DefaultComboBoxModel<>();
+            for (String list : listNames) {
+                listNamesModel.addElement(list);
+            }
+            listNameDropdown.setModel(listNamesModel);
+        } else {
+            // If there are none, set some defaults
+            listNameDropdown.addItem("Visited");
+            listNameDropdown.addItem("Want to go");
+        }
+
+        listNameDropdown.setSelectedIndex(-1);
+
+        // Set form fields
         countryCodeInputField.setText(saveCountryState.getCountryCode());
         countryNotesInputField.setText(saveCountryState.getNotes());
-        listNameDropdown.setSelectedIndex(-1);
         // show error or success message
         saveCountryResultField.setText(saveCountryState.getResultString());
-//        JOptionPane.showMessageDialog(null, saveCountryState.getResultString(), "Result", JOptionPane.INFORMATION_MESSAGE);
+        // if error or success message is present, put a border around the message for visibility
+        if (saveCountryState.getResultString().isEmpty()) {
+            saveCountryResultField.setOpaque(true);
+            saveCountryResultField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
     }
 
     public void setSaveCountryController(SaveCountryController saveCountryController) { this.saveCountryController = saveCountryController; }

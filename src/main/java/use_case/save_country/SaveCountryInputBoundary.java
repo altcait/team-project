@@ -9,4 +9,6 @@ public interface SaveCountryInputBoundary {
      * @param saveCountryInputData the input data for this use case
      */
     void execute(SaveCountryInputData saveCountryInputData);
+
+    void fetchListNames();
 }
