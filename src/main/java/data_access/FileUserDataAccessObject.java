@@ -1,6 +1,5 @@
 package data_access;
 
-import use_case.FavoriteLists.FavoritesReadDataAccess;
 import use_case.save_country.SaveCountryDataAccessInterface;
 
 import org.json.JSONObject;

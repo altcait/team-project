@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Cleaner View Saved Lists Interactor and View Selected list Interactor">
+    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="Small Name Change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FileUserDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/FavoritesList/FavoriteList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/FavoriteLists/FavoriteList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/FavoritesList/FavoritesReadDataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/FavoriteLists/FavoritesReadDataAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,12 +93,21 @@
       <option name="project" value="LOCAL" />
       <updated>1764586286615</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Small Name Change">
+      <option name="closed" value="true" />
+      <created>1764590230402</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764590230402</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Made the code be able to read JSON File instead of dummy data" />
     <MESSAGE value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaner View Saved Lists Interactor and View Selected list Interactor" />
+    <MESSAGE value="Small Name Change" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small Name Change" />
   </component>
 </project>

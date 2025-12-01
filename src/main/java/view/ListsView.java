@@ -6,9 +6,12 @@ import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.function.Supplier;
 
-public class ListsView extends JPanel {
+public class ListsView extends JPanel implements PropertyChangeListener {
 
     public final String viewName = "lists";
 
@@ -16,6 +19,7 @@ public class ListsView extends JPanel {
     private final ViewSavedListsViewModel viewModel;
     private final SelectedListView selectedListView;
     private final ViewManagerModel viewManagerModel;
+    private final Supplier<String> currentUserSupplier;   // NEW
 
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JList<String> listDisplay = new JList<>(listModel);
@@ -26,12 +30,14 @@ public class ListsView extends JPanel {
     public ListsView(ViewSavedListsController controller,
                      ViewSavedListsViewModel viewModel,
                      SelectedListView selectedListView,
-                     ViewManagerModel viewManagerModel) {
+                     ViewManagerModel viewManagerModel,
+                     Supplier<String> currentUserSupplier) {   // NEW PARAM
 
         this.controller = controller;
         this.viewModel = viewModel;
         this.selectedListView = selectedListView;
         this.viewManagerModel = viewManagerModel;
+        this.currentUserSupplier = currentUserSupplier;
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -111,8 +117,34 @@ public class ListsView extends JPanel {
             }
         });
 
-        // ===== AUTO-LOAD LISTS =====
-        String username = "testUser"; // TODO: replace with profile username
+        // IMPORTANT: we **no longer** auto-load here.
+        // We’ll load when this view becomes active (see propertyChange).
+    }
+
+    /** Called when the ViewManagerModel changes view. */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (!"state".equals(evt.getPropertyName())) {
+            return;
+        }
+        String newViewName = (String) evt.getNewValue();
+
+        // When the "lists" view becomes active, load data for the current user.
+        if (viewName.equals(newViewName)) {
+            loadForCurrentUser();
+        }
+    }
+
+    /** Load lists for whatever user is currently logged in. */
+    private void loadForCurrentUser() {
+        String username = currentUserSupplier.get();
+
+        if (username == null || username.isEmpty()) {
+            listModel.clear();
+            errorLabel.setText("No user is currently logged in.");
+            return;
+        }
+
         viewModel.setCurrentUsername(username);
         controller.viewLists(username);
         refreshListDisplay();
@@ -129,7 +161,7 @@ public class ListsView extends JPanel {
             return;
         }
 
-        if (names != null) {
+        if (names != null && !names.isEmpty()) {
             for (String name : names) {
                 listModel.addElement(name);
             }

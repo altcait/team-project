@@ -1,6 +1,6 @@
 package use_case.ViewSelectedList;
 
-import use_case.FavoriteLists.FavoritesReadDataAccess;
+import data_access.FavoritesReadDataAccess;
 import java.util.List;
 
 public class ViewSelectedListInteractor implements ViewSelectedListInputBoundary {

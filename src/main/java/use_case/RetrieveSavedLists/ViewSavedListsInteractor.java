@@ -1,6 +1,6 @@
 package use_case.RetrieveSavedLists;
 
-import use_case.FavoriteLists.FavoritesReadDataAccess;
+import data_access.FavoritesReadDataAccess;
 import java.util.List;
 
 public class ViewSavedListsInteractor implements ViewSavedListsInputBoundary {
