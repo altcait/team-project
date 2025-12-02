@@ -1,8 +1,8 @@
 package interface_adapter.view_selected_list;
 
-import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
-import use_case.ViewSelectedList.ViewSelectedListRequestModel;
-import use_case.ViewSelectedList.ViewSelectedListResponseModel;
+import use_case.view_selected_list.ViewSelectedListInputBoundary;
+import use_case.view_selected_list.ViewSelectedListRequestModel;
+import use_case.view_selected_list.ViewSelectedListResponseModel;
 
 public class ViewSelectedListController {
 

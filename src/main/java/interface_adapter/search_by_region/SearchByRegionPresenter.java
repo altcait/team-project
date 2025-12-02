@@ -1,10 +1,10 @@
-package interface_adapter.search.byregion;
+package interface_adapter.search_by_region;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.view_selected_list.ViewSelectedListViewModel;
-import use_case.search.byregion.SearchByRegionOutputBoundary;
-import use_case.search.byregion.SearchByRegionOutputData;
+import use_case.search.by_region.SearchByRegionOutputBoundary;
+import use_case.search.by_region.SearchByRegionOutputData;
 
 /**
  * Presenter for the Search By Region use case.

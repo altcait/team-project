@@ -1,4 +1,4 @@
-package use_case.search.byregion;
+package use_case.search.by_region;
 
 /**
  * Output boundary for the Search by region use case.

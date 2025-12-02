@@ -1,4 +1,4 @@
-package use_case.RetrieveSavedLists;
+package use_case.retrieve_saved_lists;
 
 import java.util.List;
 

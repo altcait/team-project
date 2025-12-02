@@ -1,4 +1,4 @@
-package use_case.RetrieveSavedLists;
+package use_case.retrieve_saved_lists;
 
 import data_access.FavoritesReadDataAccess;
 import java.util.List;

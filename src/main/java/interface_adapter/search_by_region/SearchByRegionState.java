@@ -1,4 +1,4 @@
-package interface_adapter.search.byregion;
+package interface_adapter.search_by_region;
 
 import entity.Country;
 

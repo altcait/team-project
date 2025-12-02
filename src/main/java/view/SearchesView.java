@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.search.byregion.SearchByRegionViewModel;
+import interface_adapter.search_by_region.SearchByRegionViewModel;
 import javax.swing.*;
 import java.awt.*;
 

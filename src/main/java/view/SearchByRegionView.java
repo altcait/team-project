@@ -3,15 +3,11 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import entity.Country;
-import interface_adapter.search.byregion.SearchByRegionController;
-import interface_adapter.search.byregion.SearchByRegionState;
-import interface_adapter.search.byregion.SearchByRegionViewModel;
+import interface_adapter.search_by_region.SearchByRegionController;
+import interface_adapter.search_by_region.SearchByRegionState;
+import interface_adapter.search_by_region.SearchByRegionViewModel;
 
-import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;

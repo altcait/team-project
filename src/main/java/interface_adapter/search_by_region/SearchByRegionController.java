@@ -1,7 +1,7 @@
-package interface_adapter.search.byregion;
+package interface_adapter.search_by_region;
 
-import use_case.search.byregion.SearchByRegionInputBoundary;
-import use_case.search.byregion.SearchByRegionInputData;
+import use_case.search.by_region.SearchByRegionInputBoundary;
+import use_case.search.by_region.SearchByRegionInputData;
 
 /**
  * Controller for the Search by Region use case.

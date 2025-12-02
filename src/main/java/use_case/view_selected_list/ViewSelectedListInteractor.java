@@ -1,4 +1,4 @@
-package use_case.ViewSelectedList;
+package use_case.view_selected_list;
 
 import data_access.FavoritesReadDataAccess;
 import java.util.List;
