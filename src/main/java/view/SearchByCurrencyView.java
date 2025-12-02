@@ -56,6 +56,7 @@ public class SearchByCurrencyView extends JPanel implements PropertyChangeListen
     private final JLabel errorLabel = new JLabel(" ");
     private final JButton addButton = new JButton("save country to list");
     private final JButton backToSelectedListButton = new JButton("back to selected list");
+    private final JButton exchangeRateButton = new JButton("View Exchange Rate");
 
     /**
      * Flag to avoid triggering use cases while updating UI from the ViewModel.
@@ -125,12 +126,28 @@ public class SearchByCurrencyView extends JPanel implements PropertyChangeListen
         errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backToSelectedListButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exchangeRateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         rightPanel.add(errorLabel);
         rightPanel.add(Box.createVerticalStrut(15));
         rightPanel.add(addButton);
-        rightPanel.add(Box.createVerticalStrut(30));
+        rightPanel.add(Box.createVerticalStrut(15));
         rightPanel.add(backToSelectedListButton);
+        rightPanel.add(Box.createVerticalStrut(15));
+        rightPanel.add(exchangeRateButton);
+
+        exchangeRateButton.addActionListener(e -> {
+            if (controller != null) {
+                String currency = (String) currencyComboBox.getSelectedItem();
+                if (currency != null && !currency.isEmpty()) {
+                    controller.onExchangeRateClicked(currency);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Please select a currency first.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
 
         centerRow.add(rightPanel, BorderLayout.EAST);
 

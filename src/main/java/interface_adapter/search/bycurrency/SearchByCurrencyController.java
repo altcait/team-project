@@ -2,6 +2,13 @@ package interface_adapter.search.bycurrency;
 
 import use_case.search.bycurrency.*;
 
+import javax.swing.*;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import javax.swing.JOptionPane;
+
 
 /**
  * Controller for the Search by Region use case.
@@ -42,6 +49,32 @@ public class SearchByCurrencyController {
         interactor.searchCountriesByCurrency(inputData);
 
     }
+
+    public void onExchangeRateClicked(String currency) {
+        if (currency == null || currency.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No currency selected.");
+            return;
+        }
+
+        try {
+            // XE requires ISO currency codes like USD, EUR, etc.
+            // Ensure the code is uppercase and trimmed
+            String currencyCode = currency.trim().toUpperCase();
+
+            // Construct a URL that XE accepts
+            String url = "https://www.xe.com/currencyconverter/convert/";
+
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI(url));
+            } else {
+                JOptionPane.showMessageDialog(null, "Cannot open browser on this system.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to open browser: " + e.getMessage());
+        }
+    }
+
 
     public void onAddCountryButtonClicked() {
         interactor.switchToSaveCountryView();
