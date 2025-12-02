@@ -18,8 +18,15 @@ public class SaveCountryPresenter implements SaveCountryOutputBoundary {
     @Override
     public void prepareListNames(List<String> listNames) {
         SaveCountryState saveCountryState = saveCountryViewModel.getState();
+        if (listNames.isEmpty()) {
+            // If there are none, set some defaults
+            listNames.add("");
+            listNames.add("Visited");
+            listNames.add("Want to go");
+        }
         // set list names
         saveCountryState.setLists(listNames);
+        saveCountryViewModel.firePropertyChange();
     }
 
     /**

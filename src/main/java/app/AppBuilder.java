@@ -326,7 +326,7 @@ public class AppBuilder {
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
         // Start on login screen
-        viewManagerModel.setState(saveCountryView.getViewName());
+        viewManagerModel.setState(loginSignUpView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;

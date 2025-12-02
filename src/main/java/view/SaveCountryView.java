@@ -21,8 +21,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     private final JLabel saveCountryResultField = new JLabel();
     private final JTextField countryCodeInputField = new JTextField(3);
     private final JComboBox<String> listNameDropdown = new JComboBox<>();
-//    private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
-//    DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JTextField countryNotesInputField = new JTextField(30);
     private final JButton saveCountryButton = new JButton("Add to list");
 
@@ -111,8 +109,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SaveCountryState saveCountryState = (SaveCountryState)evt.getNewValue();
-        // get all list names from the back end to populate the dropdown
-        saveCountryController.fetchListNames();
         // get list names from state
         List<String> listNames = saveCountryState.getLists();
 
@@ -122,11 +118,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
                 listNamesModel.addElement(list);
             }
             listNameDropdown.setModel(listNamesModel);
-        } else {
-            // If there are none, set some defaults
-            listNameDropdown.addItem("");
-            listNameDropdown.addItem("Visited");
-            listNameDropdown.addItem("Want to go");
         }
 
         listNameDropdown.setSelectedIndex(-1);
@@ -138,7 +129,11 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         saveCountryResultField.setText(saveCountryState.getResultString());
     }
 
-    public void setSaveCountryController(SaveCountryController saveCountryController) { this.saveCountryController = saveCountryController; }
+    public void setSaveCountryController(SaveCountryController saveCountryController) {
+        this.saveCountryController = saveCountryController;
+        // Populate the lists dropdown so it's ready on page load
+        this.saveCountryController.fetchListNames();
+    }
 
     public String getViewName() {
         return "save country";
