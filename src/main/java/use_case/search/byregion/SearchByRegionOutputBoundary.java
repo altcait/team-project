@@ -35,5 +35,5 @@ public interface SearchByRegionOutputBoundary {
     /**
      * Called when the user want to back to user's profile.
      */
-    void switchToProfileView();
+    void switchToSelectedListView();
 }

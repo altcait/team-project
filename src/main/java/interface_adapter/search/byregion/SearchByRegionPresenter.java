@@ -2,32 +2,41 @@ package interface_adapter.search.byregion;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
 import use_case.search.byregion.SearchByRegionOutputBoundary;
 import use_case.search.byregion.SearchByRegionOutputData;
 
 /**
  * Presenter for the Search By Region use case.
- * Maps output data to the view model state.
+ * Maps output data to the view model state and handles navigation.
  */
 public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
 
     private final SearchByRegionViewModel viewModel;
     private final ViewManagerModel viewManagerModel;
-    private final ViewModel<?> saveCountryViewModel;
-    private final ViewModel<?> profileViewModel;
+    private final SaveCountryViewModel saveCountryViewModel;
+    private final ViewSelectedListViewModel viewSelectedListViewModel;
 
+    /**
+     * Demo / simple constructor: only updates this view's ViewModel,
+     * no navigation (no ViewManagerModel injected).
+     */
     public SearchByRegionPresenter(SearchByRegionViewModel viewModel) {
         this(viewModel, null, null, null);
     }
 
+    /**
+     * Full constructor used in the real app when navigation is needed.
+     */
     public SearchByRegionPresenter(SearchByRegionViewModel viewModel,
                                    ViewManagerModel viewManagerModel,
-                                   ViewModel<?> saveCountryViewModel,
-                                   ViewModel<?> profileViewModel) {
+                                   SaveCountryViewModel saveCountryViewModel,
+                                   ViewSelectedListViewModel viewSelectedListViewModel) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
         this.saveCountryViewModel = saveCountryViewModel;
-        this.profileViewModel = profileViewModel;
+        this.viewSelectedListViewModel = viewSelectedListViewModel;
     }
 
     @Override
@@ -38,7 +47,7 @@ public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
         state.setSelectedRegion(outputData.getRegion());
         state.setSelectedSubregion(outputData.getSubregion());
         state.setCountries(outputData.getCountries());
-        // Do not change regions/subregions and keep the previous option
+        // not change region/subregion options here!
 
         viewModel.firePropertyChange();
     }
@@ -49,7 +58,7 @@ public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
         state.setErrorMessage(null);
 
         state.setSelectedRegion(outputData.getRegion());
-        // Clear the current subregion selection when changing regions
+        // Clear current subregion selection when region changes
         state.setSelectedSubregion(null);
         state.setSubregionOptions(outputData.getSubregions());
 
@@ -62,7 +71,7 @@ public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
         state.setErrorMessage(null);
 
         state.setRegionOptions(outputData.getRegions());
-        // only fill in the region list initially
+        // Only fill region list initially
 
         viewModel.firePropertyChange();
     }
@@ -79,16 +88,17 @@ public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
         if (viewManagerModel == null || saveCountryViewModel == null) {
             return;
         }
-        viewManagerModel.setState(saveCountryViewModel.getViewName());
+        viewManagerModel.setState("save country");
         viewManagerModel.firePropertyChange();
     }
 
     @Override
-    public void switchToProfileView() {
-        if (viewManagerModel == null || profileViewModel == null) {
+    public void switchToSelectedListView() {
+        if (viewManagerModel == null) {
             return;
         }
-        viewManagerModel.setState(profileViewModel.getViewName());
+        // The view name of SelectedListView in its code is selected_list
+        viewManagerModel.setState("selected_list");
         viewManagerModel.firePropertyChange();
     }
 }

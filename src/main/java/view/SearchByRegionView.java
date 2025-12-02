@@ -1,5 +1,7 @@
 package view;
 
+import javax.swing.*;
+import java.awt.*;
 import entity.Country;
 import interface_adapter.search.byregion.SearchByRegionController;
 import interface_adapter.search.byregion.SearchByRegionState;
@@ -21,7 +23,7 @@ import java.util.List;
  *  - Top: title "Search By Region"
  *  - Below: Region and Subregion combo boxes + Search button
  *  - Left: list of countries (name + cca3)
- *  - Right: error label + "add country to list" + "back to profile"
+ *  - Right: error label + "add country to list" + "back to selected list"
  */
 public class SearchByRegionView extends JPanel implements PropertyChangeListener {
 
@@ -37,8 +39,8 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
     private final JList<String> countryList = new JList<>(countryListModel);
 
     private final JLabel errorLabel = new JLabel(" ");
-    private final JButton addButton = new JButton("add country to list");
-    private final JButton backToProfileButton = new JButton("back to profile");
+    private final JButton addButton = new JButton("save country to list");
+    private final JButton backToSelectedListButton = new JButton("back to selected list");
 
     /**
      * Flag to avoid triggering use cases while updating UI from the ViewModel.
@@ -58,14 +60,14 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
         regionComboBox.setPreferredSize(new Dimension(180, 25));
         subregionComboBox.setPreferredSize(new Dimension(180, 25));
 
-        // Make addButton and backToProfileButton the same size
+        // Make addButton and backToSelectedListButton the same size
         Dimension addSize = addButton.getPreferredSize();
-        Dimension backSize = backToProfileButton.getPreferredSize();
+        Dimension backSize = backToSelectedListButton.getPreferredSize();
         int width = Math.max(addSize.width, backSize.width);
         int height = Math.max(addSize.height, backSize.height);
         Dimension unified = new Dimension(width, height);
         addButton.setPreferredSize(unified);
-        backToProfileButton.setPreferredSize(unified);
+        backToSelectedListButton.setPreferredSize(unified);
 
         // Layout
         this.setLayout(new BorderLayout());
@@ -110,62 +112,50 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
 
         errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         addButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backToProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backToSelectedListButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         rightPanel.add(errorLabel);
         rightPanel.add(Box.createVerticalStrut(15));
         rightPanel.add(addButton);
         rightPanel.add(Box.createVerticalStrut(30));
-        rightPanel.add(backToProfileButton);
+        rightPanel.add(backToSelectedListButton);
 
         centerRow.add(rightPanel, BorderLayout.EAST);
 
         // Listeners
         // Region selection: then ask controller to load subregions
-        regionComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (updatingFromModel) {
-                    return;
-                }
-                Object selected = regionComboBox.getSelectedItem();
-                if (selected != null && controller != null) {
-                    String region = selected.toString();
-                    controller.onRegionSelected(region);
-                }
+        regionComboBox.addActionListener(e -> {
+            if (updatingFromModel) {
+                return;
+            }
+            Object selected = regionComboBox.getSelectedItem();
+            if (selected != null && controller != null) {
+                String region = selected.toString();
+                controller.onRegionSelected(region);
             }
         });
 
         // Search by region or region and subregion
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (controller == null) {
-                    return;
-                }
-                String region = (String) regionComboBox.getSelectedItem();
-                String subregion = (String) subregionComboBox.getSelectedItem();
-                controller.onSearch(region, subregion);
+        searchButton.addActionListener(e -> {
+            if (controller == null) {
+                return;
             }
+            String region = (String) regionComboBox.getSelectedItem();
+            String subregion = (String) subregionComboBox.getSelectedItem();
+            controller.onSearch(region, subregion);
         });
 
         // Click add country button
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (controller != null) {
-                    controller.onAddCountryButtonClicked();
-                }
+        addButton.addActionListener(e -> {
+            if (controller != null) {
+                controller.onAddCountryButtonClicked();
             }
         });
 
-        // Click back to profile
-        backToProfileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (controller != null) {
-                    controller.onBackToProfileButtonClicked();
-                }
+        // Click back to selected list
+        backToSelectedListButton.addActionListener(e -> {
+            if (controller != null) {
+                controller.onBackToSelectedListButtonClicked();
             }
         });
     }
