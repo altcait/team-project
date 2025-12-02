@@ -1,6 +1,5 @@
 package data_access;
 
-import org.json.JSONException;
 import use_case.save_country.SaveCountryDataAccessInterface;
 
 import org.json.JSONObject;
@@ -9,12 +8,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class FileUserDataAccessObject implements SaveCountryDataAccessInterface {
+public class FileUserDataAccessObject implements SaveCountryDataAccessInterface, FavoritesReadDataAccess {
     private final File jsonFile;
     private final Map<String, Map<String, Map<String, Object>>> favouritesByUser = new HashMap<>();
 
@@ -44,30 +40,41 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
                 for (String listName : userLists.keySet()) {
                     JSONObject listDetails = userLists.getJSONObject(listName);
-                    JSONObject countriesList = listDetails.getJSONObject("countries");
-                    String listDescription = "";
 
+                    // 🔹 NEW: handle missing "countries" safely
+                    JSONObject countriesList;
+                    if (listDetails.has("countries")) {
+                        countriesList = listDetails.getJSONObject("countries");
+                    } else {
+                        countriesList = new JSONObject();  // treat as empty
+                    }
+
+                    String listDescription = "";
                     if (listDetails.has("description")) {
                         listDescription = listDetails.getString("description");
                     }
 
                     Map<String, Object> details = new HashMap<>();
-
                     Map<String, String> countriesWithNotes = new HashMap<>();
 
                     for (String countryCode : countriesList.keySet()) {
                         countriesWithNotes.put(countryCode, countriesList.getString(countryCode));
                     }
+
                     details.put("description", listDescription);
                     details.put("countries", countriesWithNotes);
+
                     listsWithCountries.put(listName, details);
                 }
+
                 this.favouritesByUser.put(username, listsWithCountries);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     private void ensureJsonExists() throws RuntimeException {
         Path jsonFilePath = Paths.get(jsonFile.getAbsolutePath());
@@ -108,7 +115,10 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
     @Override
     public boolean listExists(String username, String listName) {
-        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username);
+        Map<String, Map<String, Object>> listsWithDetails = favouritesByUser.get(username.toLowerCase());
+        if (listsWithDetails == null) {
+            return false;
+        }
         return listsWithDetails.containsKey(listName.toLowerCase());
     }
 
@@ -133,10 +143,41 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
 
     @Override
     public void addList(String username, String listName) {
-        Map<String, Map<String, Object>> listsWithCountries = favouritesByUser.get(username.toLowerCase());
-        // Add list to username's list dictionary
-        listsWithCountries.put(listName.toLowerCase(), new HashMap<>());
+        // Default: create list with empty description
+        addList(username, listName, "");
     }
+
+    // NEW: create list with description + empty countries map
+    public void addList(String username, String listName, String description) {
+        String userKey = username.toLowerCase();
+        String listKey = listName.toLowerCase();
+
+        // Ensure user entry exists
+        Map<String, Map<String, Object>> listsWithCountries =
+                favouritesByUser.computeIfAbsent(userKey, k -> new HashMap<>());
+
+        // Build details for this list
+        Map<String, Object> listDetails = new HashMap<>();
+        listDetails.put("description", description);
+        listDetails.put("countries", new HashMap<String, String>());
+
+        // Store under the normalized list name
+        listsWithCountries.put(listKey, listDetails);
+    }
+
+    // Remove a whole list for a user
+    public void removeList(String username, String listName) {
+        String userKey = username.toLowerCase();
+        String listKey = listName.toLowerCase();
+
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(userKey);
+        if (userLists == null) {
+            return; // nothing to do
+        }
+
+        userLists.remove(listKey);
+    }
+
 
     @Override
     public void addCountry(String username, String listName, String countryCode, String notes) {
@@ -164,6 +205,31 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         save();
     }
 
+    public void removeCountry(String username, String listName, String countryCode) {
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
+        if (userLists == null) {
+            return;
+        }
+
+        Map<String, Object> listDetails = userLists.get(listName.toLowerCase());
+        if (listDetails == null) {
+            return;
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> countries =
+                (Map<String, String>) listDetails.get("countries");
+        if (countries == null) {
+            return;
+        }
+
+        countries.remove(countryCode.toUpperCase());
+
+        // persist change
+        save();
+    }
+
+
     @Override
     public void save() {
         JSONObject favourites = new JSONObject(favouritesByUser);
@@ -177,5 +243,51 @@ public class FileUserDataAccessObject implements SaveCountryDataAccessInterface 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // ============================================
+    // FavoritesReadDataAccess Interface Methods
+    // ============================================
+
+    @Override
+    public List<String> getUserLists(String username) {
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
+        if (userLists == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(userLists.keySet());
+    }
+
+    @Override
+    public Map<String, Object> getListDetails(String username, String listName) {
+        Map<String, Map<String, Object>> userLists = favouritesByUser.get(username.toLowerCase());
+        if (userLists == null) {
+            return null;
+        }
+        return userLists.get(listName.toLowerCase());
+    }
+
+    @Override
+    public List<String> getCountriesInList(String username, String listName) {
+        Map<String, Object> listDetails = getListDetails(username, listName);
+        if (listDetails == null) {
+            return new ArrayList<>();
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, String> countries = (Map<String, String>) listDetails.get("countries");
+        if (countries == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(countries.keySet());
+    }
+
+    @Override
+    public String getListDescription(String username, String listName) {
+        Map<String, Object> listDetails = getListDetails(username, listName);
+        if (listDetails == null) {
+            return "";
+        }
+        return (String) listDetails.getOrDefault("description", "");
     }
 }

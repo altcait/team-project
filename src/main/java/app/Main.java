@@ -8,8 +8,8 @@ public class Main {
 
         JFrame application = appBuilder
                 .addSearchesView()
-                .addSearchByLanguageView()
-                .addSearchByRegionView()
+//                .addSearchByLanguageView()
+//                .addSearchByRegionView()
                 .addSearchByCurrencyView()
                 .addSaveCountryView()
                 .addSaveCountryUseCase()
