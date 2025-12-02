@@ -157,7 +157,7 @@ public class AppBuilder {
                 new SaveCountryPresenter(saveCountryViewModel);
         SaveCountryInputBoundary saveCountryInteractor =
                 new SaveCountryInteractor(
-                        loginDataAccess,
+                        userDataAccess,
                         fileUserDataAccessObject,
                         saveCountryOutputBoundary
                 );
@@ -275,7 +275,7 @@ public class AppBuilder {
         viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
         // Start on login screen
-        viewManagerModel.setState(loginSignUpView.getViewName());
+        viewManagerModel.setState(saveCountryView.getViewName());
         viewManagerModel.firePropertyChange();
 
         return application;

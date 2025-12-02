@@ -17,16 +17,14 @@ import java.util.List;
  */
 public class SaveCountryView extends JPanel implements ActionListener, PropertyChangeListener {
     private final SaveCountryViewModel saveCountryViewModel;
-
     // result of operations - success or error message:
     private final JLabel saveCountryResultField = new JLabel();
-
-    private final JTextField countryCodeInputField = new JTextField(15);
+    private final JTextField countryCodeInputField = new JTextField(3);
     private final JComboBox<String> listNameDropdown = new JComboBox<>();
 //    private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
 //    DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JTextField countryNotesInputField = new JTextField(30);
-    private final JButton saveCountryButton = new JButton("Save");
+    private final JButton saveCountryButton = new JButton("Add to list");
 
     private SaveCountryController saveCountryController = null;
 
@@ -39,12 +37,20 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         // Instantiate panel and labels
         final JPanel saveCountryPanel = new JPanel();
         saveCountryPanel.setLayout(new BoxLayout(saveCountryPanel, BoxLayout.Y_AXIS));
-        final JLabel saveCountryLabel = new JLabel("Country:");
+        // Title
+        JLabel title = new JLabel("Add a Country to your Favourites List");
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveCountryPanel.add(title);
+
+        final JLabel saveCountryLabel = new JLabel("Country code:");
         final JLabel listNameLabel = new JLabel("Choose which list you want to add this country to:");
         final JLabel notesLabel = new JLabel("Add some notes if you want:");
 
-        // Error message
-        JPanel result = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        // Error or success message
+        JPanel result = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        saveCountryResultField.setFont(new Font("Arial", Font.BOLD, 14));
+        saveCountryResultField.setAlignmentX(Component.CENTER_ALIGNMENT);
         result.add(saveCountryResultField);
         saveCountryPanel.add(result);
 
@@ -60,9 +66,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         list.add(listNameDropdown);
         listNameDropdown.setSelectedIndex(-1);
         saveCountryPanel.add(list);
-
-        listNameDropdown.addItem("Visited");
-        listNameDropdown.addItem("Want to go");
 
         // Notes
         JPanel notes = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -121,6 +124,7 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
             listNameDropdown.setModel(listNamesModel);
         } else {
             // If there are none, set some defaults
+            listNameDropdown.addItem("");
             listNameDropdown.addItem("Visited");
             listNameDropdown.addItem("Want to go");
         }
@@ -132,11 +136,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
         countryNotesInputField.setText(saveCountryState.getNotes());
         // show error or success message
         saveCountryResultField.setText(saveCountryState.getResultString());
-        // if error or success message is present, put a border around the message for visibility
-        if (saveCountryState.getResultString().isEmpty()) {
-            saveCountryResultField.setOpaque(true);
-            saveCountryResultField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        }
     }
 
     public void setSaveCountryController(SaveCountryController saveCountryController) { this.saveCountryController = saveCountryController; }
