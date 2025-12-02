@@ -1,7 +1,5 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
 import entity.Country;
 import interface_adapter.search.byregion.SearchByRegionController;
 import interface_adapter.search.byregion.SearchByRegionState;
@@ -10,20 +8,12 @@ import interface_adapter.search.byregion.SearchByRegionViewModel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
  * The View for the "Search By Region" use case.
- *
- * Layout:
- *  - Top: title "Search By Region"
- *  - Below: Region and Subregion combo boxes + Search button
- *  - Left: list of countries (name + cca3)
- *  - Right: error label + "add country to list" + "back to selected list"
  */
 public class SearchByRegionView extends JPanel implements PropertyChangeListener {
 
@@ -42,16 +32,12 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
     private final JButton addButton = new JButton("save country to list");
     private final JButton backToSelectedListButton = new JButton("back to selected list");
 
-    /**
-     * Flag to avoid triggering use cases while updating UI from the ViewModel.
-     */
     private boolean updatingFromModel = false;
 
     public SearchByRegionView(SearchByRegionViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        // UI setup
         countryList.setVisibleRowCount(10);
         countryList.setFont(countryList.getFont().deriveFont(14f));
 
@@ -60,7 +46,6 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
         regionComboBox.setPreferredSize(new Dimension(180, 25));
         subregionComboBox.setPreferredSize(new Dimension(180, 25));
 
-        // Make addButton and backToSelectedListButton the same size
         Dimension addSize = addButton.getPreferredSize();
         Dimension backSize = backToSelectedListButton.getPreferredSize();
         int width = Math.max(addSize.width, backSize.width);
@@ -69,21 +54,17 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
         addButton.setPreferredSize(unified);
         backToSelectedListButton.setPreferredSize(unified);
 
-        // Layout
         this.setLayout(new BorderLayout());
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Title at the top
         JLabel titleLabel = new JLabel("Search By Region", SwingConstants.CENTER);
         titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 20f));
         this.add(titleLabel, BorderLayout.NORTH);
 
-        // Main content panel
         JPanel content = new JPanel(new BorderLayout());
         content.setBorder(new EmptyBorder(10, 0, 0, 0));
         this.add(content, BorderLayout.CENTER);
 
-        // Top row: Region + Subregion + Search
         JPanel topRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 5));
         topRow.add(new JLabel("Region:"));
         topRow.add(regionComboBox);
@@ -92,11 +73,9 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
         topRow.add(searchButton);
         content.add(topRow, BorderLayout.NORTH);
 
-        // Center row: left (country list) + right (error + buttons)
         JPanel centerRow = new JPanel(new BorderLayout());
         content.add(centerRow, BorderLayout.CENTER);
 
-        // Left: country list in a bordered panel
         JPanel listPanel = new JPanel(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(countryList);
         listPanel.add(scrollPane, BorderLayout.CENTER);
@@ -105,7 +84,6 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
                 BorderFactory.createLineBorder(Color.GRAY)));
         centerRow.add(listPanel, BorderLayout.CENTER);
 
-        // Right: error label + add + back to profile
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBorder(new EmptyBorder(10, 40, 10, 10));
@@ -122,8 +100,6 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
 
         centerRow.add(rightPanel, BorderLayout.EAST);
 
-        // Listeners
-        // Region selection: then ask controller to load subregions
         regionComboBox.addActionListener(e -> {
             if (updatingFromModel) {
                 return;
@@ -135,7 +111,6 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
             }
         });
 
-        // Search by region or region and subregion
         searchButton.addActionListener(e -> {
             if (controller == null) {
                 return;
@@ -145,14 +120,12 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
             controller.onSearch(region, subregion);
         });
 
-        // Click add country button
         addButton.addActionListener(e -> {
             if (controller != null) {
                 controller.onAddCountryButtonClicked();
             }
         });
 
-        // Click back to selected list
         backToSelectedListButton.addActionListener(e -> {
             if (controller != null) {
                 controller.onBackToSelectedListButtonClicked();
@@ -164,17 +137,10 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
         return viewModel.getViewName();
     }
 
-
     public void setController(SearchByRegionController controller) {
         this.controller = controller;
-        // Once controller is available, we can safely load regions
-        this.controller.loadRegions();
     }
 
-    /**
-     * react to state changes from the ViewModel and refresh the UI
-     * response to change in view model, rather than refreshing the subregion selection
-     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (!"state".equals(evt.getPropertyName())) {
@@ -188,7 +154,6 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
                 return;
             }
 
-            // Error message
             String err = state.getErrorMessage();
             if (err == null || err.isEmpty()) {
                 errorLabel.setText(" ");
@@ -226,6 +191,10 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
                 } else {
                     subregionComboBox.setSelectedIndex(-1);
                 }
+            } else {
+                // NEW: when there are no subregion options, clear the combo box
+                subregionComboBox.setModel(new DefaultComboBoxModel<>());
+                subregionComboBox.setSelectedIndex(-1);
             }
 
             // Country list
@@ -237,9 +206,20 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
                     countryListModel.addElement(line);
                 }
             }
-        }
-        finally {
+        } finally {
             updatingFromModel = false;
+        }
+    }
+
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+
+        if (aFlag && controller != null) {
+            SearchByRegionState newState = new SearchByRegionState();
+            viewModel.setState(newState);
+            viewModel.firePropertyChange();
+            controller.loadRegions();
         }
     }
 }
