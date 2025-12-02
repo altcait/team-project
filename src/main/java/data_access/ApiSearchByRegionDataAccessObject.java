@@ -20,7 +20,6 @@ import java.util.*;
  */
 public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAccessInterface {
 
-    // REST Countries endpoint: independent countries with selected fields
     private static final String API_URL =
             "https://restcountries.com/v3.1/independent?status=true" +
                     "&fields=name,languages,currencies,region,subregion,cca3";
@@ -57,16 +56,6 @@ public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAcce
         }
         // Return an unmodifiable view to prevent external modification
         return Collections.unmodifiableList(cachedCountries);
-    }
-
-    /**
-     * get a single country by its cca3 code using the HashMap cache.
-     */
-    public Country getCountryByCca3(String cca3) {
-        if (cachedCountries == null) {
-            cachedCountries = fetchCountriesFromApi();
-        }
-        return countriesByCode.get(cca3);
     }
 
     /**
@@ -109,31 +98,6 @@ public class ApiSearchByRegionDataAccessObject implements SearchByRegionDataAcce
         }
     }
 
-    /**
-     * Parses a single JSONObject representing a country into a Country entity.
-     *
-     * Example JSON:
-     * {
-     *   "name":{
-     *      "common":"Brunei",
-     *      ...,
-     *      "nativeName": {
-     *         "msa": {
-     *           "official": "Nation of Brunei, Abode Damai",
-     *           "common": "Negara Brunei Darussalam"
-     *         }
-     *       }
-     *       },
-     *   "cca3":"BRN",
-     *   "currencies":{
-     *       "BND":{"name":"Brunei dollar","symbol":"$"},
-     *       "SGD":{"name":"Singapore dollar","symbol":"$"}
-     *   },
-     *   "region":"Asia",
-     *   "subregion":"South-Eastern Asia",
-     *   "languages":{"msa":"Malay"}
-     * }
-     */
     private Country parseCountry(JSONObject countryJson) {
         // name.common
         String name = "";

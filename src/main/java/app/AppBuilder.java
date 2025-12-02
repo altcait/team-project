@@ -198,7 +198,7 @@ public class AppBuilder {
 
     public AppBuilder addSaveCountryView() {
         saveCountryViewModel = new SaveCountryViewModel();
-        saveCountryView = new SaveCountryView(saveCountryViewModel);
+        saveCountryView = new SaveCountryView(saveCountryViewModel, viewManagerModel);
         cardPanel.add(saveCountryView, saveCountryView.getViewName());
         return this;
     }
