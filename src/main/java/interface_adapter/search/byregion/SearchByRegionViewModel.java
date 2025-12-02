@@ -7,7 +7,7 @@ import interface_adapter.ViewModel;
  */
 public class SearchByRegionViewModel extends ViewModel<SearchByRegionState> {
 
-    public static final String VIEW_NAME = "search by region";
+    public static final String VIEW_NAME = "SearchByRegion";
 
     public SearchByRegionViewModel() {
         super(VIEW_NAME);

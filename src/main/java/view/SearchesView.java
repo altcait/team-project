@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-
+import interface_adapter.search.byregion.SearchByRegionViewModel;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,8 +13,12 @@ public class SearchesView extends JPanel {
     private final String viewName = "searchesView";
 
     private final JButton languageButton = new JButton("Search by Language");
-    private final JButton regionButton = new JButton("Search by Region");
+    private final JButton regionButton   = new JButton("Search by Region");
     private final JButton currencyButton = new JButton("Search by Currency");
+
+    private final String languageViewName = "searchByLanguage";
+    private final String currencyViewName = "searchByCurrency";
+    private final String regionViewName   = new SearchByRegionViewModel().getViewName();
 
     public SearchesView(ViewManagerModel viewManagerModel) {
         setLayout(new BorderLayout());
@@ -28,17 +32,17 @@ public class SearchesView extends JPanel {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         languageButton.addActionListener(e -> {
-            viewManagerModel.setState("searchByLanguage");
+            viewManagerModel.setState(languageViewName);
             viewManagerModel.firePropertyChange();
         });
 
         regionButton.addActionListener(e -> {
-            viewManagerModel.setState("searchByRegion");
+            viewManagerModel.setState(regionViewName);
             viewManagerModel.firePropertyChange();
         });
 
         currencyButton.addActionListener(e -> {
-            viewManagerModel.setState("searchByCurrency");
+            viewManagerModel.setState(currencyViewName);
             viewManagerModel.firePropertyChange();
         });
 
@@ -47,7 +51,6 @@ public class SearchesView extends JPanel {
         buttonPanel.add(currencyButton);
 
         add(buttonPanel, BorderLayout.CENTER);
-
     }
 
     public String getViewName() {
