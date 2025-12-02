@@ -29,6 +29,6 @@ public interface SearchByRegionInputBoundary {
 
     /** Switch to Profile View
      */
-    void switchToProfileView();
+    void switchToSelectedListView();
 
 }

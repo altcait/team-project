@@ -1,7 +1,10 @@
 package app;
 
+import data_access.ApiSearchByRegionDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.UserCSVDataAccess;
+
+import entity.CountryFactory;
 import entity.UserFactory;
 
 import interface_adapter.ViewManagerModel;
@@ -18,6 +21,9 @@ import interface_adapter.profile.*;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryPresenter;
 import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.search.byregion.SearchByRegionController;
+import interface_adapter.search.byregion.SearchByRegionPresenter;
+import interface_adapter.search.byregion.SearchByRegionViewModel;
 import interface_adapter.signup.*;
 
 import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
@@ -34,6 +40,10 @@ import use_case.profile.*;
 import use_case.save_country.SaveCountryInputBoundary;
 import use_case.save_country.SaveCountryInteractor;
 import use_case.save_country.SaveCountryOutputBoundary;
+import use_case.search.byregion.SearchByRegionDataAccessInterface;
+import use_case.search.byregion.SearchByRegionInputBoundary;
+import use_case.search.byregion.SearchByRegionInteractor;
+import use_case.search.byregion.SearchByRegionOutputBoundary;
 import use_case.signup.*;
 
 import view.*;
@@ -49,12 +59,14 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-    // Search views
+    // Search views and view models
     private SearchesView searchesView;
     private SearchByLanguageView searchByLanguageView;
     private SearchByRegionView searchByRegionView;
     private SearchByCurrencyView searchByCurrencyView;
+    private SearchByRegionViewModel searchByRegionViewModel;
 
+    // App general views / view-models
     private LoginSignUpView loginSignUpView;
     private LoginViewModel loginViewModel;
     private SaveCountryView saveCountryView;
@@ -71,6 +83,7 @@ public class AppBuilder {
 
     // Views / view-models
     private SelectedListView selectedListView;
+    private ViewSelectedListViewModel viewSelectedListViewModel;
     private ProfileViewModel profileViewModel;
     private EditProfileViewModel editProfileViewModel;
 
@@ -143,12 +156,50 @@ public class AppBuilder {
         return this;
     }
 
+    // ---------- Search by Region ----------
+
+    public AppBuilder addSearchByRegionView() {
+        searchByRegionViewModel = new SearchByRegionViewModel();
+        searchByRegionView = new SearchByRegionView(searchByRegionViewModel);
+        cardPanel.add(searchByRegionView, searchByRegionView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSearchByRegionUseCase() {
+        // Data access for search by region
+        CountryFactory countryFactory = new CountryFactory();
+        SearchByRegionDataAccessInterface dataAccess =
+                new ApiSearchByRegionDataAccessObject(countryFactory);
+
+        // Presenter: wires navigation to SaveCountry + SelectedList
+        SearchByRegionOutputBoundary presenter =
+                new SearchByRegionPresenter(
+                        searchByRegionViewModel,
+                        viewManagerModel,
+                        saveCountryViewModel,
+                        viewSelectedListViewModel
+                );
+
+        // Interactor
+        SearchByRegionInputBoundary interactor =
+                new SearchByRegionInteractor(dataAccess, presenter);
+
+        // Controller
+        SearchByRegionController controller =
+                new SearchByRegionController(interactor);
+
+        // Connect controller to view
+        searchByRegionView.setController(controller);
+
+        return this;
+    }
+
     // ---------- Save Country ----------
 
     public AppBuilder addSaveCountryView() {
         saveCountryViewModel = new SaveCountryViewModel();
         saveCountryView = new SaveCountryView(saveCountryViewModel);
-        cardPanel.add(saveCountryView);
+        cardPanel.add(saveCountryView, saveCountryView.getViewName());
         return this;
     }
 
@@ -171,9 +222,9 @@ public class AppBuilder {
     // ---------- Selected list (detail) ----------
 
     public AppBuilder addViewSelectedList() {
-        ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
+        viewSelectedListViewModel = new ViewSelectedListViewModel();
         ViewSelectedListOutputBoundary selectedListPresenter =
-                new ViewSelectedListPresenter(selectedListViewModel);
+                new ViewSelectedListPresenter(viewSelectedListViewModel);
 
         ViewSelectedListInputBoundary selectedListInteractor =
                 new ViewSelectedListInteractor(selectedListPresenter, fileUserDataAccessObject);
@@ -184,7 +235,7 @@ public class AppBuilder {
         selectedListView =
                 new SelectedListView(
                         selectedListController,
-                        selectedListViewModel,
+                        viewSelectedListViewModel,
                         viewManagerModel,
                         () -> {
                             String current = userDataAccess.getCurrentUsername();
