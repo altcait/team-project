@@ -24,7 +24,6 @@ public class SaveCountryInteractor implements SaveCountryInputBoundary {
     @Override
     public void fetchListNames() {
         String username = loginUserAccess.getCurrentUsername();
-        username = (username != null) ? username : "caitlinhen001";
         List<String> listNames = saveCountryDataAccessObject.getListNames(username);
         saveCountryPresenter.prepareListNames(listNames);
     }

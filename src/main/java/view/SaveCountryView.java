@@ -1,13 +1,17 @@
 package view;
 
+import data_access.UserCSVDataAccess;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryState;
 import interface_adapter.save_country.SaveCountryViewModel;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.HierarchyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -109,6 +113,9 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SaveCountryState saveCountryState = (SaveCountryState)evt.getNewValue();
+        // Set list names in state
+        this.saveCountryController.fetchListNames();
+
         // get list names from state
         List<String> listNames = saveCountryState.getLists();
 
@@ -131,8 +138,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
 
     public void setSaveCountryController(SaveCountryController saveCountryController) {
         this.saveCountryController = saveCountryController;
-        // Populate the lists dropdown so it's ready on page load
-        this.saveCountryController.fetchListNames();
     }
 
     public String getViewName() {

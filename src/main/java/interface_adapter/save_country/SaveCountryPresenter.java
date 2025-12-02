@@ -26,7 +26,7 @@ public class SaveCountryPresenter implements SaveCountryOutputBoundary {
         }
         // set list names
         saveCountryState.setLists(listNames);
-        saveCountryViewModel.firePropertyChange();
+        // Don't fire property change, we just want to update the state
     }
 
     /**
