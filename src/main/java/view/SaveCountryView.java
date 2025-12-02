@@ -1,6 +1,7 @@
 package view;
 
 import data_access.UserCSVDataAccess;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryState;
 import interface_adapter.save_country.SaveCountryViewModel;
@@ -27,11 +28,14 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     private final JComboBox<String> listNameDropdown = new JComboBox<>();
     private final JTextField countryNotesInputField = new JTextField(30);
     private final JButton saveCountryButton = new JButton("Add to list");
+    // private final JButton backButton = new JButton("Back");
+    private final ViewManagerModel viewManagerModel;
 
     private SaveCountryController saveCountryController = null;
 
-    public SaveCountryView(SaveCountryViewModel saveCountryViewModel) {
+    public SaveCountryView(SaveCountryViewModel saveCountryViewModel, ViewManagerModel viewManagerModel) {
         this.saveCountryViewModel = saveCountryViewModel;
+        this.viewManagerModel = viewManagerModel;
         this.saveCountryViewModel.addPropertyChangeListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -77,6 +81,14 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
 
         // Submit button
         saveCountryPanel.add(saveCountryButton);
+
+        JButton backButton = new JButton("Back to lists");
+        backButton.addActionListener(e -> {
+            viewManagerModel.setState("lists");
+            viewManagerModel.firePropertyChange();
+        });
+
+        saveCountryPanel.add(backButton);
 
         saveCountryButton.addActionListener(
                 new ActionListener() {
