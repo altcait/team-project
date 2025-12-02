@@ -162,10 +162,10 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * Listing when click the back to profile button.
+     * Listing when click the back to the selected list button.
      */
     @Override
-    public void switchToProfileView() {
-        presenter.switchToProfileView();
+    public void switchToSelectedListView() {
+        presenter.switchToSelectedListView();
     }
 }
