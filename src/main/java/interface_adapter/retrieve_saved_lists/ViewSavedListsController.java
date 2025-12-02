@@ -1,4 +1,4 @@
-package interface_adapter.RetrieveSavedLists;
+package interface_adapter.retrieve_saved_lists;
 
 import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
 import use_case.RetrieveSavedLists.ViewSavedListsRequestModel;

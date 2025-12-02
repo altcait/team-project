@@ -2,8 +2,8 @@ package view;
 
 import data_access.FileUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewSelectedList.ViewSelectedListController;
-import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
+import interface_adapter.view_selected_list.ViewSelectedListController;
+import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 
 import javax.swing.*;
 import java.awt.*;
