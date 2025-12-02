@@ -4,7 +4,7 @@ import interface_adapter.ViewModel;
 
 /**
  * The view model for the Search by Language view.
- * Holds a SearchByLanguageState and notifies listeners (e.g., TODO SearchByLanguageView) when it changes.
+ * Holds a SearchByLanguageState and notifies listeners when it changes.
  */
 public class SearchByLanguageViewModel extends ViewModel<SearchByLanguageState> {
 
@@ -20,7 +20,7 @@ public class SearchByLanguageViewModel extends ViewModel<SearchByLanguageState> 
         setState(new SearchByLanguageState());
     }
 
-    // TODO: unecessary?
+    // TODO: remove?
 //    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 //    private SearchByLanguageState state = new SearchByLanguageState();
 

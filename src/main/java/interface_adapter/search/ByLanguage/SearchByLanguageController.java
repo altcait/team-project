@@ -8,25 +8,17 @@ import use_case.search.ByLanguage.SearchByLanguageInputData;
  */
 public class SearchByLanguageController {
 
-    private final SearchByLanguageInputBoundary SearchByLanguageInteractor;
+    private final SearchByLanguageInputBoundary searchByLanguageInteractor;
 
     public SearchByLanguageController(SearchByLanguageInputBoundary interactor) {
-        this.SearchByLanguageInteractor = interactor;
+        this.searchByLanguageInteractor = interactor;
     }
 
     /**
      * Loads all language options the user can query with for the initial screen of the view (before any queries).
      */
     public void loadLanguages() {
-        SearchByLanguageInteractor.languageOptions();
-    }
-
-    // TODO: "back" from Search view(s)
-    /**
-     * Executes the "return to previous view" use case(?).
-     */
-    public void switchToPreviousView() {
-        SearchByLanguageInteractor.switchToPreviousView();
+        searchByLanguageInteractor.languageOptions();
     }
 
     /**
@@ -35,6 +27,17 @@ public class SearchByLanguageController {
      */
     public void execute(String language) {
         SearchByLanguageInputData inputData = new SearchByLanguageInputData(language);
-        SearchByLanguageInteractor.execute(inputData);
+        searchByLanguageInteractor.execute(inputData);
+    }
+
+    /**
+     * Executes the "return to previous view" use case(?).
+     */
+    public void switchToPreviousView() {
+        searchByLanguageInteractor.switchToPreviousView();
+    }
+
+    public void switchToSaveCountryView() {
+        searchByLanguageInteractor.switchToSaveCountryView();
     }
 }

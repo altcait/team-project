@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.search.by_region.SearchByRegionDataAccessInterface;
 import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
-import use_case.search.ByRegion.SearchByRegionDataAccessInterface;
+import use_case.search.byregion.SearchByRegionDataAccessInterface;
 
 import java.io.IOException;
 import java.util.*;

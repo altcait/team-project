@@ -13,10 +13,6 @@ public class SaveCountryController {
         this.saveCountryUseCaseInteractor = saveCountryUseCaseInteractor;
     }
 
-    public void fetchListNames() {
-        saveCountryUseCaseInteractor.fetchListNames();
-    }
-
     /**
      * Executes the Save Country Use Case.
      * @param countryCode the country to add to the favourites list

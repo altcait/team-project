@@ -1,6 +1,7 @@
 package use_case.search.ByLanguage;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import entity.Country;    // TODO: get updated Country entity from remote repo
 
@@ -8,7 +9,7 @@ import entity.Country;    // TODO: get updated Country entity from remote repo
  * Use Case Interactor for the Search by Language use case.
  * Main flow: TODO
  * 1. searching countries by language
- * 2. listing all regions
+ * 2.
  */
 public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary {
     private final SearchByLanguageCountryDataAccessInterface countryDataAccess;
@@ -19,57 +20,50 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
         this.searchByLanguagePresenter = searchByLanguagePresenter;
     }
 
-    // TODO: does this have additional info that needs its own javadoc?
     @Override
     public void languageOptions() {
         List<Country> allCountries = countryDataAccess.getAllCountries();
-        Set<List<String>> languagesSet = new HashSet<>();
 
-        for (Country country : allCountries) {
-            List<String> language = country.getLanguage();
-            if (language != null) {
-                languagesSet.add(language);
-            }
-        }
+        // Create a set of all unique languages amongst the countries in alphabetical order
+        Set<String> languagesSet = allCountries
+                .stream()
+                .flatMap(country -> country.getLanguage().stream())
+                .collect(Collectors.toCollection(TreeSet::new));
 
         if (languagesSet.isEmpty()) {
             searchByLanguagePresenter.prepareFailView("No languages found.");
         } else {
-            List<List<String>> languages = new ArrayList<>(languagesSet);
-            //Collections.sort(languages); // TOOD: pretty sure sorting languages is not necessary
-
             SearchByLanguageOutputData outputData =
                     new SearchByLanguageOutputData(languagesSet, null, null);
             searchByLanguagePresenter.presentLanguages(outputData);
         }
     }
 
-    // TODO: does this have additional info that needs its own javadoc?
     @Override
     public void execute(SearchByLanguageInputData inputData) {
-        String language = inputData.getLanguage();  // TODO: should be final?
+        String language = inputData.getLanguage();
         List<Country> allCountries = countryDataAccess.getAllCountries(); // TODO: get updated Country entity from remote repo
 
         // Check for a valid (present) language input
-        if (language == null) {
-            searchByLanguagePresenter.prepareFailView("Language must not be empty.");
+        if (language == null || language.isEmpty()) {
+            searchByLanguagePresenter.prepareFailView("No language selected.");
             return;
         }
 
-        List<Country> Countries = new ArrayList<>();    // list of countries filtered by inputted language
+        List<Country> countries = new ArrayList<>();    // list of countries filtered by user-inputted language
 
         for (Country country : allCountries) {
             List<String> countryLanguage = country.getLanguage();
             if (countryLanguage != null & countryLanguage.contains(language)) {
-                Countries.add(country);
+                countries.add(country);
             }
         }
 
-        // No countries found by language filter
-        if (Countries.isEmpty()) {
+        if (countries.isEmpty()) {
+            // No countries found by language filter
             searchByLanguagePresenter.prepareFailView("No countries found for language: " + language);
         } else {
-            SearchByLanguageOutputData outputData = new SearchByLanguageOutputData(null, language, Countries);
+            SearchByLanguageOutputData outputData = new SearchByLanguageOutputData(null, language, countries);
             searchByLanguagePresenter.presentCountries(outputData);
         }
     }
@@ -80,5 +74,8 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
         searchByLanguagePresenter.switchToPreviousView();
     }
 
-    // TODO
+    public void switchToSaveCountryView() {
+        searchByLanguagePresenter.switchToSaveCountryView();
+    }
+
 }

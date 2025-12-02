@@ -8,6 +8,15 @@ public class Main {
             AppBuilder appBuilder = new AppBuilder();
 
             JFrame application = appBuilder
+                .addSearchesView()
+                .addSearchByLanguageView()
+                .addSearchByLanguageUseCase()
+                .addSearchByRegionView()
+                .addSearchByCurrencyView()
+                .addSearchByLanguageView()
+                .addSearchByLanguageUseCase()
+                .addSaveCountryView()
+                .build()
                     .addLoginSignUpView()
                     .addLoginUseCase()
                     .addSignUpUseCase()
