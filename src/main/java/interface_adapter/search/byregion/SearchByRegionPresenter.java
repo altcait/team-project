@@ -1,9 +1,8 @@
 package interface_adapter.search.byregion;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.save_country.SaveCountryViewModel;
-import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
+import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 import use_case.search.byregion.SearchByRegionOutputBoundary;
 import use_case.search.byregion.SearchByRegionOutputData;
 
@@ -88,7 +87,10 @@ public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
         if (viewManagerModel == null || saveCountryViewModel == null) {
             return;
         }
-        viewManagerModel.setState("save country");
+        viewManagerModel.setState(saveCountryViewModel.getViewName());
+        // fire property change in view model to populate user's lists
+        // needs to be done here rather than when building the view because there is no logged in user at that point
+        saveCountryViewModel.firePropertyChange();
         viewManagerModel.firePropertyChange();
     }
 
