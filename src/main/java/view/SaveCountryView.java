@@ -3,6 +3,7 @@ package view;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryState;
 import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -26,12 +27,15 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
     private final JTextField countryNotesInputField = new JTextField(15);
     private final JButton saveCountryButton = new JButton("Save");
-
+    private final JButton backProfileButton = new JButton("Back to Profile"); // Added back button
+    private final JButton backListButton = new JButton("Back to List"); // Added back button
+    private final String profileViewName = "profile";
+    private final String listsViewName = "lists";
 
 
     private SaveCountryController saveCountryController = null;
 
-    public SaveCountryView(SaveCountryViewModel saveCountryViewModel) {
+    public SaveCountryView(SaveCountryViewModel saveCountryViewModel, ViewManagerModel viewManagerModel) {
         this.saveCountryViewModel = saveCountryViewModel;
         this.saveCountryViewModel.addPropertyChangeListener(this);
 
@@ -79,6 +83,21 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
 
 //        addCountryCodeListener();
         this.add(saveCountryPanel);
+
+        // add a "Back to List/Profile " button
+        JPanel backPanel = new JPanel();
+        backListButton.addActionListener(e -> {
+            viewManagerModel.setState(listsViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backProfileButton.addActionListener(e -> {
+            viewManagerModel.setState(profileViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        backPanel.add(backListButton);
+        backPanel.add(backProfileButton);
+        add(backPanel, BorderLayout.SOUTH);
     }
 
 //    private void addCountryCodeListener() {
@@ -135,4 +154,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     public String getViewName() {
         return "save country";
     }
+
+
 }
