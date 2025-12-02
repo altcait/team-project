@@ -9,12 +9,12 @@ import entity.CountryFactory;
 import entity.UserFactory;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsController;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsPresenter;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
-import interface_adapter.ViewSelectedList.ViewSelectedListController;
-import interface_adapter.ViewSelectedList.ViewSelectedListPresenter;
-import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsController;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsPresenter;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsViewModel;
+import interface_adapter.view_selected_list.ViewSelectedListController;
+import interface_adapter.view_selected_list.ViewSelectedListPresenter;
+import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
