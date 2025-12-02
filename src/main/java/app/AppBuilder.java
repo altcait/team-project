@@ -208,7 +208,7 @@ public class AppBuilder {
                 new SaveCountryPresenter(saveCountryViewModel);
         SaveCountryInputBoundary saveCountryInteractor =
                 new SaveCountryInteractor(
-                        loginDataAccess,
+                        userDataAccess,
                         fileUserDataAccessObject,
                         saveCountryOutputBoundary
                 );
