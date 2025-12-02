@@ -1,4 +1,4 @@
-package interface_adapter.ViewSelectedList;
+package interface_adapter.view_selected_list;
 
 import java.util.List;
 

@@ -1,9 +1,8 @@
 package interface_adapter.search.byregion;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.save_country.SaveCountryViewModel;
-import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
+import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 import use_case.search.byregion.SearchByRegionOutputBoundary;
 import use_case.search.byregion.SearchByRegionOutputData;
 
