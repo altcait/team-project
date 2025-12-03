@@ -80,4 +80,7 @@ public class EditProfileView extends JPanel implements PropertyChangeListener {
     public String getViewName() {
         return "edit-profile";
     }
+
+
+
 }
