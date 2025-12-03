@@ -6,16 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/retrieve_saved_lists/ViewSavedListsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/retrieve_saved_lists/ViewSavedListsPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/retrieve_saved_lists/ViewSavedListsViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/view_selected_list/ViewSelectedListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/view_selected_list/ViewSelectedListPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/view_selected_list/ViewSelectedListViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/byregion/SearchByRegionPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/byregion/SearchByRegionPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/ListsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/ListsView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SelectedListView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/logout/LogOutController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/FavoriteLists/FavoriteList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/favorite_lists/FavoriteList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/logout/LogOut.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SearchByRegionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SearchByRegionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/login/LoginInteractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/logout/LogOut.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/profile/ProfileInteractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/signup/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/signup/SignUpInteractorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +53,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/altcait/team-project.git",
-    "accountId": "51d9b6a4-9782-49ac-b087-1daefd2ec436"
+    "accountId": "c9c5b615-3a23-46c1-8a33-8fa7f546e7da"
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -65,18 +70,50 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.LoginInteractorTest.executor": "Coverage",
+    "JUnit.SignUpInteractorTest.executor": "Coverage",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#34 on profile",
+    "git-widget-placeholder": "#52 on profile",
     "kotlin-language-version-configured": "true",
-    "settings.editor.selected.configurable": "settings.qodana",
-    "to.speed.mode.migration.done": "true"
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="LoginInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="use_case.login.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="use_case.login" />
+      <option name="MAIN_CLASS_NAME" value="use_case.login.LoginInteractorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LoginInteractorTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
       </set>
     </attachedChunks>
   </component>
@@ -87,7 +124,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764560661428</updated>
+      <workItem from="1764716022614" duration="3752000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/team_project$SignUpInteractorTest.ic" NAME="SignUpInteractorTest Coverage Results" MODIFIED="1764724486339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.signup.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/team_project$LoginInteractorTest.ic" NAME="LoginInteractorTest Coverage Results" MODIFIED="1764724458174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.login.*</FILTER>
+    </SUITE>
   </component>
 </project>

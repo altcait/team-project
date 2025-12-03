@@ -1,4 +1,4 @@
-package interface_adapter.search_by_region;
+package interface_adapter.search.by_region;
 
 import use_case.search.by_region.SearchByRegionInputBoundary;
 import use_case.search.by_region.SearchByRegionInputData;

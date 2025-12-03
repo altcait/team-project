@@ -1,4 +1,4 @@
-package interface_adapter.search_by_region;
+package interface_adapter.search.by_region;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryViewModel;

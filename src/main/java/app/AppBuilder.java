@@ -21,9 +21,9 @@ import interface_adapter.profile.*;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryPresenter;
 import interface_adapter.save_country.SaveCountryViewModel;
-import interface_adapter.search_by_region.SearchByRegionController;
-import interface_adapter.search_by_region.SearchByRegionPresenter;
-import interface_adapter.search_by_region.SearchByRegionViewModel;
+import interface_adapter.search.by_region.SearchByRegionController;
+import interface_adapter.search.by_region.SearchByRegionPresenter;
+import interface_adapter.search.by_region.SearchByRegionViewModel;
 import interface_adapter.signup.*;
 
 import use_case.retrieve_saved_lists.ViewSavedListsInputBoundary;
