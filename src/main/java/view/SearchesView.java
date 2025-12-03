@@ -16,6 +16,10 @@ public class SearchesView extends JPanel {
     private final JButton regionButton   = new JButton("Search by Region");
     private final JButton currencyButton = new JButton("Search by Currency");
 
+    private final JButton backProfileButton = new JButton("Back to Profile"); // Added back button
+    private final JButton backListButton = new JButton("Back to List"); // Added back button
+    private final String profileViewName = "profile";
+    private final String listsViewName = "lists";
     private final String languageViewName = "searchByLanguage";
     private final String currencyViewName = "searchByCurrency";
     private final String regionViewName   = new SearchByRegionViewModel().getViewName();
@@ -51,9 +55,27 @@ public class SearchesView extends JPanel {
         buttonPanel.add(currencyButton);
 
         add(buttonPanel, BorderLayout.CENTER);
+
+        // add a "Back to List " button
+        JPanel backPanel = new JPanel();
+        backListButton.addActionListener(e -> {
+            viewManagerModel.setState(listsViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backProfileButton.addActionListener(e -> {
+            viewManagerModel.setState(profileViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        backPanel.add(backListButton);
+        backPanel.add(backProfileButton);
+        add(backPanel, BorderLayout.SOUTH);
+
     }
 
     public String getViewName() {
         return viewName;
     }
+
+
 }
