@@ -66,6 +66,7 @@
     "JUnit.SaveCountryInteractorTest.executor": "Coverage",
     "JUnit.SearchByRegionInteractorTest.executor": "Coverage",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "modify__checkstyle__of__search__by__region",
     "kotlin-language-version-configured": "true",
@@ -126,6 +127,39 @@
       <option name="presentableId" value="Default" />
       <updated>1764560661428</updated>
     </task>
+    <task id="LOCAL-00001" summary="search by currency is working now">
+      <option name="closed" value="true" />
+      <created>1764659190100</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764659190100</updated>
+    </task>
+    <task id="LOCAL-00002" summary="search by currency is working now">
+      <option name="closed" value="true" />
+      <created>1764659206051</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764659206051</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add an exchange rate button to an external website">
+      <option name="closed" value="true" />
+      <created>1764661901764</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764661901764</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add an exchange rate button to an external website">
+      <option name="closed" value="true" />
+      <created>1764661907717</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764661907717</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

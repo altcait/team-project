@@ -1,6 +1,7 @@
 package app;
 
 import data_access.ApiSearchByRegionDataAccessObject;
+import data_access.ApiSearchByCurrencyDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.UserCSVDataAccess;
 
@@ -25,6 +26,7 @@ import interface_adapter.search.byregion.SearchByRegionController;
 import interface_adapter.search.byregion.SearchByRegionPresenter;
 import interface_adapter.search.byregion.SearchByRegionViewModel;
 import interface_adapter.signup.*;
+import interface_adapter.search.bycurrency.*;
 
 import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
 import use_case.RetrieveSavedLists.ViewSavedListsInteractor;
@@ -45,6 +47,7 @@ import use_case.search.byregion.SearchByRegionInputBoundary;
 import use_case.search.byregion.SearchByRegionInteractor;
 import use_case.search.byregion.SearchByRegionOutputBoundary;
 import use_case.signup.*;
+import use_case.search.bycurrency.*;
 
 import view.*;
 
@@ -65,6 +68,7 @@ public class AppBuilder {
     private SearchByRegionView searchByRegionView;
     private SearchByCurrencyView searchByCurrencyView;
     private SearchByRegionViewModel searchByRegionViewModel;
+    private SearchByCurrencyViewModel searchByCurrencyViewModel;
 
     // App general views / view-models
     private LoginSignUpView loginSignUpView;
@@ -148,10 +152,11 @@ public class AppBuilder {
         return this;
     }
 
-    // ---------- Search by Currency (placeholder) ----------
+    // ---------- Search by Currency ----------
 
     public AppBuilder addSearchByCurrencyView() {
-        searchByCurrencyView = new SearchByCurrencyView();
+        searchByCurrencyViewModel = new SearchByCurrencyViewModel();
+        searchByCurrencyView = new SearchByCurrencyView(searchByCurrencyViewModel);
         cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
         return this;
     }
@@ -162,6 +167,35 @@ public class AppBuilder {
         searchByRegionViewModel = new SearchByRegionViewModel();
         searchByRegionView = new SearchByRegionView(searchByRegionViewModel);
         cardPanel.add(searchByRegionView, searchByRegionView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSearchByCurrencyUseCase() {
+        // Data access for search by currency
+        CountryFactory countryFactory = new CountryFactory();
+        SearchByCurrencyDataAccessInterface dataAccess =
+                new ApiSearchByCurrencyDataAccessObject(countryFactory);
+
+        // Presenter: wires navigation to SaveCountry + SelectedList
+        SearchByCurrencyOutputBoundary presenter =
+                new SearchByCurrencyPresenter(
+                        searchByCurrencyViewModel,
+                        viewManagerModel,
+                        saveCountryViewModel,
+                        viewSelectedListViewModel
+                );
+
+        // Interactor
+        SearchByCurrencyInputBoundary interactor =
+                new SearchByCurrencyInteractor(dataAccess, presenter);
+
+        // Controller
+        SearchByCurrencyController controller =
+                new SearchByCurrencyController(interactor);
+
+        // Connect controller to view
+        searchByCurrencyView.setController(controller);
+
         return this;
     }
 
