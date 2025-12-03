@@ -8,40 +8,31 @@ public class Main {
             AppBuilder appBuilder = new AppBuilder();
 
             JFrame application = appBuilder
-                .addSearchesView()
-                .addSearchByLanguageView()
-                .addSearchByLanguageUseCase()
-                .addSearchByRegionView()
-                .addSearchByCurrencyView()
-                .addSearchByLanguageView()
-                .addSearchByLanguageUseCase()
+                .addLoginSignUpView()
+                .addLoginUseCase()
+                .addSignUpUseCase()
+
+                .addProfileUseCase()
+                .addEditProfileUseCase()
+
                 .addSaveCountryView()
-                .build()
-                    .addLoginSignUpView()
-                    .addLoginUseCase()
-                    .addSignUpUseCase()
+                .addSaveCountryUseCase()
 
-                    .addProfileUseCase()
-                    .addEditProfileUseCase()
+                .addViewSelectedList()
+                .addViewSavedLists()
 
-                    .addSaveCountryView()
-                    .addSaveCountryUseCase()
+                .addSearchByRegionView()
+                .addSearchByRegionUseCase()
 
-                    .addViewSelectedList()
-                    .addViewSavedLists()
+                .addSearchByCurrencyView()
+                .addSearchByCurrencyUseCase()
 
-                    .addSearchByRegionView()
-                    .addSearchByRegionUseCase()
+                .addSearchByLanguageView()
+                .addSearchByLanguageUseCase()
 
-                    .addSearchByCurrencyView()
-                    .addSearchByCurrencyUseCase()
+                .addSearchesView()
 
-                    .addSearchByLanguageView()
-                    .addSearchByLanguageUseCase()
-
-                    .addSearchesView()
-
-                    .build();
+                .build();
 
             application.pack();
             application.setLocationRelativeTo(null);
