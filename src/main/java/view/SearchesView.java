@@ -28,7 +28,6 @@ public class SearchesView extends JPanel {
     private final String profileViewName = "profile";
     private final String listsViewName = "lists";
     private final String languageViewName = "searchByLanguage";
-    //private final String currencyViewName = "SearchByCurrency";
     private final String currencyViewName;
     private final String regionViewName   = new SearchByRegionViewModel().getViewName();
 
