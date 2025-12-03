@@ -5,28 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/use_case/search/byregion/SearchByRegionInteractorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/favouritesRepository.json" beforeDir="false" afterPath="$PROJECT_DIR$/favouritesRepository.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/logout/LogOutController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search_by_region/SearchByRegionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_region/SearchByRegionViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/FavoriteLists/FavoriteList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/favorite_lists/FavoriteList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/logout/LogOut.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByRegionDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByRegionDataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/byregion/SearchByRegionPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/byregion/SearchByRegionPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/SearchByRegionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SearchByRegionView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/login/LoginInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/logout/LogOut.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/profile/ProfileInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/signup/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/signup/SignUpInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -38,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="modify_searches_and_search_by_region_to_main" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,12 +43,12 @@
     &quot;assignee&quot;: &quot;mafereyesb&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/altcait/team-project.git",
-    "accountId": "c9c5b615-3a23-46c1-8a33-8fa7f546e7da"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/altcait/team-project.git&quot;,
+    &quot;accountId&quot;: &quot;51d9b6a4-9782-49ac-b087-1daefd2ec436&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -70,34 +63,43 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "JUnit.LoginInteractorTest.executor": "Coverage",
-    "JUnit.SignUpInteractorTest.executor": "Coverage",
+    "JUnit.SaveCountryInteractorTest.executor": "Coverage",
+    "JUnit.SearchByRegionInteractorTest.executor": "Coverage",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#52 on profile",
+    "git-widget-placeholder": "modify__checkstyle__of__search__by__region",
     "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+    "settings.editor.selected.configurable": "settings.qodana",
+    "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="LoginInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SaveCountryInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TeamProject" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="use_case.login.*" />
+          <option name="PATTERN" value="use_case.save_country.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="use_case.login" />
-      <option name="MAIN_CLASS_NAME" value="use_case.login.LoginInteractorTest" />
+      <option name="PACKAGE_NAME" value="use_case.save_country" />
+      <option name="MAIN_CLASS_NAME" value="use_case.save_country.SaveCountryInteractorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SearchByRegionInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="use_case.search.byregion.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="use_case.search.byregion" />
+      <option name="MAIN_CLASS_NAME" value="use_case.search.byregion.SearchByRegionInteractorTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -105,15 +107,15 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LoginInteractorTest" />
+        <item itemvalue="JUnit.SearchByRegionInteractorTest" />
+        <item itemvalue="JUnit.SaveCountryInteractorTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
-        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>
@@ -124,19 +126,48 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764560661428</updated>
-      <workItem from="1764716022614" duration="3752000" />
     </task>
+    <task id="LOCAL-00001" summary="search by currency is working now">
+      <option name="closed" value="true" />
+      <created>1764659190100</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764659190100</updated>
+    </task>
+    <task id="LOCAL-00002" summary="search by currency is working now">
+      <option name="closed" value="true" />
+      <created>1764659206051</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764659206051</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add an exchange rate button to an external website">
+      <option name="closed" value="true" />
+      <created>1764661901764</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764661901764</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add an exchange rate button to an external website">
+      <option name="closed" value="true" />
+      <created>1764661907717</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764661907717</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/team_project$SignUpInteractorTest.ic" NAME="SignUpInteractorTest Coverage Results" MODIFIED="1764724486339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>use_case.signup.*</FILTER>
+    <SUITE FILE_PATH="coverage/team_project$SearchByRegionInteractorTest.ic" NAME="SearchByRegionInteractorTest Coverage Results" MODIFIED="1764728836485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.search.byregion.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/team_project$LoginInteractorTest.ic" NAME="LoginInteractorTest Coverage Results" MODIFIED="1764724458174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>use_case.login.*</FILTER>
+    <SUITE FILE_PATH="coverage/team_project$SaveCountryInteractorTest.ic" NAME="SaveCountryInteractorTest Coverage Results" MODIFIED="1764728718232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.save_country.*</FILTER>
     </SUITE>
   </component>
 </project>

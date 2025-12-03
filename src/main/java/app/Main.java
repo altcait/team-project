@@ -23,7 +23,9 @@ public class Main {
 
                     .addSearchByRegionView()
                     .addSearchByRegionUseCase()
+
                     .addSearchByCurrencyView()
+                    .addSearchByCurrencyUseCase()
 
                     .addSearchesView()
 
