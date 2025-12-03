@@ -54,7 +54,7 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
 
         for (Country country : allCountries) {
             List<String> countryLanguage = country.getLanguage();
-            if (countryLanguage != null & countryLanguage.contains(language)) {
+            if (countryLanguage != null && countryLanguage.contains(language)) {
                 countries.add(country);
             }
         }
