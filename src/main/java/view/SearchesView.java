@@ -23,6 +23,10 @@ public class SearchesView extends JPanel {
     private final String listsViewName = "lists";
 
 
+    private final JButton backProfileButton = new JButton("Back to Profile"); // Added back button
+    private final JButton backListButton = new JButton("Back to List"); // Added back button
+    private final String profileViewName = "profile";
+    private final String listsViewName = "lists";
     private final String languageViewName = "searchByLanguage";
     //private final String currencyViewName = "SearchByCurrency";
     private final String currencyViewName;
@@ -68,6 +72,7 @@ public class SearchesView extends JPanel {
         add(buttonPanel, BorderLayout.CENTER);
 
         // add a "Back to List/Profile " button
+        // add a "Back to List " button
         JPanel backPanel = new JPanel();
         backListButton.addActionListener(e -> {
             viewManagerModel.setState(listsViewName);
@@ -81,9 +86,12 @@ public class SearchesView extends JPanel {
         backPanel.add(backListButton);
         backPanel.add(backProfileButton);
         add(backPanel, BorderLayout.SOUTH);
+
     }
 
     public String getViewName() {
         return viewName;
     }
+
+
 }

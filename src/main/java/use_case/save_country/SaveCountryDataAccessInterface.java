@@ -1,9 +1,18 @@
 package use_case.save_country;
 
+import java.util.List;
+
 /**
  * DAO interface for the Save Country use case
  */
 public interface SaveCountryDataAccessInterface {
+
+    /**
+     * Checks if the user exists in the File
+     * @param username the username to look up
+     * @return list of strings containing the user's lists
+     */
+    List<String> getListNames(String username);
 
     /**
      * Checks if the user exists in the File
