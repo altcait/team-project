@@ -2,7 +2,7 @@ package view;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.search.bycurrency.SearchByCurrencyViewModel;
-import interface_adapter.search.byregion.SearchByRegionViewModel;
+import interface_adapter.search.by_region.SearchByRegionViewModel;
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,11 +22,6 @@ public class SearchesView extends JPanel {
     private final String profileViewName = "profile";
     private final String listsViewName = "lists";
 
-
-    private final JButton backProfileButton = new JButton("Back to Profile"); // Added back button
-    private final JButton backListButton = new JButton("Back to List"); // Added back button
-    private final String profileViewName = "profile";
-    private final String listsViewName = "lists";
     private final String languageViewName = "searchByLanguage";
     private final String currencyViewName;
     private final String regionViewName   = new SearchByRegionViewModel().getViewName();

@@ -39,7 +39,6 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
 
     public SaveCountryView(SaveCountryViewModel saveCountryViewModel, ViewManagerModel viewManagerModel) {
         this.saveCountryViewModel = saveCountryViewModel;
-        this.viewManagerModel = viewManagerModel;
         this.saveCountryViewModel.addPropertyChangeListener(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
