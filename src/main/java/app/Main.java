@@ -8,28 +8,31 @@ public class Main {
             AppBuilder appBuilder = new AppBuilder();
 
             JFrame application = appBuilder
-                    .addLoginSignUpView()
-                    .addLoginUseCase()
-                    .addSignUpUseCase()
+                .addLoginSignUpView()
+                .addLoginUseCase()
+                .addSignUpUseCase()
 
-                    .addProfileUseCase()
-                    .addEditProfileUseCase()
+                .addProfileUseCase()
+                .addEditProfileUseCase()
 
-                    .addSaveCountryView()
-                    .addSaveCountryUseCase()
+                .addSaveCountryView()
+                .addSaveCountryUseCase()
 
-                    .addViewSelectedList()
-                    .addViewSavedLists()
+                .addViewSelectedList()
+                .addViewSavedLists()
 
-                    .addSearchByRegionView()
-                    .addSearchByRegionUseCase()
+                .addSearchByRegionView()
+                .addSearchByRegionUseCase()
 
-                    .addSearchByCurrencyView()
-                    .addSearchByCurrencyUseCase()
+                .addSearchByCurrencyView()
+                .addSearchByCurrencyUseCase()
 
-                    .addSearchesView()
+                .addSearchByLanguageView()
+                .addSearchByLanguageUseCase()
 
-                    .build();
+                .addSearchesView()
+
+                .build();
 
             application.pack();
             application.setLocationRelativeTo(null);

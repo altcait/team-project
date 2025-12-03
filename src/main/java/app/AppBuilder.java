@@ -1,6 +1,21 @@
 package app;
 
 import data_access.ApiSearchByRegionDataAccessObject;
+import entity.CountryFactory;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.login.ProfileViewModel;
+import interface_adapter.search.ByLanguage.SearchByLanguageController;
+import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
+import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
+import use_case.search.ByLanguage.SearchByLanguageInteractor;
+import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
+import view.SearchByLanguageView;
+import view.ViewManager;
+
+import data_access.ApiSearchByRegionDataAccessObject;
 import data_access.ApiSearchByCurrencyDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.UserCSVDataAccess;
@@ -8,7 +23,29 @@ import data_access.UserCSVDataAccess;
 import entity.CountryFactory;
 import entity.UserFactory;
 
+import data_access.UserCSVDataAccess;
+import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginViewModel;
+import use_case.login.LoginInputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
+import use_case.login.LoginUserAccess;
+import view.LoginView;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.login.ProfileViewModel;
+import interface_adapter.search.ByLanguage.SearchByLanguageController;
+import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
+import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
+import use_case.search.ByLanguage.SearchByLanguageInteractor;
+import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
+import view.SearchByLanguageView;
+import view.ViewManager;
+
 import interface_adapter.retrieve_saved_lists.ViewSavedListsController;
 import interface_adapter.retrieve_saved_lists.ViewSavedListsPresenter;
 import interface_adapter.retrieve_saved_lists.ViewSavedListsViewModel;
@@ -62,9 +99,25 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
+    private SaveCountryViewModel saveCountryViewModel = new SaveCountryViewModel();
+    private SaveCountryView saveCountryView = new SaveCountryView(saveCountryViewModel);
+
+    private SearchByLanguageView searchByLanguageView;
+    private SearchByLanguageViewModel searchByLanguageViewModel;
+    SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
+    private SearchByLanguagePresenter searchByLanguagePresenter;
+
+    // private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+
+    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
+
     // Search views and view models
     private SearchesView searchesView;
+    private LoginView loginView;
+    private LoginViewModel loginViewModel;
     private SearchByLanguageView searchByLanguageView;
+    private SearchByLanguageViewModel searchByLanguageViewModel;
+
     private SearchByRegionView searchByRegionView;
     private SearchByCurrencyView searchByCurrencyView;
     private SearchByRegionViewModel searchByRegionViewModel;
@@ -77,6 +130,7 @@ public class AppBuilder {
     private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
 
+    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
     private ProfilePresenter profilePresenter;
     private ProfileInteractor profileInteractor;
 
@@ -84,6 +138,7 @@ public class AppBuilder {
     private final FileUserDataAccessObject fileUserDataAccessObject;
     private final UserCSVDataAccess userDataAccess;   // CSV DAO
     private final LoginUserAccess loginDataAccess;    // alias to same DAO
+    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
 
     // Views / view-models
     private SelectedListView selectedListView;
@@ -98,6 +153,8 @@ public class AppBuilder {
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
         loginDataAccess = userDataAccess; // same object, typed by interface
         fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+        countryDataAccessObject = new ApiSearchByRegionDataAccessObject(new CountryFactory());
+
 
         profileViewModel = new ProfileViewModel();
     }
@@ -236,6 +293,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addSearchByLanguageView() {
+        searchByLanguageViewModel = new SearchByLanguageViewModel();
+        searchByLanguageView = new SearchByLanguageView(searchByLanguageViewModel);
+        cardPanel.add(searchByLanguageView, searchByLanguageView.getViewName());
+        return this;
+    }
+
     public AppBuilder addSaveCountryUseCase() {
         SaveCountryOutputBoundary saveCountryOutputBoundary =
                 new SaveCountryPresenter(saveCountryViewModel);
@@ -249,6 +313,17 @@ public class AppBuilder {
         SaveCountryController saveCountryController =
                 new SaveCountryController(saveCountryInteractor);
         saveCountryView.setSaveCountryController(saveCountryController);
+        return this;
+    }
+
+    public AppBuilder addSearchByLanguageUseCase() {
+        final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
+                searchByLanguageViewModel, viewManagerModel, searchesView, saveCountryView);
+        final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
+                countryDataAccessObject, searchByLanguageOutputBoundary);
+
+        SearchByLanguageController searchByLanguageController = new SearchByLanguageController(searchByLanguageInteractor);
+        searchByLanguageView.setSearchByLanguageController(searchByLanguageController);
         return this;
     }
 
@@ -342,6 +417,19 @@ public class AppBuilder {
 
         editProfileView.setController(profileController);
         cardPanel.add(editProfileView, editProfileView.getViewName());
+        return this;
+    }
+    // TODO placeholder: update when merged with Search by Currency use case
+    public AppBuilder addSearchByCurrencyView() {
+        searchByCurrencyView = new SearchByCurrencyView();
+        cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSaveCountryView() {
+        saveCountryViewModel = new SaveCountryViewModel();
+        saveCountryView = new SaveCountryView(saveCountryViewModel);
+        cardPanel.add(saveCountryView, saveCountryView.getViewName());
         return this;
     }
 
