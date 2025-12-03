@@ -4,7 +4,7 @@ import data_access.ApiSearchByRegionDataAccessObject;
 import entity.CountryFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryViewModel;
-import interface_adapter.login.ProfileViewModel;
+import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.search.ByLanguage.SearchByLanguageController;
 import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
 import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
@@ -33,9 +33,9 @@ import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
-import view.LoginView;
+import view.LoginSignUpView;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.ProfileViewModel;
+import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.search.ByLanguage.SearchByLanguageController;
 import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
 import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
@@ -99,8 +99,8 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-    private SaveCountryViewModel saveCountryViewModel = new SaveCountryViewModel();
-    private SaveCountryView saveCountryView = new SaveCountryView(saveCountryViewModel);
+    private SaveCountryViewModel saveCountryViewModel;
+    private SaveCountryView saveCountryView;
 
     private SearchByLanguageView searchByLanguageView;
     private SearchByLanguageViewModel searchByLanguageViewModel;
@@ -113,10 +113,8 @@ public class AppBuilder {
 
     // Search views and view models
     private SearchesView searchesView;
-    private LoginView loginView;
+    private LoginSignUpView loginView;
     private LoginViewModel loginViewModel;
-    private SearchByLanguageView searchByLanguageView;
-    private SearchByLanguageViewModel searchByLanguageViewModel;
 
     private SearchByRegionView searchByRegionView;
     private SearchByCurrencyView searchByCurrencyView;
@@ -125,9 +123,6 @@ public class AppBuilder {
 
     // App general views / view-models
     private LoginSignUpView loginSignUpView;
-    private LoginViewModel loginViewModel;
-    private SaveCountryView saveCountryView;
-    private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
 
     private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
@@ -138,12 +133,10 @@ public class AppBuilder {
     private final FileUserDataAccessObject fileUserDataAccessObject;
     private final UserCSVDataAccess userDataAccess;   // CSV DAO
     private final LoginUserAccess loginDataAccess;    // alias to same DAO
-    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
 
     // Views / view-models
     private SelectedListView selectedListView;
     private ViewSelectedListViewModel viewSelectedListViewModel;
-    private ProfileViewModel profileViewModel;
     private EditProfileViewModel editProfileViewModel;
 
     public AppBuilder() {
@@ -419,19 +412,7 @@ public class AppBuilder {
         cardPanel.add(editProfileView, editProfileView.getViewName());
         return this;
     }
-    // TODO placeholder: update when merged with Search by Currency use case
-    public AppBuilder addSearchByCurrencyView() {
-        searchByCurrencyView = new SearchByCurrencyView();
-        cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
-        return this;
-    }
 
-    public AppBuilder addSaveCountryView() {
-        saveCountryViewModel = new SaveCountryViewModel();
-        saveCountryView = new SaveCountryView(saveCountryViewModel);
-        cardPanel.add(saveCountryView, saveCountryView.getViewName());
-        return this;
-    }
 
     private ProfileViewModel getProfileViewModel() {
         return profileViewModel;
