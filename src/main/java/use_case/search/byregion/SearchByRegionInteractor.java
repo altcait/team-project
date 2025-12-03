@@ -19,6 +19,33 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
+     * Listing all regions: return all existing regions.
+     */
+    @Override
+    public void listRegions() {
+        List<Country> allCountries = dataAccess.getAllCountries();
+        Set<String> regionsSet = new HashSet<>();
+
+        for (Country country : allCountries) {
+            String region = country.getRegion();
+            if (region != null) {
+                regionsSet.add(region);
+            }
+        }
+
+        if (regionsSet.isEmpty()) {
+            presenter.prepareFailView("No regions found.");
+        } else {
+            List<String> regions = new ArrayList<>(regionsSet);
+            Collections.sort(regions);
+
+            SearchByRegionOutputData outputData =
+                    new SearchByRegionOutputData(null, null, null, null, regions);
+            presenter.presentRegions(outputData);
+        }
+    }
+
+    /**
      * Searching countries by region: return all the countries under the region.
      */
     @Override
@@ -94,11 +121,7 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
         String subregion = inputData.getSubregion();
 
         if (region == null) {
-            presenter.prepareFailView("Region must not be empty.");
-            return;
-        }
-        if (subregion == null) {
-            presenter.prepareFailView("Subregion must not be empty.");
+            presenter.prepareFailView("A region needs to be selected.");
             return;
         }
 
@@ -127,33 +150,6 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * Listing all regions: return all existing regions.
-     */
-    @Override
-    public void listRegions() {
-        List<Country> allCountries = dataAccess.getAllCountries();
-        Set<String> regionsSet = new HashSet<>();
-
-        for (Country country : allCountries) {
-            String region = country.getRegion();
-            if (region != null) {
-                regionsSet.add(region);
-            }
-        }
-
-        if (regionsSet.isEmpty()) {
-            presenter.prepareFailView("No regions found.");
-        } else {
-            List<String> regions = new ArrayList<>(regionsSet);
-            Collections.sort(regions);
-
-            SearchByRegionOutputData outputData =
-                    new SearchByRegionOutputData(null, null, null, null, regions);
-            presenter.presentRegions(outputData);
-        }
-    }
-
-    /**
      * Listing when click the add button.
      */
     @Override
@@ -162,10 +158,10 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
     }
 
     /**
-     * Listing when click the back to profile button.
+     * Listing when click the back to the selected list button.
      */
     @Override
-    public void switchToProfileView() {
-        presenter.switchToProfileView();
+    public void switchToSelectedListView() {
+        presenter.switchToSelectedListView();
     }
 }

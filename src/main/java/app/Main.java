@@ -4,26 +4,34 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        AppBuilder appBuilder = new AppBuilder();
+        SwingUtilities.invokeLater(() -> {
+            AppBuilder appBuilder = new AppBuilder();
 
-        JFrame application = appBuilder
-                .addSearchesView()
-//                .addSearchByLanguageView()
-//                .addSearchByRegionView()
-                .addSearchByCurrencyView()
-                .addSaveCountryView()
-                .addSaveCountryUseCase()
-                .addLoginSignUpView()
-                .addLoginUseCase()
-                .addViewSelectedList() // must be before ViewSavedList
-                .addViewSavedLists()
-                .addSignUpUseCase()
-                .addProfileUseCase()
-                .addEditProfileUseCase()
-                .build();
+            JFrame application = appBuilder
+                    .addLoginSignUpView()
+                    .addLoginUseCase()
+                    .addSignUpUseCase()
 
-        application.pack();
-        application.setLocationRelativeTo(null);
-        application.setVisible(true);
+                    .addProfileUseCase()
+                    .addEditProfileUseCase()
+
+                    .addSaveCountryView()
+                    .addSaveCountryUseCase()
+
+                    .addViewSelectedList()
+                    .addViewSavedLists()
+
+                    .addSearchByRegionView()
+                    .addSearchByRegionUseCase()
+                    .addSearchByCurrencyView()
+
+                    .addSearchesView()
+
+                    .build();
+
+            application.pack();
+            application.setLocationRelativeTo(null);
+            application.setVisible(true);
+        });
     }
 }
