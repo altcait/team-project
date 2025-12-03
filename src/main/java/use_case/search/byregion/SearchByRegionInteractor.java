@@ -132,7 +132,7 @@ public class SearchByRegionInteractor implements SearchByRegionInputBoundary {
             String countryRegion = country.getRegion();
             String countrySubregion = country.getSubregion();
 
-            if (countryRegion != null && countrySubregion != null
+            if (countrySubregion != null
                     && countryRegion.equals(region)
                     && countrySubregion.equals(subregion)) {
                 matchedCountries.add(country);

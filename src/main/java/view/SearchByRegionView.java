@@ -17,20 +17,17 @@ import java.util.List;
  */
 public class SearchByRegionView extends JPanel implements PropertyChangeListener {
 
-    private final SearchByRegionViewModel viewModel;
-    private SearchByRegionController controller;
+    private static final long serialVersionUID = 1L;
+    private final transient SearchByRegionViewModel viewModel;
+    private transient SearchByRegionController controller;
 
     // UI components
     private final JComboBox<String> regionComboBox = new JComboBox<>();
     private final JComboBox<String> subregionComboBox = new JComboBox<>();
-    private final JButton searchButton = new JButton("Search");
 
     private final DefaultListModel<String> countryListModel = new DefaultListModel<>();
-    private final JList<String> countryList = new JList<>(countryListModel);
 
     private final JLabel errorLabel = new JLabel(" ");
-    private final JButton addButton = new JButton("save country to list");
-    private final JButton backToSelectedListButton = new JButton("back to selected list");
 
     private boolean updatingFromModel = false;
 
@@ -38,6 +35,7 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
+        JList<String> countryList = new JList<>(countryListModel);
         countryList.setVisibleRowCount(10);
         countryList.setFont(countryList.getFont().deriveFont(14f));
 
@@ -45,6 +43,10 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
 
         regionComboBox.setPreferredSize(new Dimension(180, 25));
         subregionComboBox.setPreferredSize(new Dimension(180, 25));
+
+        JButton searchButton = new JButton("Search");
+        JButton addButton = new JButton("save country to list");
+        JButton backToSelectedListButton = new JButton("back to selected list");
 
         Dimension addSize = addButton.getPreferredSize();
         Dimension backSize = backToSelectedListButton.getPreferredSize();
@@ -154,60 +156,75 @@ public class SearchByRegionView extends JPanel implements PropertyChangeListener
                 return;
             }
 
-            String err = state.getErrorMessage();
-            if (err == null || err.isEmpty()) {
-                errorLabel.setText(" ");
-            } else {
-                errorLabel.setText(err);
-            }
-
-            // Region combo box
-            List<String> regions = state.getRegionOptions();
-            if (regions != null) {
-                DefaultComboBoxModel<String> regionModel = new DefaultComboBoxModel<>();
-                for (String r : regions) {
-                    regionModel.addElement(r);
-                }
-                regionComboBox.setModel(regionModel);
-
-                if (state.getSelectedRegion() != null) {
-                    regionComboBox.setSelectedItem(state.getSelectedRegion());
-                } else {
-                    regionComboBox.setSelectedIndex(-1);
-                }
-            }
-
-            // Subregion combo box
-            List<String> subregions = state.getSubregionOptions();
-            if (subregions != null) {
-                DefaultComboBoxModel<String> subregionModel = new DefaultComboBoxModel<>();
-                for (String s : subregions) {
-                    subregionModel.addElement(s);
-                }
-                subregionComboBox.setModel(subregionModel);
-
-                if (state.getSelectedSubregion() != null) {
-                    subregionComboBox.setSelectedItem(state.getSelectedSubregion());
-                } else {
-                    subregionComboBox.setSelectedIndex(-1);
-                }
-            } else {
-                // NEW: when there are no subregion options, clear the combo box
-                subregionComboBox.setModel(new DefaultComboBoxModel<>());
-                subregionComboBox.setSelectedIndex(-1);
-            }
-
-            // Country list
-            List<Country> countries = state.getCountries();
-            countryListModel.clear();
-            if (countries != null) {
-                for (Country c : countries) {
-                    String line = c.getName() + " (" + c.getCca3() + ")";
-                    countryListModel.addElement(line);
-                }
-            }
+            updateErrorLabel(state);
+            updateRegionComboBox(state);
+            updateSubregionComboBox(state);
+            updateCountryList(state);
         } finally {
             updatingFromModel = false;
+        }
+    }
+
+    private void updateErrorLabel(SearchByRegionState state) {
+        String err = state.getErrorMessage();
+        if (err == null || err.isEmpty()) {
+            errorLabel.setText(" ");
+        } else {
+            errorLabel.setText(err);
+        }
+    }
+
+    // Region combo box
+    private void updateRegionComboBox(SearchByRegionState state) {
+        List<String> regions = state.getRegionOptions();
+        if (regions == null) {
+            return;
+        }
+
+        DefaultComboBoxModel<String> regionModel = new DefaultComboBoxModel<>();
+        for (String r : regions) {
+            regionModel.addElement(r);
+        }
+        regionComboBox.setModel(regionModel);
+
+        if (state.getSelectedRegion() != null) {
+            regionComboBox.setSelectedItem(state.getSelectedRegion());
+        } else {
+            regionComboBox.setSelectedIndex(-1);
+        }
+    }
+
+    // Subregion combo box
+    private void updateSubregionComboBox(SearchByRegionState state) {
+        List<String> subregions = state.getSubregionOptions();
+        if (subregions != null) {
+            DefaultComboBoxModel<String> subregionModel = new DefaultComboBoxModel<>();
+            for (String s : subregions) {
+                subregionModel.addElement(s);
+            }
+            subregionComboBox.setModel(subregionModel);
+
+            if (state.getSelectedSubregion() != null) {
+                subregionComboBox.setSelectedItem(state.getSelectedSubregion());
+            } else {
+                subregionComboBox.setSelectedIndex(-1);
+            }
+        } else {
+            // NEW: when there are no subregion options, clear the combo box
+            subregionComboBox.setModel(new DefaultComboBoxModel<>());
+            subregionComboBox.setSelectedIndex(-1);
+        }
+    }
+
+    // Country list
+    private void updateCountryList(SearchByRegionState state) {
+        List<Country> countries = state.getCountries();
+        countryListModel.clear();
+        if (countries != null) {
+            for (Country c : countries) {
+                String line = c.getName() + " (" + c.getCca3() + ")";
+                countryListModel.addElement(line);
+            }
         }
     }
 

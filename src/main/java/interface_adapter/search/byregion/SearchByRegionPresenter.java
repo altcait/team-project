@@ -2,7 +2,6 @@ package interface_adapter.search.byregion;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryViewModel;
-import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 import use_case.search.byregion.SearchByRegionOutputBoundary;
 import use_case.search.byregion.SearchByRegionOutputData;
 
@@ -15,27 +14,16 @@ public class SearchByRegionPresenter implements SearchByRegionOutputBoundary {
     private final SearchByRegionViewModel viewModel;
     private final ViewManagerModel viewManagerModel;
     private final SaveCountryViewModel saveCountryViewModel;
-    private final ViewSelectedListViewModel viewSelectedListViewModel;
-
-    /**
-     * Demo / simple constructor: only updates this view's ViewModel,
-     * no navigation (no ViewManagerModel injected).
-     */
-    public SearchByRegionPresenter(SearchByRegionViewModel viewModel) {
-        this(viewModel, null, null, null);
-    }
 
     /**
      * Full constructor used in the real app when navigation is needed.
      */
     public SearchByRegionPresenter(SearchByRegionViewModel viewModel,
                                    ViewManagerModel viewManagerModel,
-                                   SaveCountryViewModel saveCountryViewModel,
-                                   ViewSelectedListViewModel viewSelectedListViewModel) {
+                                   SaveCountryViewModel saveCountryViewModel) {
         this.viewModel = viewModel;
         this.viewManagerModel = viewManagerModel;
         this.saveCountryViewModel = saveCountryViewModel;
-        this.viewSelectedListViewModel = viewSelectedListViewModel;
     }
 
     @Override

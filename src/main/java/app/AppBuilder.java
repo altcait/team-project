@@ -176,8 +176,7 @@ public class AppBuilder {
                 new SearchByRegionPresenter(
                         searchByRegionViewModel,
                         viewManagerModel,
-                        saveCountryViewModel,
-                        viewSelectedListViewModel
+                        saveCountryViewModel
                 );
 
         // Interactor
