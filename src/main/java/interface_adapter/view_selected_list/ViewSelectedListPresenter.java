@@ -1,7 +1,7 @@
 package interface_adapter.view_selected_list;
 
-import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
-import use_case.ViewSelectedList.ViewSelectedListResponseModel;
+import use_case.view_selected_list.ViewSelectedListOutputBoundary;
+import use_case.view_selected_list.ViewSelectedListResponseModel;
 
 public class ViewSelectedListPresenter implements ViewSelectedListOutputBoundary {
 

@@ -1,7 +1,7 @@
 package interface_adapter.retrieve_saved_lists;
 
-import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
-import use_case.RetrieveSavedLists.ViewSavedListsResponseModel;
+import use_case.retrieve_saved_lists.ViewSavedListsOutputBoundary;
+import use_case.retrieve_saved_lists.ViewSavedListsResponseModel;
 
 public class ViewSavedListsPresenter implements ViewSavedListsOutputBoundary {
 

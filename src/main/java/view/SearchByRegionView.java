@@ -1,9 +1,13 @@
 package view;
 
 import entity.Country;
-import interface_adapter.search.byregion.SearchByRegionController;
-import interface_adapter.search.byregion.SearchByRegionState;
-import interface_adapter.search.byregion.SearchByRegionViewModel;
+//import interface_adapter.search.by_region.SearchByRegionController;
+//import interface_adapter.search.by_region.SearchByRegionState;
+import interface_adapter.search.by_region.SearchByRegionController;
+import interface_adapter.search.by_region.SearchByRegionState;
+import interface_adapter.search.by_region.SearchByRegionViewModel;
+
+//import interface_adapter.search.by_region.SearchByRegionViewModel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
