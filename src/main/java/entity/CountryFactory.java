@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * Factory for creating Country entities.
- *
  * Using a factory keeps object creation in the entity layer,
  * and lets data access / use cases avoid calling new Country(...)
  * directly.
