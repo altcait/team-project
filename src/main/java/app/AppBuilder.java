@@ -277,19 +277,31 @@ public class AppBuilder {
         return this;
     }
 
+    // ---------- Search by Language ----------
+    public AppBuilder addSearchByLanguageView() {
+        searchByLanguageViewModel = new SearchByLanguageViewModel();
+        searchByLanguageView = new SearchByLanguageView(searchByLanguageViewModel);
+        cardPanel.add(searchByLanguageView, searchByLanguageView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSearchByLanguageUseCase() {
+        final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
+                searchByLanguageViewModel, viewManagerModel, selectedListView, saveCountryView);
+        final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
+                countryDataAccessObject, searchByLanguageOutputBoundary);
+
+        SearchByLanguageController searchByLanguageController = new SearchByLanguageController(searchByLanguageInteractor);
+        searchByLanguageView.setSearchByLanguageController(searchByLanguageController);
+        return this;
+    }
+
     // ---------- Save Country ----------
 
     public AppBuilder addSaveCountryView() {
         saveCountryViewModel = new SaveCountryViewModel();
         saveCountryView = new SaveCountryView(saveCountryViewModel, viewManagerModel);
         cardPanel.add(saveCountryView, saveCountryView.getViewName());
-        return this;
-    }
-
-    public AppBuilder addSearchByLanguageView() {
-        searchByLanguageViewModel = new SearchByLanguageViewModel();
-        searchByLanguageView = new SearchByLanguageView(searchByLanguageViewModel);
-        cardPanel.add(searchByLanguageView, searchByLanguageView.getViewName());
         return this;
     }
 
@@ -306,17 +318,6 @@ public class AppBuilder {
         SaveCountryController saveCountryController =
                 new SaveCountryController(saveCountryInteractor);
         saveCountryView.setSaveCountryController(saveCountryController);
-        return this;
-    }
-
-    public AppBuilder addSearchByLanguageUseCase() {
-        final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
-                searchByLanguageViewModel, viewManagerModel, searchesView, saveCountryView);
-        final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
-                countryDataAccessObject, searchByLanguageOutputBoundary);
-
-        SearchByLanguageController searchByLanguageController = new SearchByLanguageController(searchByLanguageInteractor);
-        searchByLanguageView.setSearchByLanguageController(searchByLanguageController);
         return this;
     }
 
