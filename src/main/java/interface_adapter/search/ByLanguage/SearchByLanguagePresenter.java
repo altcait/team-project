@@ -4,7 +4,7 @@ import interface_adapter.ViewManagerModel;
 import view.SaveCountryView;
 import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
 import use_case.search.ByLanguage.SearchByLanguageOutputData;
-import view.SearchesView;
+import view.SelectedListView;
 
 /**
  * Presenter for the Search by Language use case.
@@ -14,16 +14,16 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     private final SearchByLanguageViewModel searchByLanguageViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    private final SearchesView searchesView;
+    private final SelectedListView selectedListView;
     private final SaveCountryView saveCountryView;
 
     public SearchByLanguagePresenter(SearchByLanguageViewModel searchByLanguageViewModel,
                                      ViewManagerModel viewManagerModel,
-                                     SearchesView searchesView,
+                                     SelectedListView selectedListView,
                                      SaveCountryView saveCountryView) {
         this.searchByLanguageViewModel = searchByLanguageViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.searchesView = searchesView;
+        this.selectedListView = selectedListView;
         this.saveCountryView = saveCountryView;
     }
 
@@ -58,7 +58,7 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     // TODO: back" from Search view(s)
     @Override
     public void switchToPreviousView() {
-        viewManagerModel.setState(searchesView.getViewName());
+        viewManagerModel.setState(selectedListView.viewName);
         viewManagerModel.firePropertyChange();
     }
 
