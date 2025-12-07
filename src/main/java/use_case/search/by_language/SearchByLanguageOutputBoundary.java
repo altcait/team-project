@@ -25,7 +25,6 @@ public interface SearchByLanguageOutputBoundary {
      */
     void prepareFailView(String errorMessage);
 
-    // TODO: "back" from Search view(s)
     /**
      * Switches to previous view.
      */

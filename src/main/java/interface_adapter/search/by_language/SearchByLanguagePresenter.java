@@ -38,7 +38,6 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     }
 
     public void presentLanguages(SearchByLanguageOutputData outputData) {
-        // TODO
         SearchByLanguageState state = searchByLanguageViewModel.getState();
         state.setErrorMessage(null);
 
@@ -51,11 +50,9 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     public void prepareFailView(String errorMessage) {
         SearchByLanguageState state = searchByLanguageViewModel.getState();
         state.setErrorMessage(errorMessage);
-//        state.setCountries(List.of());    // TODO: for what?
         searchByLanguageViewModel.firePropertyChange();
     }
 
-    // TODO: back" from Search view(s)
     @Override
     public void switchToPreviousView() {
         viewManagerModel.setState(selectedListView.viewName);

@@ -20,16 +20,4 @@ public class SearchByLanguageViewModel extends ViewModel<SearchByLanguageState> 
         setState(new SearchByLanguageState());
     }
 
-    // TODO: remove?
-//    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-//    private SearchByLanguageState state = new SearchByLanguageState();
-
-//    public void setState(SearchByLanguageState state) {
-//        this.state = state;
-//        support.firePropertyChange("state", null, this.state);
-//    }
-
-//    public void firePropertyChanged() {
-//        support.firePropertyChange("state", null, this.state);
-//    }
 }

@@ -83,9 +83,7 @@ public class AppBuilder {
     SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
     private SearchByLanguagePresenter searchByLanguagePresenter;
 
-    // private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
-
-    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
+    private ApiSearchByRegionDataAccessObject countryDataAccessObject;
 
     // Search views and view models
     private SearchesView searchesView;
@@ -101,7 +99,7 @@ public class AppBuilder {
     private LoginSignUpView loginSignUpView;
     private SignUpViewModel signUpViewModel;
 
-    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+    private ProfileViewModel profileViewModel;
     private ProfilePresenter profilePresenter;
     private ProfileInteractor profileInteractor;
 

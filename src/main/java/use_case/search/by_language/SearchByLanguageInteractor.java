@@ -3,13 +3,10 @@ package use_case.search.by_language;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import entity.Country;    // TODO: get updated Country entity from remote repo
+import entity.Country;
 
 /**
  * Use Case Interactor for the Search by Language use case.
- * Main flow: TODO
- * 1. searching countries by language
- * 2.
  */
 public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary {
     private final SearchByLanguageCountryDataAccessInterface countryDataAccess;
@@ -20,6 +17,9 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
         this.searchByLanguagePresenter = searchByLanguagePresenter;
     }
 
+    /**
+     * Prepares language options for the user to select.
+     */
     @Override
     public void languageOptions() {
         List<Country> allCountries = countryDataAccess.getAllCountries();
@@ -39,14 +39,18 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
         }
     }
 
+    /**
+     * Executes the main logic of the use case, including main flow and alternate flows.
+     * @param inputData the input data
+     */
     @Override
     public void execute(SearchByLanguageInputData inputData) {
         String language = inputData.getLanguage();
-        List<Country> allCountries = countryDataAccess.getAllCountries(); // TODO: get updated Country entity from remote repo
+        List<Country> allCountries = countryDataAccess.getAllCountries();
 
-        // Check for a valid (present) language input
+        // Alternative flow: invalid (not present) language input
         if (language == null || language.isEmpty()) {
-            searchByLanguagePresenter.prepareFailView("No language selected.");
+            searchByLanguagePresenter.prepareFailView("Please select a language before searching.");
             return;
         }
 
@@ -60,20 +64,21 @@ public class SearchByLanguageInteractor implements SearchByLanguageInputBoundary
         }
 
         if (countries.isEmpty()) {
-            // No countries found by language filter
+            // Alternative flow: No countries found by language filter
             searchByLanguagePresenter.prepareFailView("No countries found for language: " + language);
         } else {
+            // Main flow
             SearchByLanguageOutputData outputData = new SearchByLanguageOutputData(null, language, countries);
             searchByLanguagePresenter.presentCountries(outputData);
         }
     }
 
-    // TODO: "back" from Search view(s)
     @Override
     public void switchToPreviousView() {
         searchByLanguagePresenter.switchToPreviousView();
     }
 
+    @Override
     public void switchToSaveCountryView() {
         searchByLanguagePresenter.switchToSaveCountryView();
     }
