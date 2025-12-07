@@ -1,7 +1,7 @@
 package interface_adapter.search.ByLanguage;
 
-import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
-import use_case.search.ByLanguage.SearchByLanguageInputData;
+import use_case.search.by_language.SearchByLanguageInputBoundary;
+import use_case.search.by_language.SearchByLanguageInputData;
 
 /**
  * Controller for the Search by Language use case.

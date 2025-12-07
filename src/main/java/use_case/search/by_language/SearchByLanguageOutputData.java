@@ -1,4 +1,4 @@
-package use_case.search.ByLanguage;
+package use_case.search.by_language;
 
 import java.util.List;
 import java.util.Set;

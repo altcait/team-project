@@ -1,4 +1,4 @@
-package use_case.search.ByLanguage;
+package use_case.search.by_language;
 
 import java.util.*;
 import java.util.stream.Collectors;

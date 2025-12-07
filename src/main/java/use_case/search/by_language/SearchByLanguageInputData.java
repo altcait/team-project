@@ -1,4 +1,4 @@
-package use_case.search.ByLanguage;
+package use_case.search.by_language;
 
 /**
  * Input data for the Search by Language use case.

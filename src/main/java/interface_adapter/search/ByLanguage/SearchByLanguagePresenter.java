@@ -2,8 +2,8 @@ package interface_adapter.search.ByLanguage;
 
 import interface_adapter.ViewManagerModel;
 import view.SaveCountryView;
-import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
-import use_case.search.ByLanguage.SearchByLanguageOutputData;
+import use_case.search.by_language.SearchByLanguageOutputBoundary;
+import use_case.search.by_language.SearchByLanguageOutputData;
 import view.SelectedListView;
 
 /**

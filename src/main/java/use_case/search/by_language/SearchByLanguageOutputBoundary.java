@@ -1,4 +1,4 @@
-package use_case.search.ByLanguage;
+package use_case.search.by_language;
 
 /**
  * Output boundary for the Search by Language use case implemented by SearchByLanguagePresenter.
