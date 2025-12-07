@@ -1,4 +1,4 @@
-package interface_adapter.search.ByLanguage;
+package interface_adapter.search.by_language;
 
 import use_case.search.by_language.SearchByLanguageInputBoundary;
 import use_case.search.by_language.SearchByLanguageInputData;

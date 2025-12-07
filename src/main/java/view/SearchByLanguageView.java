@@ -1,9 +1,9 @@
 package view;
 
 import entity.Country;
-import interface_adapter.search.ByLanguage.SearchByLanguageController;
-import interface_adapter.search.ByLanguage.SearchByLanguageState;
-import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import interface_adapter.search.by_language.SearchByLanguageController;
+import interface_adapter.search.by_language.SearchByLanguageState;
+import interface_adapter.search.by_language.SearchByLanguageViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
