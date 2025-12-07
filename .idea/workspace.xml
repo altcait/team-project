@@ -15,6 +15,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="retrieve-saved-countries" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
@@ -73,5 +78,13 @@
       <updated>1764793781752</updated>
     </task>
     <servers />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/team_project$ViewSelectedListInteractorTest.ic" NAME="ViewSelectedListInteractorTest Coverage Results" MODIFIED="1764744954748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.ViewSelectedList.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/team_project$ViewSavedListsInteractorTest.ic" NAME="ViewSavedListsInteractorTest Coverage Results" MODIFIED="1764744973338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>use_case.RetrieveSavedLists.*</FILTER>
+    </SUITE>
   </component>
 </project>
