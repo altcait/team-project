@@ -1,7 +1,8 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-
+import interface_adapter.search.bycurrency.SearchByCurrencyViewModel;
+import interface_adapter.search.by_region.SearchByRegionViewModel;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,10 +14,26 @@ public class SearchesView extends JPanel {
     private final String viewName = "searchesView";
 
     private final JButton languageButton = new JButton("Search by Language");
-    private final JButton regionButton = new JButton("Search by Region");
+    private final JButton regionButton   = new JButton("Search by Region");
     private final JButton currencyButton = new JButton("Search by Currency");
+    // add a "Back to List/Profile " button
+    private final JButton backProfileButton = new JButton("Back to Profile"); // Added back button
+    private final JButton backListButton = new JButton("Back to List"); // Added back button
+    private final String profileViewName = "profile";
+    private final String listsViewName = "lists";
+
+    private final String languageViewName = "searchByLanguage";
+    private final String currencyViewName;
+    private final String regionViewName   = new SearchByRegionViewModel().getViewName();
 
     public SearchesView(ViewManagerModel viewManagerModel) {
+
+        currencyViewName = new SearchByCurrencyViewModel().getViewName();
+        currencyButton.addActionListener(e -> {
+            viewManagerModel.setState(currencyViewName);
+            viewManagerModel.firePropertyChange();
+        });
+
         setLayout(new BorderLayout());
 
         JLabel title = new JLabel("Choose a Search Option");
@@ -28,17 +45,17 @@ public class SearchesView extends JPanel {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         languageButton.addActionListener(e -> {
-            viewManagerModel.setState("searchByLanguage");
+            viewManagerModel.setState(languageViewName);
             viewManagerModel.firePropertyChange();
         });
 
         regionButton.addActionListener(e -> {
-            viewManagerModel.setState("searchByRegion");
+            viewManagerModel.setState(regionViewName);
             viewManagerModel.firePropertyChange();
         });
 
         currencyButton.addActionListener(e -> {
-            viewManagerModel.setState("searchByCurrency");
+            viewManagerModel.setState(currencyViewName);
             viewManagerModel.firePropertyChange();
         });
 
@@ -48,9 +65,27 @@ public class SearchesView extends JPanel {
 
         add(buttonPanel, BorderLayout.CENTER);
 
+        // add a "Back to List/Profile " button
+        // add a "Back to List " button
+        JPanel backPanel = new JPanel();
+        backListButton.addActionListener(e -> {
+            viewManagerModel.setState(listsViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backProfileButton.addActionListener(e -> {
+            viewManagerModel.setState(profileViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        backPanel.add(backListButton);
+        backPanel.add(backProfileButton);
+        add(backPanel, BorderLayout.SOUTH);
+
     }
 
     public String getViewName() {
         return viewName;
     }
+
+
 }

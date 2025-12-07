@@ -1,8 +1,8 @@
 package view;
 
 import data_access.FileUserDataAccessObject;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsController;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsController;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsViewModel;
 import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;

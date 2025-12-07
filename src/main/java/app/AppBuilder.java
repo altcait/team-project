@@ -1,16 +1,57 @@
 package app;
 
+import data_access.ApiSearchByRegionDataAccessObject;
+import entity.CountryFactory;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.search.ByLanguage.SearchByLanguageController;
+import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
+import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
+import use_case.search.ByLanguage.SearchByLanguageInteractor;
+import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
+import view.SearchByLanguageView;
+import view.ViewManager;
+
+import data_access.ApiSearchByRegionDataAccessObject;
+import data_access.ApiSearchByCurrencyDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.UserCSVDataAccess;
+
+import entity.CountryFactory;
 import entity.UserFactory;
 
+import data_access.UserCSVDataAccess;
+import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsController;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsPresenter;
-import interface_adapter.RetrieveSavedLists.ViewSavedListsViewModel;
-import interface_adapter.ViewSelectedList.ViewSelectedListController;
-import interface_adapter.ViewSelectedList.ViewSelectedListPresenter;
-import interface_adapter.ViewSelectedList.ViewSelectedListViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginViewModel;
+import use_case.login.LoginInputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
+import use_case.login.LoginUserAccess;
+import view.LoginSignUpView;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.search.ByLanguage.SearchByLanguageController;
+import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
+import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
+import use_case.search.ByLanguage.SearchByLanguageInteractor;
+import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
+import view.SearchByLanguageView;
+import view.ViewManager;
+
+import interface_adapter.retrieve_saved_lists.ViewSavedListsController;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsPresenter;
+import interface_adapter.retrieve_saved_lists.ViewSavedListsViewModel;
+import interface_adapter.view_selected_list.ViewSelectedListController;
+import interface_adapter.view_selected_list.ViewSelectedListPresenter;
+import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -18,14 +59,18 @@ import interface_adapter.profile.*;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryPresenter;
 import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.search.by_region.SearchByRegionController;
+import interface_adapter.search.by_region.SearchByRegionPresenter;
+import interface_adapter.search.by_region.SearchByRegionViewModel;
 import interface_adapter.signup.*;
+import interface_adapter.search.bycurrency.*;
 
-import use_case.RetrieveSavedLists.ViewSavedListsInputBoundary;
-import use_case.RetrieveSavedLists.ViewSavedListsInteractor;
-import use_case.RetrieveSavedLists.ViewSavedListsOutputBoundary;
-import use_case.ViewSelectedList.ViewSelectedListInputBoundary;
-import use_case.ViewSelectedList.ViewSelectedListInteractor;
-import use_case.ViewSelectedList.ViewSelectedListOutputBoundary;
+import use_case.retrieve_saved_lists.ViewSavedListsInputBoundary;
+import use_case.retrieve_saved_lists.ViewSavedListsInteractor;
+import use_case.retrieve_saved_lists.ViewSavedListsOutputBoundary;
+import use_case.view_selected_list.ViewSelectedListInputBoundary;
+import use_case.view_selected_list.ViewSelectedListInteractor;
+import use_case.view_selected_list.ViewSelectedListOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -34,7 +79,12 @@ import use_case.profile.*;
 import use_case.save_country.SaveCountryInputBoundary;
 import use_case.save_country.SaveCountryInteractor;
 import use_case.save_country.SaveCountryOutputBoundary;
+import use_case.search.by_region.SearchByRegionDataAccessInterface;
+import use_case.search.by_region.SearchByRegionInputBoundary;
+import use_case.search.by_region.SearchByRegionInteractor;
+import use_case.search.by_region.SearchByRegionOutputBoundary;
 import use_case.signup.*;
+import use_case.search.bycurrency.*;
 
 import view.*;
 
@@ -49,18 +99,33 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private ViewManager viewManager;
 
-    // Search views
-    private SearchesView searchesView;
+    private SaveCountryViewModel saveCountryViewModel;
+    private SaveCountryView saveCountryView;
+
     private SearchByLanguageView searchByLanguageView;
+    private SearchByLanguageViewModel searchByLanguageViewModel;
+    SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
+    private SearchByLanguagePresenter searchByLanguagePresenter;
+
+    // private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+
+    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
+
+    // Search views and view models
+    private SearchesView searchesView;
+    private LoginSignUpView loginView;
+    private LoginViewModel loginViewModel;
+
     private SearchByRegionView searchByRegionView;
     private SearchByCurrencyView searchByCurrencyView;
+    private SearchByRegionViewModel searchByRegionViewModel;
+    private SearchByCurrencyViewModel searchByCurrencyViewModel;
 
+    // App general views / view-models
     private LoginSignUpView loginSignUpView;
-    private LoginViewModel loginViewModel;
-    private SaveCountryView saveCountryView;
-    private SaveCountryViewModel saveCountryViewModel;
     private SignUpViewModel signUpViewModel;
 
+    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
     private ProfilePresenter profilePresenter;
     private ProfileInteractor profileInteractor;
 
@@ -71,7 +136,7 @@ public class AppBuilder {
 
     // Views / view-models
     private SelectedListView selectedListView;
-    private ProfileViewModel profileViewModel;
+    private ViewSelectedListViewModel viewSelectedListViewModel;
     private EditProfileViewModel editProfileViewModel;
 
     public AppBuilder() {
@@ -81,6 +146,8 @@ public class AppBuilder {
         userDataAccess = new UserCSVDataAccess("users.csv", new UserFactory());
         loginDataAccess = userDataAccess; // same object, typed by interface
         fileUserDataAccessObject = new FileUserDataAccessObject("favouritesRepository.json");
+        countryDataAccessObject = new ApiSearchByRegionDataAccessObject(new CountryFactory());
+
 
         profileViewModel = new ProfileViewModel();
     }
@@ -135,11 +202,97 @@ public class AppBuilder {
         return this;
     }
 
-    // ---------- Search by Currency (placeholder) ----------
+    // ---------- Search by Currency ----------
 
     public AppBuilder addSearchByCurrencyView() {
-        searchByCurrencyView = new SearchByCurrencyView();
+        searchByCurrencyViewModel = new SearchByCurrencyViewModel();
+        searchByCurrencyView = new SearchByCurrencyView(searchByCurrencyViewModel);
         cardPanel.add(searchByCurrencyView, searchByCurrencyView.getViewName());
+        return this;
+    }
+
+    // ---------- Search by Region ----------
+
+    public AppBuilder addSearchByRegionView() {
+        searchByRegionViewModel = new SearchByRegionViewModel();
+        searchByRegionView = new SearchByRegionView(searchByRegionViewModel);
+        cardPanel.add(searchByRegionView, searchByRegionView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSearchByCurrencyUseCase() {
+        // Data access for search by currency
+        CountryFactory countryFactory = new CountryFactory();
+        SearchByCurrencyDataAccessInterface dataAccess =
+                new ApiSearchByCurrencyDataAccessObject(countryFactory);
+
+        // Presenter: wires navigation to SaveCountry + SelectedList
+        SearchByCurrencyOutputBoundary presenter =
+                new SearchByCurrencyPresenter(
+                        searchByCurrencyViewModel,
+                        viewManagerModel,
+                        saveCountryViewModel,
+                        viewSelectedListViewModel
+                );
+
+        // Interactor
+        SearchByCurrencyInputBoundary interactor =
+                new SearchByCurrencyInteractor(dataAccess, presenter);
+
+        // Controller
+        SearchByCurrencyController controller =
+                new SearchByCurrencyController(interactor);
+
+        // Connect controller to view
+        searchByCurrencyView.setController(controller);
+
+        return this;
+    }
+
+    public AppBuilder addSearchByRegionUseCase() {
+        // Data access for search by region
+        CountryFactory countryFactory = new CountryFactory();
+        SearchByRegionDataAccessInterface dataAccess =
+                new ApiSearchByRegionDataAccessObject(countryFactory);
+
+        // Presenter: wires navigation to SaveCountry + SelectedList
+        SearchByRegionOutputBoundary presenter =
+                new SearchByRegionPresenter(
+                        searchByRegionViewModel,
+                        viewManagerModel,
+                        saveCountryViewModel
+                );
+
+        // Interactor
+        SearchByRegionInputBoundary interactor =
+                new SearchByRegionInteractor(dataAccess, presenter);
+
+        // Controller
+        SearchByRegionController controller =
+                new SearchByRegionController(interactor);
+
+        // Connect controller to view
+        searchByRegionView.setController(controller);
+
+        return this;
+    }
+
+    // ---------- Search by Language ----------
+    public AppBuilder addSearchByLanguageView() {
+        searchByLanguageViewModel = new SearchByLanguageViewModel();
+        searchByLanguageView = new SearchByLanguageView(searchByLanguageViewModel);
+        cardPanel.add(searchByLanguageView, searchByLanguageView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addSearchByLanguageUseCase() {
+        final SearchByLanguageOutputBoundary searchByLanguageOutputBoundary = new SearchByLanguagePresenter(
+                searchByLanguageViewModel, viewManagerModel, selectedListView, saveCountryView);
+        final SearchByLanguageInputBoundary searchByLanguageInteractor = new SearchByLanguageInteractor(
+                countryDataAccessObject, searchByLanguageOutputBoundary);
+
+        SearchByLanguageController searchByLanguageController = new SearchByLanguageController(searchByLanguageInteractor);
+        searchByLanguageView.setSearchByLanguageController(searchByLanguageController);
         return this;
     }
 
@@ -147,8 +300,8 @@ public class AppBuilder {
 
     public AppBuilder addSaveCountryView() {
         saveCountryViewModel = new SaveCountryViewModel();
-        saveCountryView = new SaveCountryView(saveCountryViewModel);
-        cardPanel.add(saveCountryView);
+        saveCountryView = new SaveCountryView(saveCountryViewModel, viewManagerModel);
+        cardPanel.add(saveCountryView, saveCountryView.getViewName());
         return this;
     }
 
@@ -157,7 +310,7 @@ public class AppBuilder {
                 new SaveCountryPresenter(saveCountryViewModel);
         SaveCountryInputBoundary saveCountryInteractor =
                 new SaveCountryInteractor(
-                        loginDataAccess,
+                        userDataAccess,
                         fileUserDataAccessObject,
                         saveCountryOutputBoundary
                 );
@@ -171,9 +324,9 @@ public class AppBuilder {
     // ---------- Selected list (detail) ----------
 
     public AppBuilder addViewSelectedList() {
-        ViewSelectedListViewModel selectedListViewModel = new ViewSelectedListViewModel();
+        viewSelectedListViewModel = new ViewSelectedListViewModel();
         ViewSelectedListOutputBoundary selectedListPresenter =
-                new ViewSelectedListPresenter(selectedListViewModel);
+                new ViewSelectedListPresenter(viewSelectedListViewModel);
 
         ViewSelectedListInputBoundary selectedListInteractor =
                 new ViewSelectedListInteractor(selectedListPresenter, fileUserDataAccessObject);
@@ -184,7 +337,7 @@ public class AppBuilder {
         selectedListView =
                 new SelectedListView(
                         selectedListController,
-                        selectedListViewModel,
+                        viewSelectedListViewModel,
                         viewManagerModel,
                         () -> {
                             String current = userDataAccess.getCurrentUsername();
@@ -260,6 +413,7 @@ public class AppBuilder {
         cardPanel.add(editProfileView, editProfileView.getViewName());
         return this;
     }
+
 
     private ProfileViewModel getProfileViewModel() {
         return profileViewModel;

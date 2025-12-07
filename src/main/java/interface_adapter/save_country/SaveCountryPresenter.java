@@ -3,6 +3,8 @@ package interface_adapter.save_country;
 import use_case.save_country.SaveCountryOutputBoundary;
 import use_case.save_country.SaveCountryOutputData;
 
+import java.util.List;
+
 /**
  * The Presenter for the Save Country Use Case.
  */
@@ -11,6 +13,20 @@ public class SaveCountryPresenter implements SaveCountryOutputBoundary {
 
     public SaveCountryPresenter(SaveCountryViewModel saveCountryViewModel) {
         this.saveCountryViewModel = saveCountryViewModel;
+    }
+
+    @Override
+    public void prepareListNames(List<String> listNames) {
+        SaveCountryState saveCountryState = saveCountryViewModel.getState();
+        if (listNames.isEmpty()) {
+            // If there are none, set some defaults
+            listNames.add("");
+            listNames.add("Visited");
+            listNames.add("Want to go");
+        }
+        // set list names
+        saveCountryState.setLists(listNames);
+        // Don't fire property change, we just want to update the state
     }
 
     /**

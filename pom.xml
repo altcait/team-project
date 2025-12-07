@@ -15,6 +15,12 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>TeamProject</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
@@ -26,10 +32,17 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20240303</version>
+            <version>20231013</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -49,4 +62,16 @@
             <version>20231013</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

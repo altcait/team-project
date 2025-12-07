@@ -1,37 +1,43 @@
 package view;
 
+import data_access.UserCSVDataAccess;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryState;
 import interface_adapter.save_country.SaveCountryViewModel;
+import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.HierarchyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 /**
  * The View for the SaveCountry Use Case.
  */
 public class SaveCountryView extends JPanel implements ActionListener, PropertyChangeListener {
     private final SaveCountryViewModel saveCountryViewModel;
-
-    // result of operations:
+    // result of operations - success or error message:
     private final JLabel saveCountryResultField = new JLabel();
-
     private final JTextField countryCodeInputField = new JTextField(3);
     private final JComboBox<String> listNameDropdown = new JComboBox<>(new String[]{"Want to travel", "Visited", "Bucket list"});
     private final JTextField countryNotesInputField = new JTextField(15);
     private final JButton saveCountryButton = new JButton("Save");
-
+    private final JButton backProfileButton = new JButton("Back to Profile"); // Added back button
+    private final JButton backListButton = new JButton("Back to List"); // Added back button
+    private final String profileViewName = "profile";
+    private final String listsViewName = "lists";
 
 
     private SaveCountryController saveCountryController = null;
 
-    public SaveCountryView(SaveCountryViewModel saveCountryViewModel) {
+    public SaveCountryView(SaveCountryViewModel saveCountryViewModel, ViewManagerModel viewManagerModel) {
         this.saveCountryViewModel = saveCountryViewModel;
         this.saveCountryViewModel.addPropertyChangeListener(this);
 
@@ -39,22 +45,53 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
 
         // Instantiate panel and labels
         final JPanel saveCountryPanel = new JPanel();
-        final JLabel saveCountryLabel = new JLabel("3-letter country code");
-        final JLabel listNameLabel = new JLabel("Choose which list you want to add this country to.");
+        saveCountryPanel.setLayout(new BoxLayout(saveCountryPanel, BoxLayout.Y_AXIS));
+        // Title
+        JLabel title = new JLabel("Add a Country to your Favourites List");
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveCountryPanel.add(title);
 
-        // Error message
-        saveCountryPanel.add(saveCountryResultField);
+        final JLabel saveCountryLabel = new JLabel("Country code:");
+        final JLabel listNameLabel = new JLabel("Choose which list you want to add this country to:");
+        final JLabel notesLabel = new JLabel("Add some notes if you want:");
+
+        // Error or success message
+        JPanel result = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        saveCountryResultField.setFont(new Font("Arial", Font.BOLD, 14));
+        saveCountryResultField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        result.add(saveCountryResultField);
+        saveCountryPanel.add(result);
 
         // Country code
-        saveCountryPanel.add(saveCountryLabel);
-        saveCountryPanel.add(countryCodeInputField);
+        JPanel country = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        country.add(saveCountryLabel);
+        country.add(countryCodeInputField);
+        saveCountryPanel.add(country);
+
         // List name
-        saveCountryPanel.add(listNameLabel);
+        JPanel list = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        list.add(listNameLabel);
+        list.add(listNameDropdown);
         listNameDropdown.setSelectedIndex(-1);
-        saveCountryPanel.add(listNameDropdown);
+        saveCountryPanel.add(list);
+
         // Notes
-        saveCountryPanel.add(countryNotesInputField);
+        JPanel notes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        notes.add(notesLabel);
+        notes.add(countryNotesInputField);
+        saveCountryPanel.add(notes);
+
+        // Submit button
         saveCountryPanel.add(saveCountryButton);
+
+        JButton backButton = new JButton("Back to lists");
+        backButton.addActionListener(e -> {
+            viewManagerModel.setState("lists");
+            viewManagerModel.firePropertyChange();
+        });
+
+        saveCountryPanel.add(backButton);
 
         saveCountryButton.addActionListener(
                 new ActionListener() {
@@ -65,7 +102,7 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
                             String listName = (String)listNameDropdown.getSelectedItem();
 //                            final SaveCountryState  currentState = saveCountryViewModel.getState();
 
-                            if (countryCode.isEmpty() || listName.isEmpty()) {
+                            if (countryCode == null || listName == null) {
                                 JOptionPane.showMessageDialog(null, "Please enter at minimum a country code and select a list.", "Error", JOptionPane.ERROR_MESSAGE);
                             } else if (countryCode.length() != 3) {
                                 JOptionPane.showMessageDialog(null, "Please enter a 3-letter country code", "Error", JOptionPane.ERROR_MESSAGE);
@@ -76,37 +113,23 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
                     }
                 }
         );
-
-//        addCountryCodeListener();
         this.add(saveCountryPanel);
-    }
 
-//    private void addCountryCodeListener() {
-//        countryCodeInputField.getDocument().addDocumentListener(new DocumentListener() {
-//            private void documentListenerHelper() {
-//                final SaveCountryState savedState = saveCountryViewModel.getState();
-//                savedState.setCountryCode(countryCodeInputField.getText());
-//                saveCountryViewModel.setState(savedState);
-//                System.out.println("Enter country code");
-//
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-//    }
+        // add a "Back to List/Profile " button
+        JPanel backPanel = new JPanel();
+        backListButton.addActionListener(e -> {
+            viewManagerModel.setState(listsViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backProfileButton.addActionListener(e -> {
+            viewManagerModel.setState(profileViewName);
+            viewManagerModel.firePropertyChange();
+        });
+        backPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        backPanel.add(backListButton);
+        backPanel.add(backProfileButton);
+        add(backPanel, BorderLayout.SOUTH);
+    }
 
     /**
      * React to a button click that results in evt.
@@ -120,19 +143,36 @@ public class SaveCountryView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SaveCountryState saveCountryState = (SaveCountryState)evt.getNewValue();
+        // Set list names in state
+        this.saveCountryController.fetchListNames();
 
-        // reset form fields
+        // get list names from state
+        List<String> listNames = saveCountryState.getLists();
+
+        if (listNames != null) {
+            DefaultComboBoxModel listNamesModel =  new DefaultComboBoxModel<>();
+            for (String list : listNames) {
+                listNamesModel.addElement(list);
+            }
+            listNameDropdown.setModel(listNamesModel);
+        }
+
+        listNameDropdown.setSelectedIndex(-1);
+
+        // Set form fields
         countryCodeInputField.setText(saveCountryState.getCountryCode());
         countryNotesInputField.setText(saveCountryState.getNotes());
-        listNameDropdown.setSelectedIndex(-1);
         // show error or success message
         saveCountryResultField.setText(saveCountryState.getResultString());
-//        JOptionPane.showMessageDialog(null, saveCountryState.getResultString(), "Result", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void setSaveCountryController(SaveCountryController saveCountryController) { this.saveCountryController = saveCountryController; }
+    public void setSaveCountryController(SaveCountryController saveCountryController) {
+        this.saveCountryController = saveCountryController;
+    }
 
     public String getViewName() {
         return "save country";
     }
+
+
 }

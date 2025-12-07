@@ -4,23 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/use_case/RetrieveSavedLists/ViewSavedListsInteractorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/use_case/ViewSelectedList/ViewSelectedListInteractorTest.java" afterDir="false" />
+    <list default="true" id="88b86b9d-4b29-4a8d-865e-9dcb5a4bcb01" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/FavoritesReadDataAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/FavoritesReadDataAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByRegionDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByRegionDataAccessObject.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -30,130 +22,60 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;mafereyesb&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "sesefantasy"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/altcait/team-project.git&quot;,
-    &quot;accountId&quot;: &quot;c9c5b615-3a23-46c1-8a33-8fa7f546e7da&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/altcait/team-project.git",
+    "accountId": "561ca4fe-ba55-435b-a29a-eb029c3a528e"
   }
-}</component>
-  <component name="JavaCoverageOptionsProvider">
-    <option name="myTestModulesCoverage" value="true" />
-    <option name="myTestTracking" value="true" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="36E92vHJq8C3S2yaDC05bz9TrNu" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="36LlYh27Sh4B4xAmbr54uwNhD3r" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ViewSavedListsInteractorTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.ViewSelectedListInteractorTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;coverage&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.ViewSavedListsInteractorTest">
-    <configuration name="SaveCountryInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="use_case.save_country.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="use_case.save_country" />
-      <option name="MAIN_CLASS_NAME" value="use_case.save_country.SaveCountryInteractorTest" />
-      <option name="TEST_OBJECT" value="class" />
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SearchByRegionInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="use_case.search.byregion.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="use_case.search.byregion" />
-      <option name="MAIN_CLASS_NAME" value="use_case.search.byregion.SearchByRegionInteractorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
     </configuration>
-    <configuration name="ViewSavedListsInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="use_case.RetrieveSavedLists.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="use_case.RetrieveSavedLists" />
-      <option name="MAIN_CLASS_NAME" value="use_case.RetrieveSavedLists.ViewSavedListsInteractorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ViewSelectedListInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="use_case.ViewSelectedList.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="use_case.ViewSelectedList" />
-      <option name="MAIN_CLASS_NAME" value="use_case.ViewSelectedList.ViewSelectedListInteractorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.ViewSelectedListInteractorTest" />
-        <item itemvalue="JUnit.ViewSavedListsInteractorTest" />
-        <item itemvalue="JUnit.SearchByRegionInteractorTest" />
-        <item itemvalue="JUnit.SaveCountryInteractorTest" />
-        <item itemvalue="JUnit.SearchByRegionInteractorTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0d062edf-17c8-4fd9-9a41-379f77dfea6b" name="Changes" comment="" />
-      <created>1764560661428</created>
+      <changelist id="88b86b9d-4b29-4a8d-865e-9dcb5a4bcb01" name="Changes" comment="" />
+      <created>1764793781752</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764560661428</updated>
+      <updated>1764793781752</updated>
     </task>
     <servers />
   </component>
