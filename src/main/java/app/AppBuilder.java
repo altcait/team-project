@@ -43,7 +43,7 @@ import interface_adapter.search.by_region.SearchByRegionController;
 import interface_adapter.search.by_region.SearchByRegionPresenter;
 import interface_adapter.search.by_region.SearchByRegionViewModel;
 import interface_adapter.signup.*;
-import interface_adapter.search.bycurrency.*;
+import interface_adapter.search.by_currency.*;
 
 import use_case.retrieve_saved_lists.ViewSavedListsInputBoundary;
 import use_case.retrieve_saved_lists.ViewSavedListsInteractor;

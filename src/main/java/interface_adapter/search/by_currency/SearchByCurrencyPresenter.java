@@ -1,7 +1,6 @@
-package interface_adapter.search.bycurrency;
+package interface_adapter.search.by_currency;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 

@@ -7,6 +7,12 @@
     <list default="true" id="88b86b9d-4b29-4a8d-865e-9dcb5a4bcb01" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/bycurrency/SearchByCurrencyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/bycurrency/SearchByCurrencyPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/bycurrency/SearchByCurrencyState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/bycurrency/SearchByCurrencyViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SearchByCurrencyView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SearchByCurrencyView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/SearchesView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

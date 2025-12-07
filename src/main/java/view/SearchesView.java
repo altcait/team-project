@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.search.bycurrency.SearchByCurrencyViewModel;
+import interface_adapter.search.by_currency.SearchByCurrencyViewModel;
 import interface_adapter.search.by_region.SearchByRegionViewModel;
 import javax.swing.*;
 import java.awt.*;
