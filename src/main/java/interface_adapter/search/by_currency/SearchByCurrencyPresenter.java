@@ -5,7 +5,7 @@ import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.view_selected_list.ViewSelectedListViewModel;
 
 
-public class SearchByCurrencyPresenter implements use_case.search.bycurrency.SearchByCurrencyOutputBoundary {
+public class SearchByCurrencyPresenter implements use_case.search.by_currency.SearchByCurrencyOutputBoundary {
 
     private final SearchByCurrencyViewModel viewModel;
     private final ViewManagerModel viewManagerModel;
@@ -34,7 +34,7 @@ public class SearchByCurrencyPresenter implements use_case.search.bycurrency.Sea
     }
 
     @Override
-    public void presentCountries(use_case.search.bycurrency.SearchByCurrencyOutputData outputData) {
+    public void presentCountries(use_case.search.by_currency.SearchByCurrencyOutputData outputData) {
         SearchByCurrencyState state = viewModel.getState();
         state.setErrorMessage(null);
 
@@ -46,7 +46,7 @@ public class SearchByCurrencyPresenter implements use_case.search.bycurrency.Sea
 
 
     @Override
-    public void presentCurrencies(use_case.search.bycurrency.SearchByCurrencyOutputData outputData) {
+    public void presentCurrencies(use_case.search.by_currency.SearchByCurrencyOutputData outputData) {
         SearchByCurrencyState state = viewModel.getState();
         state.setErrorMessage(null);
 

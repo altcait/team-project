@@ -1,6 +1,6 @@
 package interface_adapter.search.by_currency;
 
-import use_case.search.bycurrency.*;
+import use_case.search.by_currency.*;
 
 import java.awt.Desktop;
 import java.net.URI;

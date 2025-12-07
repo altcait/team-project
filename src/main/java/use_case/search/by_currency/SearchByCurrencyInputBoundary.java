@@ -1,4 +1,4 @@
-package use_case.search.bycurrency;
+package use_case.search.by_currency;
 
 
 /**

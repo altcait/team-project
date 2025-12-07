@@ -60,7 +60,7 @@ import use_case.search.by_region.SearchByRegionInputBoundary;
 import use_case.search.by_region.SearchByRegionInteractor;
 import use_case.search.by_region.SearchByRegionOutputBoundary;
 import use_case.signup.*;
-import use_case.search.bycurrency.*;
+import use_case.search.by_currency.*;
 
 import view.*;
 

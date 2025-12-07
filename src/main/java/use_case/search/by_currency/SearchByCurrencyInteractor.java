@@ -1,7 +1,6 @@
-package use_case.search.bycurrency;
+package use_case.search.by_currency;
 
 import entity.Country;
-import use_case.search.bycurrency.*;
 
 import java.util.*;
 

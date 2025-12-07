@@ -1,4 +1,4 @@
-package use_case.search.bycurrency;
+package use_case.search.by_currency;
 
 /**
  * Input data for the Search by Currency use case.
