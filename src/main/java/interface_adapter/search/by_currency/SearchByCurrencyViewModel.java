@@ -1,7 +1,6 @@
-package interface_adapter.search.bycurrency;
+package interface_adapter.search.by_currency;
 
 import interface_adapter.ViewModel;
-import interface_adapter.search.bycurrency.SearchByCurrencyState;
 
 public class SearchByCurrencyViewModel extends ViewModel<SearchByCurrencyState>{
 

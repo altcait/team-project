@@ -1,4 +1,4 @@
-package interface_adapter.search.ByLanguage;
+package interface_adapter.search.by_language;
 
 import entity.Country;
 

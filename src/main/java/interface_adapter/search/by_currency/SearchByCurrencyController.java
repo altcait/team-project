@@ -1,12 +1,9 @@
-package interface_adapter.search.bycurrency;
+package interface_adapter.search.by_currency;
 
-import use_case.search.bycurrency.*;
+import use_case.search.by_currency.*;
 
-import javax.swing.*;
 import java.awt.Desktop;
 import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import javax.swing.JOptionPane;
 
 

@@ -7,7 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.search.bycurrency.SearchByCurrencyDataAccessInterface;
+import use_case.search.by_currency.SearchByCurrencyDataAccessInterface;
 
 import java.io.IOException;
 import java.util.*;
