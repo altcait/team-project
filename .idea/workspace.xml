@@ -5,18 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88b86b9d-4b29-4a8d-865e-9dcb5a4bcb01" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByCurrencyDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/ApiSearchByCurrencyDataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapter/search/by_currency/SearchByCurrencyPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/bycurrency/SearchByCurrencyDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/by_currency/SearchByCurrencyDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/bycurrency/SearchByCurrencyInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/by_currency/SearchByCurrencyInputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/bycurrency/SearchByCurrencyInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/by_currency/SearchByCurrencyInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/bycurrency/SearchByCurrencyInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/by_currency/SearchByCurrencyInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/bycurrency/SearchByCurrencyOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/by_currency/SearchByCurrencyOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/search/bycurrency/SearchByCurrencyOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/use_case/search/by_currency/SearchByCurrencyOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/use_case/search/bycurrency/SearchByCurrencyInteractorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/use_case/search/by_currency/SearchByCurrencyInteractorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsPresenter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/RetrieveSavedLists/ViewSavedListsViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListPresenter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapter/ViewSelectedList/ViewSelectedListViewModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInputBoundary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsInteractor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsOutputBoundary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsRequestModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/RetrieveSavedLists/ViewSavedListsResponseModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInputBoundary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListInteractor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListOutputBoundary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListRequestModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/use_case/ViewSelectedList/ViewSelectedListResponseModel.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,11 +28,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="retrieve-saved-countries" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -57,58 +56,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "JUnit.SearchByCurrencyInteractorTest.executor": "Run",
-    "JUnit.use_case.search.by_currency in TeamProject.executor": "Coverage",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "remove-duplicates",
-    "kotlin-language-version-configured": "true",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "git-widget-placeholder": "retrieve-saved-countries",
+    "kotlin-language-version-configured": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="app.Main" />
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SearchByCurrencyInteractorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="use_case.search.by_currency.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="use_case.search.by_currency" />
-      <option name="MAIN_CLASS_NAME" value="use_case.search.by_currency.SearchByCurrencyInteractorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="use_case.search.by_currency in TeamProject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TeamProject" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="use_case.search.by_currency.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="use_case.search.by_currency" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -118,13 +72,6 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.use_case.search.by_currency in TeamProject" />
-        <item itemvalue="JUnit.SearchByCurrencyInteractorTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -142,19 +89,5 @@
       <updated>1764793781752</updated>
     </task>
     <servers />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/team_project$ViewSavedListsInteractorTest.ic" NAME="ViewSavedListsInteractorTest Coverage Results" MODIFIED="1764744973338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>use_case.RetrieveSavedLists.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/team_project$use_case_search_by_currency_in_TeamProject.ic" NAME="use_case.search.by_currency in TeamProject Coverage Results" MODIFIED="1765114866213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>use_case.search.by_currency.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/team_project$ViewSelectedListInteractorTest.ic" NAME="ViewSelectedListInteractorTest Coverage Results" MODIFIED="1764744954748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>use_case.ViewSelectedList.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/team_project$SearchByLanguageInteractorTest.ic" NAME="SearchByLanguageInteractorTest Coverage Results" MODIFIED="1764898541017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>use_case.search.by_language.*</FILTER>
-    </SUITE>
   </component>
 </project>
