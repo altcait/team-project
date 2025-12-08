@@ -1,9 +1,9 @@
-package use_case.search.ByLanguage;
+package use_case.search.by_language;
 
 import java.util.List;
 import java.util.Set;
 
-import entity.Country;    // TODO: get updated Country entity from remote repo
+import entity.Country;
 
 /**
  * Output data for the Search by Language use case.
@@ -11,7 +11,7 @@ import entity.Country;    // TODO: get updated Country entity from remote repo
 public class SearchByLanguageOutputData {
     private final Set<String> languageOptions;
     private final String selectedLanguage;
-    private final List<Country> countries;    // TODO: get updated Country entity from remote repo
+    private final List<Country> countries;
 
     public SearchByLanguageOutputData(Set<String> languageOptions, String selectedLanguage, List<Country> countries) {
         this.languageOptions = languageOptions;
@@ -27,7 +27,7 @@ public class SearchByLanguageOutputData {
         return selectedLanguage;
     }
 
-    public List<Country> getCountries() {    // TODO: get updated Country entity from remote repo
+    public List<Country> getCountries() {
         return countries;
     }
 }

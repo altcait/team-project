@@ -1,9 +1,9 @@
-package interface_adapter.search.ByLanguage;
+package interface_adapter.search.by_language;
 
 import interface_adapter.ViewManagerModel;
 import view.SaveCountryView;
-import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
-import use_case.search.ByLanguage.SearchByLanguageOutputData;
+import use_case.search.by_language.SearchByLanguageOutputBoundary;
+import use_case.search.by_language.SearchByLanguageOutputData;
 import view.SelectedListView;
 
 /**
@@ -38,7 +38,6 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     }
 
     public void presentLanguages(SearchByLanguageOutputData outputData) {
-        // TODO
         SearchByLanguageState state = searchByLanguageViewModel.getState();
         state.setErrorMessage(null);
 
@@ -51,11 +50,9 @@ public class SearchByLanguagePresenter implements SearchByLanguageOutputBoundary
     public void prepareFailView(String errorMessage) {
         SearchByLanguageState state = searchByLanguageViewModel.getState();
         state.setErrorMessage(errorMessage);
-//        state.setCountries(List.of());    // TODO: for what?
         searchByLanguageViewModel.firePropertyChange();
     }
 
-    // TODO: back" from Search view(s)
     @Override
     public void switchToPreviousView() {
         viewManagerModel.setState(selectedListView.viewName);

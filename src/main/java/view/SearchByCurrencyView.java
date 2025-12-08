@@ -3,13 +3,9 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import entity.Country;
-import interface_adapter.search.bycurrency.*;
+import interface_adapter.search.by_currency.*;
 
-import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;

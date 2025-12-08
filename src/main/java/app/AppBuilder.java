@@ -5,27 +5,22 @@ import entity.CountryFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.profile.ProfileViewModel;
-import interface_adapter.search.ByLanguage.SearchByLanguageController;
-import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
-import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
-import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
-import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
-import use_case.search.ByLanguage.SearchByLanguageInteractor;
-import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
+import interface_adapter.search.by_language.SearchByLanguageController;
+import interface_adapter.search.by_language.SearchByLanguagePresenter;
+import interface_adapter.search.by_language.SearchByLanguageViewModel;
+import use_case.search.by_language.SearchByLanguageCountryDataAccessInterface;
+import use_case.search.by_language.SearchByLanguageInputBoundary;
+import use_case.search.by_language.SearchByLanguageInteractor;
+import use_case.search.by_language.SearchByLanguageOutputBoundary;
 import view.SearchByLanguageView;
 import view.ViewManager;
 
-import data_access.ApiSearchByRegionDataAccessObject;
 import data_access.ApiSearchByCurrencyDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.UserCSVDataAccess;
 
-import entity.CountryFactory;
 import entity.UserFactory;
 
-import data_access.UserCSVDataAccess;
-import entity.UserFactory;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -34,17 +29,6 @@ import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginUserAccess;
 import view.LoginSignUpView;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.profile.ProfileViewModel;
-import interface_adapter.search.ByLanguage.SearchByLanguageController;
-import interface_adapter.search.ByLanguage.SearchByLanguagePresenter;
-import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
-import use_case.search.ByLanguage.SearchByLanguageCountryDataAccessInterface;
-import use_case.search.ByLanguage.SearchByLanguageInputBoundary;
-import use_case.search.ByLanguage.SearchByLanguageInteractor;
-import use_case.search.ByLanguage.SearchByLanguageOutputBoundary;
-import view.SearchByLanguageView;
-import view.ViewManager;
 
 import interface_adapter.retrieve_saved_lists.ViewSavedListsController;
 import interface_adapter.retrieve_saved_lists.ViewSavedListsPresenter;
@@ -52,18 +36,14 @@ import interface_adapter.retrieve_saved_lists.ViewSavedListsViewModel;
 import interface_adapter.view_selected_list.ViewSelectedListController;
 import interface_adapter.view_selected_list.ViewSelectedListPresenter;
 import interface_adapter.view_selected_list.ViewSelectedListViewModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.profile.*;
 import interface_adapter.save_country.SaveCountryController;
 import interface_adapter.save_country.SaveCountryPresenter;
-import interface_adapter.save_country.SaveCountryViewModel;
 import interface_adapter.search.by_region.SearchByRegionController;
 import interface_adapter.search.by_region.SearchByRegionPresenter;
 import interface_adapter.search.by_region.SearchByRegionViewModel;
 import interface_adapter.signup.*;
-import interface_adapter.search.bycurrency.*;
+import interface_adapter.search.by_currency.*;
 
 import use_case.retrieve_saved_lists.ViewSavedListsInputBoundary;
 import use_case.retrieve_saved_lists.ViewSavedListsInteractor;
@@ -71,10 +51,6 @@ import use_case.retrieve_saved_lists.ViewSavedListsOutputBoundary;
 import use_case.view_selected_list.ViewSelectedListInputBoundary;
 import use_case.view_selected_list.ViewSelectedListInteractor;
 import use_case.view_selected_list.ViewSelectedListOutputBoundary;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
-import use_case.login.LoginUserAccess;
 import use_case.profile.*;
 import use_case.save_country.SaveCountryInputBoundary;
 import use_case.save_country.SaveCountryInteractor;
@@ -84,7 +60,7 @@ import use_case.search.by_region.SearchByRegionInputBoundary;
 import use_case.search.by_region.SearchByRegionInteractor;
 import use_case.search.by_region.SearchByRegionOutputBoundary;
 import use_case.signup.*;
-import use_case.search.bycurrency.*;
+import use_case.search.by_currency.*;
 
 import view.*;
 
@@ -107,9 +83,7 @@ public class AppBuilder {
     SearchByLanguageCountryDataAccessInterface searchByLanguageCountryDataAccessInterface;
     private SearchByLanguagePresenter searchByLanguagePresenter;
 
-    // private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
-
-    private ApiSearchByRegionDataAccessObject countryDataAccessObject;  // TODO: pull updated DAO
+    private ApiSearchByRegionDataAccessObject countryDataAccessObject;
 
     // Search views and view models
     private SearchesView searchesView;
@@ -125,7 +99,7 @@ public class AppBuilder {
     private LoginSignUpView loginSignUpView;
     private SignUpViewModel signUpViewModel;
 
-    private ProfileViewModel profileViewModel;  // TODO: update to appropriate "previous view" ViewModel
+    private ProfileViewModel profileViewModel;
     private ProfilePresenter profilePresenter;
     private ProfileInteractor profileInteractor;
 

@@ -1,4 +1,4 @@
-package interface_adapter.search.bycurrency;
+package interface_adapter.search.by_currency;
 
 import entity.Country;
 

@@ -1,9 +1,9 @@
 package view;
 
 import entity.Country;
-import interface_adapter.search.ByLanguage.SearchByLanguageController;
-import interface_adapter.search.ByLanguage.SearchByLanguageState;
-import interface_adapter.search.ByLanguage.SearchByLanguageViewModel;
+import interface_adapter.search.by_language.SearchByLanguageController;
+import interface_adapter.search.by_language.SearchByLanguageState;
+import interface_adapter.search.by_language.SearchByLanguageViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -118,16 +117,7 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
 
                             if (selected != null) {
                                 currentState.setSelectedLanguage(selected);
-//                                searchByLanguageViewModel.setState(currentState); // fire update if needed
                                 searchByLanguageController.execute(selected);
-//                            searchByLanguageController.execute(
-//                                    currentState.getSelectedLanguage()
-//                            );
-                            } else {
-//                                SearchByLanguageState errorState = new SearchByLanguageState();
-//                                errorState.setErrorMessage("Please select a language before searching.");
-                                currentState.setErrorMessage("Please select a language before searching.");
-//                                searchByLanguageViewModel.setState(errorState);
                             }
                         }
                     }
@@ -162,13 +152,7 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
                     List<Country> countries = searchByLanguageViewModel.getState().getCountries();
                     if (countries != null && index < countries.size()) {
                         Country selectedCountry = countries.get(index);
-//                        nativeNamesLabel.setText(
-//                                selectedCountry.getName() + "'s native names: " +
-//                                selectedCountry
-//                                .getNativeNames()
-//                                .stream()
-//                                .collect(Collectors.joining(" ; "))
-//                        );
+
                         String formattedNames =
                                 selectedCountry.getNativeNames()
                                         .stream()
@@ -198,67 +182,8 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        // if (evt.getPropertyName().equals("state")) {
-//            SearchByLanguageState state = (SearchByLanguageState) evt.getNewValue();
-//            username.setText(state.getUsername());
-////        }
-////        else if (evt.getPropertyName().equals("password")) {
-////            final ProfileState state = (ProfileState) evt.getNewValue();
-////            JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
-////        }
-//        // Update with the filtered countries list
-//        List<Country> countries = state.getCountries();
-//        if (countries != null) {
-//            DefaultListModel<String> model = new DefaultListModel<>();
-//            for (Country c : countries) {
-//                model.addElement(c.getName() + " (" + c.getCca3() + ")");
-//            }
-//            countryList.setModel(model);
-//        }
 
         SearchByLanguageState state = (SearchByLanguageState) evt.getNewValue();
-
-        // Populate the initial language selection box
-//        Set<String> languages = state.getLanguageOptions();
-//        if (languages != null && languageComboBox.getItemCount() != languages.size()) {
-//            languageComboBox.removeAllItems();
-//            for (String lang : languages) {
-//                languageComboBox.addItem(lang);
-//            }
-//
-//            String selected = state.getSelectedLanguage();
-//            if (selected != null) {
-//                languageComboBox.setSelectedItem(selected);
-//            }
-//        }
-
-//        Set<String> languages = state.getLanguageOptions();
-//        if (languages != null && !languages.isEmpty()) {
-//            // Save current selection BEFORE resetting the model
-//            String previouslySelected = (String) languageComboBox.getSelectedItem();
-//
-//            // Create new model from language set
-//            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-//            for (String lang : languages) {
-//                model.addElement(lang);
-//            }
-//
-//            // Set new model on combo box (cleaner than removeAllItems + addItem)
-//            languageComboBox.setModel(model);
-//
-//            // Restore selection if it exists in new options
-//            if (previouslySelected != null && languages.contains(previouslySelected)) {
-//                languageComboBox.setSelectedItem(previouslySelected);
-//            } else {
-//                // Or select whatever is stored in the ViewModel state
-//                String selectedFromState = state.getSelectedLanguage();
-//                if (selectedFromState != null && languages.contains(selectedFromState)) {
-//                    languageComboBox.setSelectedItem(selectedFromState);
-//                }
-//            }
-//        }
-
-
 
         // Update the country list when countries are loaded after search
         List<Country> countries = state.getCountries();
@@ -283,27 +208,6 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
 
     }
 
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//        SearchByLanguageState state = searchByLanguageViewModel.getState();
-//
-//        // Update the region dropdown box
-//        List<String> regions = state.getRegionOptions();
-//        if (regions != null) {
-//            languageComboBox.removeAllItems();
-//            for (String r : regions) {
-//                languageComboBox.addItem(r);
-//            }
-//        }
-//
-//        // Update the error message
-//        if (state.getErrorMessage() != null) {
-//            errorLabel.setText(state.getErrorMessage());
-//        } else {
-//            errorLabel.setText("");
-//        }
-//    }
-
     public String getViewName(){
         return viewName;
     }
@@ -319,6 +223,7 @@ public class SearchByLanguageView extends JPanel implements ActionListener, Prop
         Set<String> languages = state.getLanguageOptions();
         if (languages != null && !languages.isEmpty()) {
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.addElement("");
             for (String lang : languages) {
                 model.addElement(lang);
             }

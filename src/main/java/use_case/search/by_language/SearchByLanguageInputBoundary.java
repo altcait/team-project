@@ -1,4 +1,4 @@
-package use_case.search.ByLanguage;
+package use_case.search.by_language;
 
 /**
  * Input boundary for the Search by Language use case implemented by SearchByLanguageInteractor.
@@ -10,7 +10,6 @@ public interface SearchByLanguageInputBoundary {
      */
     void languageOptions();
 
-    // TODO: "back" from Search view(s)
     /**
      * Executes the "return to previous view" use case(?).
      */
